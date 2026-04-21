@@ -12,7 +12,7 @@ theme = "indigo-night"
 
 [permalinks]
   [permalinks.page]
-    blog = "/blog/:sections[last]/:filename/"
+    blog = "/blog/:sections[last]/:contentbasename/"
 [params]
   author    = "Shun Tonegawa"
   authorUrl = "https://shunature.one"
