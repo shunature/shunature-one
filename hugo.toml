@@ -17,8 +17,6 @@ theme = "indigo-night"
   author    = "Shun Tonegawa"
   authorUrl = "https://shunature.one"
   description = "shunature の個人サイト。音楽、写真、ことば、日常の断片をここに置いている。"
-  favicon   = "/assets/icon.png"
-  ogImage   = "/assets/icon.png"
 
   # SNS
   mastodon  = "https://hogus.work/@shunature"

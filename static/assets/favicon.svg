@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+<style>
+  @media (prefers-color-scheme: dark) {
+    .moon { fill: #5b8dd9; }
+    .shadow { fill: #0e0e0d; }
+    .star { fill: #7aaae8; }
+  }
+  @media (prefers-color-scheme: light) {
+    .moon { fill: #1c3a6e; }
+    .shadow { fill: #f7f7f5; }
+    .star { fill: #1c3a6e; }
+  }
+</style>
+<circle cx="50" cy="50" r="46" class="moon"/>
+<circle cx="62" cy="44" r="38" class="shadow"/>
+<polygon points="50,8 53,18 64,18 55,24 58,34 50,28 42,34 45,24 36,18 47,18" class="star"/>
+<circle cx="72" cy="32" r="2.5" class="star" opacity="0.6"/>
+<circle cx="30" cy="30" r="2" class="star" opacity="0.4"/>
+</svg>
