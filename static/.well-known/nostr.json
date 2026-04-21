@@ -1,5 +1,12 @@
 {
   "names": {
-    "me": "6e7075623173686e747235706a303767673636707473723972387a6b746d74646863356d666e793267766b6c6a796735333535793036666a7365306e743532"
+    "me": "82d6c1a0977884d4d4360c19c56b6decb7c09d24ca4d19659792848a12f4bca9"
+  },
+  "relays": {
+    "82d6c1a0977884d4d4360c19c56b6decb7c09d24ca4d19659792848a12f4bca9": [
+      "wss://nostr.monostr.com/",
+      "wss://relay.damus.io",
+      "wss://r.kojira.io"
+    ]
   }
 }
