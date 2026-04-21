@@ -1,0 +1,34 @@
+baseURL = "https://shunature.one/"
+languageCode = "ja"
+title = "Indigo Night Dull Moon"
+theme = "indigo-night"
+
+# AirPubre互換: updated: フィールドをlastmodとして使う
+[frontmatter]
+  lastmod = ["updated", "date", ":default"]
+
+[taxonomies]
+  tag = "tags"
+
+[permalinks]
+  [permalinks.page]
+    blog = "/blog/:sections[last]/:filename/"
+[params]
+  author    = "Shun Tonegawa"
+  authorUrl = "https://shunature.one"
+  description = "shunature の個人サイト。音楽、写真、ことば、日常の断片をここに置いている。"
+  favicon   = "/assets/icon.png"
+  ogImage   = "/assets/icon.png"
+
+  # SNS
+  mastodon  = "https://hogus.work/@shunature"
+  bluesky   = "https://bsky.app/profile/shunature.one"
+
+  # TOC: h2とh3を目次に含める
+[markup]
+  [markup.tableOfContents]
+    startLevel = 1
+    endLevel   = 4
+    ordered    = false
+  [markup.goldmark.renderer]
+    unsafe = true  # HTML混在のMarkdownを許可（既存記事互換）

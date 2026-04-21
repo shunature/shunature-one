@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="{{ .Site.LanguageCode }}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} — {{ .Site.Title }}{{ end }}</title>
+  <meta name="description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+  <link rel="icon" href="{{ .Site.Params.favicon }}" type="image/png">
+<link rel="alternate" type="application/rss+xml" title="{{ .Site.Title }}" href="{{ .Site.BaseURL }}index.xml">
+<link rel="stylesheet" href="/css/main.css">
+<script src="/js/common.js" defer></script>
+
+
+{{/* OGP */}}
+<meta property="og:site_name" content="{{ .Site.Title }}">
+<meta property="og:type" content="{{ if .IsPage }}article{{ else }}website{{ end }}">
+<meta property="og:url" content="{{ .Permalink }}">
+<meta property="og:title" content="{{ if .IsHome }}{{ .Site.Title }}{{ else }}{{ .Title }} — {{ .Site.Title }}{{ end }}">
+<meta property="og:description" content="{{ with .Description }}{{ . }}{{ else }}{{ .Site.Params.description }}{{ end }}">
+{{ if .Params.thumbnail }}
+<meta property="og:image" content="{{ .Site.BaseURL }}assets/img/thumbnail/{{ .Params.thumbnail }}">
+{{ else }}
+<meta property="og:image" content="{{ .Site.BaseURL }}{{ .Site.Params.ogImage | strings.TrimPrefix "/" }}">
+
+{{ end }}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="fediverse:creator" content="@shunature@hogus.work">

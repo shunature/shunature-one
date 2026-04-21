@@ -1,0 +1,38 @@
+{{ define "main" }}
+<div class="col">
+
+  <section class="home-hero">
+    <p class="home-eyebrow">Indigo Night Dull Moon</p>
+    <h1 class="home-title">静かな夜の<br><em>記録と断片</em></h1>
+    <p class="home-desc">{{ .Site.Params.description }}</p>
+  </section>
+
+  <div class="home-sections">
+    <a href="/blog/" class="home-section-link">
+      <span class="home-section-label">01</span>
+      <span class="home-section-name">Blog</span>
+      <span class="home-section-sub">書いたもの、残したもの</span>
+    </a>
+    <a href="/about/" class="home-section-link">
+      <span class="home-section-label">02</span>
+      <span class="home-section-name">About</span>
+      <span class="home-section-sub">このサイトと人について</span>
+    </a>
+  </div>
+
+  {{ $posts := where .Site.RegularPages "Section" "blog" }}
+  {{ $posts = $posts | first 5 }}
+  {{ if $posts }}
+  <section class="home-recent">
+    <p class="home-recent-label">Recent posts</p>
+    {{ range $posts }}
+    <a href="{{ .Permalink }}" class="recent-post">
+      <span class="recent-title">{{ .Title }}</span>
+      <span class="recent-date">{{ .Date.Format "2006.01.02" }}</span>
+    </a>
+    {{ end }}
+  </section>
+  {{ end }}
+
+</div>
+{{ end }}
