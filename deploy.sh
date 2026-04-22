@@ -1,5 +1,6 @@
 #!/bin/bash
 # deploy-server.sh
+git pull origin main
 # WebP変換 → git push → Vercel自動デプロイ
 
 set -euo pipefail
