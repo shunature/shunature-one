@@ -3,7 +3,7 @@ title: Nostr、一年のまとめ。
 date: 2025-12-20T10:59:14+09:00
 slug: nos2025-adcal
 summary: アドカレです
-thumbnail: nosadcal2025.png
+thumbnail: nosadcal2025.webp
 ---
 
 当記事は、[Nostr Advent Calendar 2025](https://adventar.org/calendars/12046)の12日目の記事です。

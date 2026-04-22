@@ -3,7 +3,7 @@ title: Nostrasia2025 会場レポ
 date: 2025-12-20T12:23:11+09:00
 slug: na2025-repo
 summary: どうも
-thumbnail: Nostrasia2025_repothumb.png
+thumbnail: Nostrasia2025_repothumb.webp
 ---
 
 
