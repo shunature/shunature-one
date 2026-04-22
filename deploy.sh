@@ -1,13 +1,14 @@
 #!/bin/bash
-# deploy-server.sh
-git pull origin main
-# WebP変換 → git push → Vercel自動デプロイ
-
+# deploy.sh
 set -euo pipefail
 
 log() { echo "[$(date '+%H:%M:%S')] $1"; }
 
 cd "$(dirname "$0")"
+
+# git pull
+log "pull中..."
+git pull origin main
 
 # ── WebP変換 ──
 log "WebP変換中..."
