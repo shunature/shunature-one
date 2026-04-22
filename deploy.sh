@@ -34,6 +34,16 @@ if (files.length === 0) { console.log('変換対象なし'); process.exit(0); }
 })();
 JS
 
+# ── frontmatter タイムゾーン補完 ──
+log "タイムゾーン補完中..."
+find content/blog/posts -name "*.md" | while read f; do
+  # +09:00も Zもついてないdateを検出して補完
+  if grep -qE "^date: [0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}$" "$f"; then
+    sed -i "s/^\(date: [0-9]\{4\}-[0-9]\{2\}-[0-9]\{2\}T[0-9]\{2\}:[0-9]\{2\}:[0-9]\{2\}\)$/\1+09:00/" "$f"
+    echo "補完: $f"
+  fi
+done
+
 # ── git ──
 log "git push中..."
 git add .
