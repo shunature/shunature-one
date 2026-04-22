@@ -2,7 +2,7 @@
 title: コザクラインコ、歪。
 tags:
   - 雑記
-date: 2026-03-02T21:30:00
+date: 2026-03-02T21:30:00+09:00
 thumbnail: kozakura.webp
 thumbnail_credit: Mike Benna / Unsplash
 thumbnail_credit_url: https://unsplash.com/ja/%E5%86%99%E7%9C%9F/photo-of-empty-park-during-daytime-SBiVq9eWEtQ

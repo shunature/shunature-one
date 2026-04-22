@@ -1,6 +1,6 @@
 ---
 title: 「あの夜の続きを」
-date: 2026-04-09T14:30:00
+date: 2026-04-09T14:30:00+09:00
 summary: 電車で思い浮かんだ単語
 thumbnail: night.webp
 ---

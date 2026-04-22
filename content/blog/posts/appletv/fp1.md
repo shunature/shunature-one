@@ -1,6 +1,6 @@
 ---
 title: 「ファミリープラン」を見終えて。
-date: 2026-03-31T17:00:00
+date: 2026-03-31T17:00:00+09:00
 summary: アクションコメディ、こりゃまたいいな。
 thumbnail: fp1.webp
 thumbnail_credit: Maryam Tello / Unsplash

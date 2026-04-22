@@ -6,7 +6,7 @@ thumbnail: loverice.webp
 thumbnail_credit: Tadahiro Higuchi / Unsplash
 thumbnail_credit_url: https://unsplash.com/ja/%E5%86%99%E7%9C%9F/%E6%B9%AF%E6%B0%97%E3%81%AE%E7%AB%8B%E3%81%A4%E6%9C%A8%E3%81%AE%E3%83%96%E3%83%AD%E3%83%83%E3%82%AF%E3%81%8C%E4%B8%8B%E3%81%8B%E3%82%89%E7%8F%BE%E3%82%8C%E3%81%A6%E3%81%84%E3%81%BE%E3%81%99-AvxSeuH4Is8
 summary: ご飯、だーいすき。
-date: 2026-03-15T22:30:00
+date: 2026-03-15T22:30:00+09:00
 ---
 **どうも**
 

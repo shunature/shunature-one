@@ -1,6 +1,6 @@
 ---
 title: 好きなブラウザのリリースチャンネル名
-date: 2026-03-04T18:00:00
+date: 2026-03-04T18:00:00+09:00
 tags:
   - 雑記
 thumbnail: browser.webp

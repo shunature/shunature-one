@@ -1,6 +1,6 @@
 ---
 title: はじめての投稿
-date: 2026-02-27T21:00:00
+date: 2026-02-27T21:00:00+09:00
 tags:
   - 雑記
 thumbnail: first-post.webp

@@ -1,6 +1,6 @@
 ---
 title: "セキュアは最上級であるべき"
-date: 2026-03-24T23:00:00
+date: 2026-03-24T23:00:00+09:00
 tags:
   - 雑記
 thumbnail: secure.webp

@@ -1,6 +1,6 @@
 ---
 title: "Sonnet 4.6になってからの所感と思うこと"
-date: 2026-03-03T21:45:00
+date: 2026-03-03T21:45:00+09:00
 tags:
   - 雑記
 thumbnail: sonnet.webp

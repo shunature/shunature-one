@@ -1,6 +1,6 @@
 ---
 title: "時計"
-date: 2026-03-27T20:00:00
+date: 2026-03-27T20:00:00+09:00
 tags:
   - 気になってます
 thumbnail: watch.webp

@@ -1,6 +1,6 @@
 ---
 title: 個人サイトに関する持論
-date: 2026-04-07T02:45:00
+date: 2026-04-07T02:45:00+09:00
 summary: 懐疑的で何が悪い
 thumbnail: own-territory.webp
 ---

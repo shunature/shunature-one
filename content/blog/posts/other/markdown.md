@@ -3,7 +3,7 @@ title: Markdownはいいぞ
 tags:
   - 雑記
 thumbnail: markdown.webp
-date: 2026-02-28T09:00:01
+date: 2026-02-28T09:00:01+09:00
 summary: Markdown is GOD!!!!
 ---
 **どうも**

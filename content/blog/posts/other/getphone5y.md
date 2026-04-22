@@ -1,6 +1,6 @@
 ---
 title: スマホを手にしてから5年経過した話（再掲）
-date: 2026-03-26T10:00:00
+date: 2026-03-26T10:00:00+09:00
 tags:
   - 雑記
 thumbnail: getphone5y.webp

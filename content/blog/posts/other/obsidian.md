@@ -1,6 +1,6 @@
 ---
 title: Obsidian
-date: 2026-02-28T06:30:00
+date: 2026-02-28T06:30:00+09:00
 tags:
   - 雑記
 thumbnail: obsidian.webp

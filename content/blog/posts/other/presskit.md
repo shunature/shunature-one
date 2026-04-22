@@ -1,6 +1,6 @@
 ---
 title: プレスキット配布開始のお知らせ
-date: 2026-04-01T19:45:00
+date: 2026-04-01T19:45:00+09:00
 summary: かいこ
 thumbnail: presskit.webp
 tags:

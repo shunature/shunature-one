@@ -1,7 +1,7 @@
 ---
 title: AirPubre
 summary: ついに、公開。
-date: 2026-04-10T14:15:00
+date: 2026-04-10T14:15:00+09:00
 thumbnail: airpubre.webp
 ---
 **どうも**

@@ -2,7 +2,7 @@
 title: BTW,I use Arch.
 tags:
   - 雑記
-date: 2026-03-07T18:30:00
+date: 2026-03-07T18:30:00+09:00
 thumbnail: btwiusearch.webp
 thumbnail_credit: Karin Kim / Unsplash
 thumbnail_credit_url: https://unsplash.com/ja/%E5%86%99%E7%9C%9F/%E9%81%A0%E3%81%8F%E3%81%AB%E5%B1%B1%E3%81%8C%E8%A6%8B%E3%81%88%E3%82%8B%E9%81%93%E3%81%AE%E9%A2%A8%E6%99%AF-QbK-Cg-EvRw

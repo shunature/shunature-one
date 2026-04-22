@@ -1,6 +1,6 @@
 ---
 title: 音楽に関する持論
-date: 2026-03-06T02:45:00
+date: 2026-03-06T02:45:00+09:00
 thumbnail: music.webp
 thumbnail_credit: Mohamed Nohassi / Unsplash
 thumbnail_credit_url: https://unsplash.com/ja/%E5%86%99%E7%9C%9F/%E5%A4%A7%E7%90%86%E7%9F%B3%E3%81%AE%E5%BA%8A%E3%81%AE%E4%B8%8A%E3%81%AB%E7%BD%AE%E3%81%8B%E3%82%8C%E3%81%9F%E3%82%B0%E3%83%A9%E3%83%B3%E3%83%89%E3%83%94%E3%82%A2%E3%83%8E-kXm4UPhk1mo

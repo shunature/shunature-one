@@ -1,6 +1,6 @@
 ---
 title: 「DCスーパーヒーローズVS鷹の爪団」を見終えて。
-date: 2026-03-29T23:30:00
+date: 2026-03-29T23:30:00+09:00
 updated: 2026-03-31T16:30:00
 summary: 神、圧倒的に。
 thumbnail: dc-taka.webp

@@ -1,6 +1,6 @@
 ---
 title: 全盛、衰退、復活。
-date: 2026-03-07T06:00:00
+date: 2026-03-07T06:00:00+09:00
 tags:
   - 雑記
 thumbnail: heyday.webp

@@ -1,6 +1,6 @@
 ---
 title: "電車、なんか慣れてきたぞ。"
-date: 2026-04-06T10:45:00
+date: 2026-04-06T10:45:00+09:00
 tags:
   - 雑記
 thumbnail: train.webp

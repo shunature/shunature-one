@@ -1,6 +1,6 @@
 ---
 title: "寝ぼけ眼で"
-date: 2026-04-11T05:24:00
+date: 2026-04-11T05:24:00+09:00
 tags:
   - 雑記
 thumbnail: morning.webp
