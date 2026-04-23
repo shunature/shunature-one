@@ -783,24 +783,6 @@ mark {
   flex-direction: column;
   gap: 1.8rem;
 }
-.about-right {
-  overflow: hidden;
-  display: flex;
-  justify-content: flex-end;
-  align-items: stretch;
-  position: relative;
-}
-.dustproof-vertical {
-  writing-mode: vertical-rl;
-  text-orientation: mixed;
-  display: flex;
-  flex-direction: column;
-  gap: 0.3rem;
-  font-weight: 900;
-  line-height: 1;
-  color: var(--text);
-  position: relative;
-}
 .dv-line1 { font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: 0em; }
 .dv-line2 { font-size: clamp(2rem, 4vw, 3.5rem); letter-spacing: 0.2em; }
 .dv-handle {
