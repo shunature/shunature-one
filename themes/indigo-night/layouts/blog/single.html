@@ -5,7 +5,7 @@
   <a href="/blog/" class="article-back">Blog へ戻る</a>
 
   <p class="article-eyebrow">
-    {{ .Date.Format "2006.01.02" }}
+    {{ .Date.Format "2006.01.02 15:04" }}
     {{ with .Params.tags }} · {{ index . 0 }}{{ end }}
   </p>
   <h1 class="article-title">{{ .Title }}</h1>
