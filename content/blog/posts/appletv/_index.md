@@ -1,4 +1,6 @@
 ---
 cascade:
-  tags: [Apple TV]
+  - _target:
+      kind: page
+    tags: Apple TV
 ---

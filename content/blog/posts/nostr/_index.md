@@ -1,4 +1,6 @@
 ---
 cascade:
-  tags: [Nostr]
+  - _target:
+      kind: page
+    tags: Nostr
 ---

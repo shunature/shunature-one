@@ -1,4 +1,6 @@
 ---
 cascade:
-  tags: [思想強いやつ]
+  - _target:
+      kind: page
+    tags: 思想強いやつ
 ---

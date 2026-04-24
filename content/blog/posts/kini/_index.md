@@ -1,4 +1,6 @@
 ---
 cascade:
-  tags: [気になってます]
+  - _target:
+      kind: page
+    tags: 気になってます
 ---

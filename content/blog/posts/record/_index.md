@@ -1,4 +1,6 @@
 ---
 cascade:
-  tags: [記録]
+  - _target:
+      kind: page
+    tags: 記録
 ---

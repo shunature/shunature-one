@@ -1,4 +1,6 @@
 ---
 cascade:
-  tags: [scene]
+  - _target:
+      kind: page
+    tags: scene
 ---

@@ -1,4 +1,6 @@
 ---
 cascade:
-  tags: [音楽]
+  - _target:
+      kind: page
+    tags: 音楽
 ---

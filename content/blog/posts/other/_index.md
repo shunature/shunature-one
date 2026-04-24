@@ -1,4 +1,7 @@
 ---
 cascade:
-  tags: [雑記]
+  - _target:
+      kind: page
+    tags:
+     雑記
 ---

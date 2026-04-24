@@ -1,4 +1,7 @@
 ---
 cascade:
-  tags: [あの夜の続きを]
+  - _target:
+      kind: page
+    tags:
+  - あの夜の続きを
 ---

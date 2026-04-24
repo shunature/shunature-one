@@ -1,4 +1,6 @@
 ---
 cascade:
-  tags: [おもうこと]
+  - _target:
+      kind: page
+    tags: おもうこと
 ---

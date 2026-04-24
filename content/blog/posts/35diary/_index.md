@@ -1,5 +1,7 @@
 ---
 cascade:
-  tags:
-    - 三十五格子日記
+  - _target:
+      kind: page
+    tags:
+      - 三十五格子日記
 ---
