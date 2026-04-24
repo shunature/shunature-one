@@ -1,7 +1,5 @@
 ---
 title: 1ヶ月、サイトを運営してみた結果。
-tags:
-  - 雑記
 date: 2026-03-27T05:00:00+09:00
 summary: 早いね
 thumbnail: 1m-site.webp
