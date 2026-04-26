@@ -245,6 +245,7 @@ img { max-width: 100%; height: auto; display: block; }
   padding: 0.05em 0.5em; border-radius: 999px;
 }
 .post-date-text { font-size: 0.7rem; color: var(--text-subtle); white-space: nowrap; flex-shrink: 0; }
+.post-summary { font-size: 0.86rem; color: var(--text-subtle); margin: 0; line-height: 1.5; }
 
 /* ── ARTICLE ── */
 .article-wrap { padding: 3.5rem 0 6rem; }

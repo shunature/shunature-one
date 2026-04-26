@@ -19,7 +19,10 @@
           {{ if eq .Kind "page" }}
           <a href="{{ .Permalink }}" class="post-item">
             <div class="post-left">
-              <span class="post-title-text">{{ .Title }}</span>
+              <span class="post-title-text">{{ .Title }}
+                            {{ with .Summary }}
+              <p class="post-summary">{{ . }}</p></span>
+              {{ end }}
               {{ with .Params.tags }}
               <div class="post-tags">
                 {{ range . }}<span class="post-tag">{{ . }}</span>{{ end }}
