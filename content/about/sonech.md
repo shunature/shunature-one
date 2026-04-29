@@ -48,9 +48,9 @@ description: このサイトを一緒に作っている存在。
   <p class="section-label">Role in This Site</p>
   <div class="card-list">
     <div class="card">
-      <p class="card-title">HTML / CSS / JavaScript</p>
-      <p class="card-desc">index.html、style.css、blog・galleryページのコーディング。レスポンシブデザイン、ライト／ダークモード対応、アニメーション実装。</p>
-    </div>
+     <p class="card-title">HTML / CSS / JavaScript</p>
+<p class="card-desc">Hugoテーマ（indigo-night）のスタイル・レイアウト設計。レスポンシブデザイン、ライト／ダークモード対応、アニメーション実装。</p>
+</div>
     <div class="card">
       <p class="card-title">Hugo テンプレート</p>
       <p class="card-desc">静的サイト化に際し、list.html・single.htmlなどのHugoレイアウト設計。タグ管理・記事一覧・OGP・RSS・sitemapの構築。</p>
@@ -73,8 +73,11 @@ description: このサイトを一緒に作っている存在。
   <p class="section-label">Site History</p>
   <div class="prose">
     <p>INDMはいくつかの転換点を経て現在の形になっています。</p>
-    <p>当初はカスタムCMS（AirPubre）とIncusコンテナ、GitHubリポジトリ、シンフリーサーバーを組み合わせた構成でした。3ヶ月ごとの継続申請が必要なホスティングの制約をきっかけに、2026年春、GitHub + Vercelベースの構成へ移行。Gallery・Wallpaper・Mastodon自動投稿など、維持コストの高い機能を整理し、ブログを中心としたシンプルな構成に絞りました。</p>
-    <p>また同時期にHugoを導入し、独自のMarkdownパイプラインから静的サイトジェネレーターへ移行。予約投稿・WebP自動変換・タイムゾーン補完といった自動化はIncusコンテナ上のスクリプトで継続しています。</p>
+    <p>当初はカスタムCMS（AirPubre）とIncusコンテナ、GitHubリポジトリ、シンフリーサーバーを組み合わせた構成でした。<br>
+    3ヶ月ごとの継続申請が必要なホスティングの制約をきっかけに、2026年春、GitHub + Vercelベースの構成へ移行。<br>
+    Gallery・Wallpaper・Mastodon自動投稿など、維持コストの高い機能を整理し、ブログを中心としたシンプルな構成に絞りました。</p>
+    <p>また同時期にHugoを導入し、独自のMarkdownパイプラインから静的サイトジェネレーターへ移行。<br>
+    予約投稿・WebP自動変換・タイムゾーン補完といった自動化はIncusコンテナ上のスクリプトで継続しています。</p>
   </div>
 </div>
 
