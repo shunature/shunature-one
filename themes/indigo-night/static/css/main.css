@@ -278,7 +278,7 @@ img { max-width: 100%; height: auto; display: block; }
 .article-meta-sep   { opacity: 0.4; }
 .article-author     { transition: color 0.2s; }
 .article-author:hover { color: var(--accent); }
-.article-updated    { font-size: 0.68rem; }
+.article-updated    { font-size: 0.66rem; }
 
 .article-thumbnail {
   width: 75%; aspect-ratio: 16/9;
@@ -302,11 +302,11 @@ img { max-width: 100%; height: auto; display: block; }
 
 .article-body { font-size: 0.94rem; line-height: 2.05; }
 .article-body p  { margin-bottom: 1.5rem; }
+.article-body p strong { font-weight: 500; color: var(--accent);}
 .article-body h2 {
-  font-family: 'Shippori Mincho', serif;
-  font-size: 1.04rem; font-weight: 500;
+  font-family: 'Noto Sans JP', sans-serif;
+  font-size: 1.25rem; font-weight: 500;
   margin: 2.5rem 0 1rem; padding-bottom: 0.5rem;
-  border-bottom: 1px solid var(--border);
 }
 .article-body h3 {
   font-size: 0.98rem; font-weight: 500;

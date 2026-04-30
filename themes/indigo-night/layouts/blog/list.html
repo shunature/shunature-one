@@ -29,7 +29,13 @@
               </div>
               {{ end }}
             </div>
-            <span class="post-date-text">{{ .Date.Format "Jan 02 15:04" }}</span>
+            <span class="post-date-text">{{ .Date.Format "2006.01.02 15:04" }}
+              <br>
+            <span class="article-updated">
+              {{ if .Lastmod.After .Date }}
+              {{ .Lastmod.Format "2006.01.02 15:04" }}{{end}}
+            </span>
+            </span>
           </a>
           {{ end }}
           {{ end }}
