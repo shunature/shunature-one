@@ -278,7 +278,7 @@ img { max-width: 100%; height: auto; display: block; }
 .article-meta-sep   { opacity: 0.4; }
 .article-author     { transition: color 0.2s; }
 .article-author:hover { color: var(--accent); }
-.article-updated    { font-size: 0.66rem; }
+.article-updated    { font-size: 0.7rem; }
 
 .article-thumbnail {
   width: 75%; aspect-ratio: 16/9;
