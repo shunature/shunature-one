@@ -1,6 +1,6 @@
 ---
 title: Waterfox
-date: 2026-05-03T20:00:00
+date: 2026-05-03T20:00:00+09:00
 thumbnail: waterfox.webp
 summary: 気になるわー
 ---
