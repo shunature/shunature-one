@@ -1,4 +1,3 @@
-const SITE_LOCATION = { lat: 35.7506, lng: 139.7138 };
 // ── テーマ機能 ──
 function updateIcon(theme) {
     const moonPath = '<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>';
