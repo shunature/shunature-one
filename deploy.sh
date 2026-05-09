@@ -230,24 +230,34 @@ JS
 log "✓ posts.json生成完了"
 
 # ────────────────────────────────
-# 3. OGP用薄いHTML生成（リダイレクト付き）
+# 3. 記事HTML生成（リダイレクト付き）
 # ────────────────────────────────
-log "▶ OGP HTML生成..."
+log "▶ 記事HTML生成..."
 node - << 'JS'
-const fs   = require('fs');
-const path = require('path');
+const fs     = require('fs');
+const path   = require('path');
+const { marked } = require('marked');
 
-const base  = 'https://shunature.one';
-const posts = JSON.parse(fs.readFileSync('./blog/posts.json', 'utf-8'));
-const esc   = s => String(s)
+marked.setOptions({ breaks: true, gfm: true });
+
+const base   = 'https://shunature.one';
+const posts  = JSON.parse(fs.readFileSync('./blog/posts.json', 'utf-8'));
+const esc    = s => String(s)
     .replace(/&/g, '&amp;').replace(/"/g, '&quot;').replace(/</g, '&lt;').replace(/>/g, '&gt;');
 
 let count = 0;
 for (const p of posts) {
-    const url   = base + '/blog/p/' + p.slug + '/';
-    const image = p.thumbnail ? base + '/blog/thumbnails/' + p.thumbnail : base + '/assets/icon.png';
-    const description = p.summary || (p.body ? p.body.slice(0, 200) + (p.body.length > 200 ? '...' : '') : '');
-    const titleFull = p.title + ' — Indigo Night Dull Moon';
+    const mdPath = path.join('./blog/posts', p.slug + '.md');
+    if (!fs.existsSync(mdPath)) continue;
+
+    const raw      = fs.readFileSync(mdPath, 'utf-8');
+    const body     = raw.replace(/^---\n[\s\S]*?\n---\n?/, '');
+    const htmlBody = marked(body);
+
+    const url         = base + '/blog/p/' + p.slug + '/';
+    const image       = p.thumbnail ? base + '/blog/thumbnails/' + p.thumbnail : base + '/assets/icon.png';
+    const description = p.summary || (p.body ? p.body.slice(0, 200) : '');
+    const titleFull   = p.title + ' — Indigo Night Dull Moon';
 
     const html = `<!DOCTYPE html>
 <html lang="ja">
@@ -265,8 +275,31 @@ for (const p of posts) {
 <meta name="twitter:title" content="${esc(titleFull)}">
 <meta name="twitter:description" content="${esc(description)}">
 <meta name="twitter:image" content="${esc(image)}">
+<meta name="fediverse:creator" content="@shunature@hogus.work">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
 </head>
-<body></body>
+<body>
+<header-module></header-module>
+<main>
+<div class="article-wrap">
+<div class="container">
+    <a href="/blog/" class="article-back">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Blog
+    </a>
+    ${p.thumbnail ? `<div class="article-thumb"><img src="/blog/thumbnails/${esc(p.thumbnail)}" alt="${esc(p.title)}"></div>` : ''}
+    <div class="article-meta">
+        <span class="article-date">${new Date(p.date.includes('+') || p.date.includes('Z') ? p.date : p.date + '+09:00').toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'Asia/Tokyo' })}</span>
+        ${p.weather ? `<span class="article-weather">${esc(p.weather)}</span>` : ''}
+    </div>
+    <h1 class="article-title">${esc(p.title)}</h1>
+    <div class="article-body">${htmlBody}</div>
+</div>
+</div>
+</main>
+<script src="/common.js"></script>
+</body>
 </html>`;
 
     const outDir = path.join('./blog/p', p.slug);
@@ -274,9 +307,9 @@ for (const p of posts) {
     fs.writeFileSync(path.join(outDir, 'index.html'), html);
     count++;
 }
-console.log('✓ OGP HTML生成完了:', count, '件');
+console.log('✓ HTML生成完了:', count, '件');
 JS
-log "✓ OGP HTML生成完了"
+log "✓ 記事HTML生成完了"
 
 # ────────────────────────────────
 # 4. sitemap.xml生成
