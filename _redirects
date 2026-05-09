@@ -1,1 +1,3 @@
+/blog/thumbnails/:file  /blog/thumbnails/:file  200
+/blog/posts.json  /blog/posts.json  200
 /blog/:tag/:slug  /blog/p/:tag/:slug  200
