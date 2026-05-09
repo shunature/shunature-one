@@ -272,7 +272,7 @@ for (const p of posts) {
 <body></body>
 </html>`;
 
-    const outDir = path.join('./blog/p', p.slug);
+    const outDir = path.join('./blog', p.slug);
     fs.mkdirSync(outDir, { recursive: true });
     fs.writeFileSync(path.join(outDir, 'index.html'), html);
     count++;
