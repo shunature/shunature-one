@@ -1,5 +1,5 @@
 {
   "dependencies": {
-    "marked": "^18.0.3"
+    "marked": "^4.3.0"
   }
 }
