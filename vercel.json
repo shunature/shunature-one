@@ -4,7 +4,5 @@
   "rewrites": [
     { "source": "/blog/:tag/:slug", "destination": "/blog/p/:tag/:slug" }
   ],
-  "redirects": [
-    { "source": "/(.*)", "destination": "/404.html", "statusCode": 404 }
-  ]
+  "404": "/404.html"
 }
