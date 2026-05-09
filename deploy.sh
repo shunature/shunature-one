@@ -234,9 +234,10 @@ log "✓ posts.json生成完了"
 # ────────────────────────────────
 log "▶ 記事HTML生成..."
 node - << 'JS'
-const fs     = require('fs');
-const path   = require('path');
-const { marked } = require('marked');
+const fs   = require('fs');
+const path = require('path');
+
+const { marked } = await import('marked');
 
 marked.setOptions({ breaks: true, gfm: true });
 
