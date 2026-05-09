@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blog — Picturebook from shunature</title>
+    <meta name="description" content="利根川 駿（shunature）のブログ。書いたもの、残したもの。">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Blog — Picturebook from shunature">
+    <meta property="og:url" content="https://shunature.one/blog/">
+    <meta property="og:image" content="https://shunature.one/assets/icon.png">
+    <meta property="og:site_name" content="Picturebook from shunature">
+    <meta name="twitter:card" content="summary_large_image">
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+    <link rel="alternate" type="application/rss+xml" title="Picturebook from shunature" href="/feed.xml">
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        .blog-header {
+            padding: 3.5rem 0 2.5rem;
+            margin-bottom: 0rem;
+        }
+
+        .blog-header-inner {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            gap: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .blog-title {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 1.6rem;
+            font-weight: 500;
+            letter-spacing: .02em;
+        }
+
+        .blog-count {
+            font-size: .7rem;
+            color: var(--text-subtle);
+            letter-spacing: .08em;
+        }
+
+        /* タグフィルター */
+        .tag-filter {
+            display: flex;
+            gap: .4rem;
+            flex-wrap: wrap;
+            margin-bottom: 2.5rem;
+        }
+
+        .tag-btn {
+            font-size: .62rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--text-subtle);
+            border: 1px solid var(--border-mid);
+            border-radius: 999px;
+            padding: .25rem .75rem;
+            background: none;
+            cursor: pointer;
+            font-family: inherit;
+            transition: all .2s;
+        }
+        .tag-btn:hover {
+            border-color: var(--accent);
+            color: var(--accent);
+        }
+        .tag-btn.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+
+        /* ローディング */
+        .posts-loading {
+            font-size: .8rem;
+            color: var(--text-subtle);
+            padding: 3rem 0;
+            opacity: .5;
+        }
+
+        /* 件数表示 */
+        .posts-result {
+            font-size: .68rem;
+            color: var(--text-subtle);
+            margin-bottom: 1.2rem;
+            letter-spacing: .04em;
+        }
+
+        @media (max-width: 640px) {
+            .blog-header { padding: 2rem 0 1.8rem; }
+        }
+
+        .search-form { margin-bottom: 1.5rem; }
+.search-input-wrap {
+    display: flex;
+    align-items: center;
+    gap: .6rem;
+    border: 1px solid var(--border-mid);
+    border-radius: 999px;
+    padding: .5rem 1.1rem;
+    transition: border-color .2s;
+    max-width: 360px;
+}
+.search-input-wrap:focus-within { border-color: var(--accent); }
+.search-input-wrap svg { color: var(--text-subtle); flex-shrink: 0; }
+.search-input {
+    background: none;
+    border: none;
+    outline: none;
+    font-size: .82rem;
+    color: var(--text);
+    font-family: inherit;
+    width: 100%;
+}
+.search-input::placeholder { color: var(--text-subtle); opacity: .6; }
+    </style>
+</head>
+<body>
+
+<header-module></header-module>
+
+<main>
+    <div class="container-wide">
+        <div class="blog-header">
+            <div class="blog-header-inner">
+                <h1 class="blog-title">Blog</h1>
+                <span class="blog-count" id="post-count"></span>
+            </div>
+        </div>
+
+        <form class="search-form" action="/blog/search/" method="get">
+            <div class="search-input-wrap">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" name="q" placeholder="記事を検索..." class="search-input" autocomplete="off">
+            </div>
+        </form>
+
+        <!-- タグフィルター -->
+        <div class="tag-filter" id="tag-filter"></div>
+
+        <!-- 件数 -->
+        <p class="posts-result" id="posts-result"></p>
+
+        <!-- カードグリッド -->
+        <div id="posts-grid" class="card-grid">
+            <p class="posts-loading">読み込み中...</p>
+        </div>
+    </div>
+</main>
+
+
+<script src="/common.js"></script>
+<script>
+(async function () {
+    const grid        = document.getElementById('posts-grid');
+    const tagFilter   = document.getElementById('tag-filter');
+    const postCount   = document.getElementById('post-count');
+    const postsResult = document.getElementById('posts-result');
+
+    let allPosts   = [];
+    let activeTag  = null;
+
+    // URLパラメータからタグ取得
+    const params = new URLSearchParams(location.search);
+    if (params.get('tag')) activeTag = params.get('tag');
+
+    function formatDate(dateStr) {
+        const d = new Date(dateStr.includes('+') || dateStr.includes('Z') ? dateStr : dateStr + '+09:00');
+        return d.toLocaleDateString('ja-JP', {
+            year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'Asia/Tokyo'
+        }).replace(/\//g, '.');
+    }
+
+    function thumbHtml(p) {
+        if (p.thumbnail) {
+            return `<div class="card-thumb"><img src="thumbnails/${p.thumbnail}" alt="${p.title}" loading="lazy"></div>`;
+        }
+        return `<div class="card-thumb"><div class="card-thumb-placeholder">
+            <svg viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg">
+                <path fill="currentColor" d="M 0,916.875 V 753.74999 H 242.06902 484.1379 V 916.875 1080 H 242.06902 0 Z m 521.3794,0 V 753.74999 h 86.8965 86.89651 V 916.875 1080 H 608.2759 521.3794 Z M 732.41389,1012.5 V 945 h 49.65514 49.65515 v 67.5 67.5 h -49.65515 -49.65514 z m 136.55164,0 V 945 H 974.48278 1080 v 67.5 67.5 H 974.48278 868.96553 Z M 732.41389,832.5 V 753.74999 H 906.20689 1080 V 832.5 911.24999 H 906.20689 732.41389 Z M 0,359.99999 V 0 H 540.00001 1080 v 359.99999 360 H 540.00001 0 Z"/>
+            </svg>
+        </div></div>`;
+    }
+
+    function cardHtml(p, featured) {
+        const tags = (p.tags || []).slice(0, 2).map(t =>
+            `<span class="card-tag">${t}</span>`
+        ).join('');
+
+        return `
+        <a href="/blog/${p.slug}/" class="card ${featured ? 'card-featured' : ''}">
+            ${thumbHtml(p)}
+            <div class="card-body">
+                ${tags ? `<div class="card-tags">${tags}</div>` : ''}
+                <div class="card-title">${p.title}</div>
+                ${p.summary ? `<div class="card-desc">${p.summary}</div>` : ''}
+                <div class="card-foot">
+                    <span class="card-date">${formatDate(p.date)}</span>
+                    ${p.weather ? `<span class="card-weather">${p.weather}</span>` : ''}
+                </div>
+            </div>
+        </a>`;
+    }
+
+    function render(posts) {
+        if (!posts.length) {
+            grid.innerHTML = '<p class="posts-loading">記事が見つかりません。</p>';
+            postsResult.textContent = '';
+            return;
+        }
+        postsResult.textContent = `${posts.length} 件`;
+        grid.innerHTML = posts.map((p, i) => cardHtml(p, i === 0 && !activeTag)).join('');
+    }
+
+    function buildTagFilter(posts) {
+        // 全タグ集計
+        const tagCount = {};
+        for (const p of posts) {
+            for (const t of (p.tags || [])) {
+                tagCount[t] = (tagCount[t] || 0) + 1;
+            }
+        }
+        // 件数順でソート
+        const tags = Object.entries(tagCount).sort((a, b) => b[1] - a[1]);
+
+        // 「すべて」ボタン
+        const allBtn = document.createElement('button');
+        allBtn.className = 'tag-btn' + (!activeTag ? ' active' : '');
+        allBtn.textContent = 'All';
+        allBtn.onclick = () => setTag(null);
+        tagFilter.appendChild(allBtn);
+
+        for (const [tag, count] of tags) {
+            const btn = document.createElement('button');
+            btn.className = 'tag-btn' + (activeTag === tag ? ' active' : '');
+            btn.textContent = `${tag} (${count})`;
+            btn.onclick = () => setTag(tag);
+            tagFilter.appendChild(btn);
+        }
+    }
+
+    function setTag(tag) {
+        activeTag = tag;
+
+        // ボタンのactive更新
+        tagFilter.querySelectorAll('.tag-btn').forEach(btn => {
+            const isAll = btn.textContent === 'All';
+            btn.classList.toggle('active',
+                (isAll && !tag) || (!isAll && btn.textContent.startsWith(tag + ' '))
+            );
+        });
+
+        // URL更新（履歴に残す）
+        const url = tag ? `?tag=${encodeURIComponent(tag)}` : location.pathname;
+        history.pushState({}, '', url);
+
+        // フィルタリング
+        const filtered = tag
+            ? allPosts.filter(p => (p.tags || []).includes(tag))
+            : allPosts;
+        render(filtered);
+    }
+
+    try {
+        const res = await fetch('/blog/posts.json');
+        allPosts  = await res.json();
+
+        postCount.textContent = `${allPosts.length} posts`;
+        buildTagFilter(allPosts);
+
+        const filtered = activeTag
+            ? allPosts.filter(p => (p.tags || []).includes(activeTag))
+            : allPosts;
+        render(filtered);
+    } catch(e) {
+        grid.innerHTML = '<p class="posts-loading">読み込みに失敗しました。</p>';
+    }
+})();
+</script>
+</body>
+</html>

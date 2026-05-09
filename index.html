@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Picturebook from shunature — Picturebook from shunature</title>
+    <meta name="description" content="利根川 駿（shunature）の個人サイト。日々の記録と表現。">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="Picturebook from shunature">
+    <meta property="og:description" content="利根川 駿（shunature）の個人サイト。日々の記録と表現。">
+    <meta property="og:url" content="https://shunature.one">
+    <meta property="og:image" content="https://shunature.one/assets/icon.png">
+    <meta property="og:site_name" content="Picturebook from shunature">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="fediverse:creator" content="@shunature@hogus.work">
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+    <link rel="alternate" type="application/rss+xml" title="Picturebook from shunature" href="/feed.xml">
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        /* ── Hero ── */
+        .hero {
+            min-height: 100svh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* flex-end → center */
+            padding: 4rem 0;
+            position: relative;
+        }
+
+        .hero-bg {
+            position: absolute;
+            inset: 0;
+            pointer-events: none;
+            background:
+                radial-gradient(ellipse at 10% 80%, color-mix(in srgb, var(--accent) 6%, transparent) 0%, transparent 55%),
+                radial-gradient(ellipse at 90% 20%, color-mix(in srgb, var(--accent) 3%, transparent) 0%, transparent 45%);
+        }
+
+        .hero-inner {
+            position: relative;
+            z-index: 1;
+            padding: 0 2.5rem;
+            max-width: 900px;
+        }
+
+        .hero-eyebrow {
+            font-size: .65rem;
+            letter-spacing: .22em;
+            text-transform: uppercase;
+            color: var(--accent);
+            opacity: .7;
+            margin-bottom: 1.2rem;
+        }
+
+        .hero-title {
+            font-family: 'Shippori Mincho', serif;
+            font-size: clamp(2.4rem, 7vw, 5rem);
+            font-weight: 500;
+            line-height: 1.1;
+            letter-spacing: -.01em;
+            margin-bottom: 1.4rem;
+            color: var(--text);
+        }
+
+        .hero-desc {
+            font-size: .88rem;
+            color: var(--text-muted);
+            font-weight: 300;
+            letter-spacing: .06em;
+            margin-bottom: 2.4rem;
+        }
+
+        .hero-links {
+            display: flex;
+            gap: .7rem;
+            flex-wrap: wrap;
+        }
+
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: .4rem;
+            font-size: .72rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            border-radius: 999px;
+            padding: .45rem 1.1rem;
+            transition: all .2s;
+            border: 1px solid var(--border-mid);
+            color: var(--text-muted);
+        }
+        .hero-btn:hover {
+            border-color: var(--accent);
+            color: var(--text);
+        }
+        .hero-btn.primary {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #fff;
+        }
+        .hero-btn.primary:hover {
+            background: var(--accent-hover);
+            border-color: var(--accent-hover);
+        }
+
+        /* ── Latest posts ── */
+        .latest-section {
+            padding: 4rem 0 5rem;
+        }
+
+        .latest-header {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+            margin-bottom: 2rem;
+        }
+
+        .latest-more {
+            font-size: .7rem;
+            letter-spacing: .08em;
+            color: var(--text-subtle);
+            transition: color .2s;
+        }
+        .latest-more:hover { color: var(--accent); }
+
+        /* ── Loading / Error ── */
+        .posts-loading {
+            font-size: .8rem;
+            color: var(--text-subtle);
+            padding: 2rem 0;
+            opacity: .5;
+        }
+
+        @media (max-width: 640px) {
+            .hero-inner { padding: 0 1.2rem; }
+            .hero { padding-bottom: 3rem; }
+        }
+    </style>
+</head>
+<body>
+
+<header-module></header-module>
+<main>
+   <!-- Hero -->
+<section class="hero">
+    <div class="hero-bg"></div>
+    <div class="hero-inner">
+        <p class="hero-eyebrow">shunature.one</p>
+        <h1 class="hero-title">Picturebook<br>from shunature</h1>
+        <p class="hero-desc">Bassist / Student / Creative mind — 利根川 駿</p>
+
+        <!-- Now Playing -->
+        <div id="now-playing" style="display:none; margin-bottom:2rem;">
+            <a href="/music/" style="display:flex;align-items:center;gap:10px;text-decoration:none;">
+                <div style="position:relative;flex-shrink:0;">
+                    <img id="np-art" src="" alt="" width="40" height="40" style="border-radius:2px;object-fit:cover;display:block;background:var(--bg2);">
+                    <span id="np-live" style="display:none;position:absolute;bottom:-3px;right:-3px;width:8px;height:8px;border-radius:50%;background:var(--accent);border:1.5px solid var(--bg);"></span>
+                </div>
+                <div style="min-width:0;">
+                    <div id="np-title" style="font-size:.78rem;color:var(--text);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px;transition:color .2s;"></div>
+                    <div id="np-artist" style="font-size:.68rem;color:var(--text-subtle);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:220px;margin-top:1px;"></div>
+                </div>
+            </a>
+        </div>
+
+        <div class="hero-links">
+            <a class="hero-btn primary" href="/blog/">
+                Blog
+                <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+            </a>
+            <a class="hero-btn" href="/about/">About</a>
+            <a class="hero-btn" href="/music/">Music</a>
+        </div>
+    </div>
+</section>
+
+    <!-- Latest posts -->
+    <section class="latest-section">
+        <div class="container-wide">
+            <div class="latest-header">
+                <p class="section-label" style="margin-bottom:0;">Latest</p>
+                <a class="latest-more" href="/blog/">すべて見る →</a>
+            </div>
+            <div id="posts-grid" class="card-grid">
+                <p class="posts-loading">読み込み中...</p>
+            </div>
+        </div>
+    </section>
+</main>
+
+
+<script src="/common.js"></script>
+<script>
+// ── Last.fm ──
+const LFM_KEY    = 'lfm_tracks';
+const LFM_TS_KEY = 'lfm_fetched_at';
+
+function getLastSunday18() {
+    const now = new Date();
+    const d = new Date(now);
+    const diffToSun = d.getDay() === 0 ? 0 : d.getDay();
+    d.setDate(d.getDate() - diffToSun);
+    d.setHours(18, 0, 0, 0);
+    if (d > now) d.setDate(d.getDate() - 7);
+    return d;
+}
+
+function shouldRefresh() {
+    const ts = localStorage.getItem(LFM_TS_KEY);
+    if (!ts) return true;
+    return new Date(Number(ts)) < getLastSunday18();
+}
+
+function renderLfmList(tracks) {
+    const list = document.getElementById('lfm-list');
+    if (!list) return;
+    list.innerHTML = tracks.map((t, i) => `
+        <li class="lfm-item">
+            <span class="lfm-rank">${i + 1}</span>
+            ${t.img
+                ? `<img class="lfm-art" src="${t.img}" alt="" loading="lazy">`
+                : `<div class="lfm-art-ph"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="10"/><path d="M9 8l6 4-6 4V8z"/></svg></div>`}
+            <a class="lfm-info" href="${t.url}" target="_blank" rel="noopener">
+                <div class="lfm-name">${t.name}</div>
+                <div class="lfm-artist">${t.artist}</div>
+            </a>
+            <span class="lfm-plays">${t.plays.toLocaleString()}</span>
+        </li>`
+    ).join('');
+}
+
+async function initLfm() {
+    const needRefresh = shouldRefresh();
+    const cached = localStorage.getItem(LFM_KEY);
+    if (!needRefresh && cached) {
+        renderLfmList(JSON.parse(cached));
+        const ts = localStorage.getItem(LFM_TS_KEY);
+        if (ts) document.getElementById('lfm-updated').textContent = new Date(Number(ts)).toLocaleDateString('ja-JP') + ' 更新';
+        return;
+    }
+    try {
+        const cfg = await fetch('/last-config.json').then(r => r.json());
+        const { lastfm_api_key: key, lastfm_user: user } = cfg;
+        if (!key || !user) return;
+        const data = await fetch(
+            `https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=${encodeURIComponent(user)}&period=7day&limit=5&api_key=${key}&format=json`
+        ).then(r => r.json());
+        if (data.error || !data.toptracks?.track?.length) return;
+        const tracks = data.toptracks.track.map(t => ({
+            name:   t.name,
+            artist: t.artist.name,
+            url:    t.url,
+            plays:  parseInt(t.playcount, 10),
+            img:    (() => { const u = t.image?.find(i => i.size === 'medium')?.['#text']; return u && !u.includes('2a96cbd8b46e442fc41c2b86b821562f') ? u : ''; })()
+        }));
+        const now = Date.now();
+        localStorage.setItem(LFM_KEY, JSON.stringify(tracks));
+        localStorage.setItem(LFM_TS_KEY, String(now));
+        renderLfmList(tracks);
+        document.getElementById('lfm-updated').textContent = new Date(now).toLocaleDateString('ja-JP') + ' 更新';
+    } catch(e) {}
+}
+
+let lfmLoaded = false;
+
+async function openLfmModal() {
+    document.getElementById('lfm-backdrop').classList.add('open');
+    document.getElementById('lfm-modal').classList.add('open');
+    document.body.style.overflow = 'hidden';
+    if (!lfmLoaded) { await initLfm(); lfmLoaded = true; }
+}
+
+function closeLfmModal() {
+    document.getElementById('lfm-backdrop').classList.remove('open');
+    document.getElementById('lfm-modal').classList.remove('open');
+    document.body.style.overflow = '';
+}
+
+// Now Playing
+async function loadNowPlaying() {
+    try {
+        const cfg = await fetch('/last-config.json').then(r => r.json());
+        const { lastfm_api_key: key, lastfm_user: user } = cfg;
+        if (!key || !user) return;
+        const data = await fetch(
+            `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${encodeURIComponent(user)}&limit=1&api_key=${key}&format=json`
+        ).then(r => r.json());
+        const track = data?.recenttracks?.track?.[0];
+        if (!track) return;
+        const isLive  = track['@attr']?.nowplaying === 'true';
+        const title   = track.name;
+        const artist  = track.artist['#text'];
+        const lfmImg  = track.image?.find(i => i.size === 'medium')?.['#text'];
+        const artUrl  = lfmImg && !lfmImg.includes('2a96cbd8b46e442fc41c2b86b821562f') ? lfmImg : null;
+
+        const wrap   = document.getElementById('now-playing');
+        const npArt  = document.getElementById('np-art');
+        const npLive = document.getElementById('np-live');
+
+        document.getElementById('np-title').textContent  = title;
+        document.getElementById('np-artist').textContent = artist;
+        if (artUrl) { npArt.src = artUrl; npArt.style.display = 'block'; }
+        else { npArt.style.display = 'none'; }
+        if (isLive) npLive.style.display = 'block';
+        wrap.style.display = 'block';
+    } catch(e) {}
+}
+
+loadNowPlaying();
+(async function () {
+    const grid = document.getElementById('posts-grid');
+
+    function formatDate(dateStr) {
+        const d = new Date(dateStr.includes('+') || dateStr.includes('Z') ? dateStr : dateStr + '+09:00');
+        return d.toLocaleDateString('ja-JP', { year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'Asia/Tokyo' }).replace(/\//g, '.');
+    }
+
+    function thumbHtml(p, featured) {
+        if (p.thumbnail) {
+            return `<div class="card-thumb"><img src="/blog/thumbnails/${p.thumbnail}" alt="${p.title}" loading="lazy"></div>`;
+        }
+        return `<div class="card-thumb"><div class="card-thumb-placeholder">
+            <svg viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M 0,916.875 V 753.74999 H 242.06902 484.1379 V 916.875 1080 H 242.06902 0 Z m 521.3794,0 V 753.74999 h 86.8965 86.89651 V 916.875 1080 H 608.2759 521.3794 Z M 732.41389,1012.5 V 945 h 49.65514 49.65515 v 67.5 67.5 h -49.65515 -49.65514 z m 136.55164,0 V 945 H 974.48278 1080 v 67.5 67.5 H 974.48278 868.96553 Z M 732.41389,832.5 V 753.74999 H 906.20689 1080 V 832.5 911.24999 H 906.20689 732.41389 Z M 0,359.99999 V 0 H 540.00001 1080 v 359.99999 360 H 540.00001 0 Z"/></svg>
+        </div></div>`;
+    }
+
+    function cardHtml(p, featured) {
+        const tags = (p.tags || []).slice(0, 2).map(t =>
+            `<span class="card-tag">${t}</span>`
+        ).join('');
+
+        return `
+        <a href="/blog/${p.slug}/" class="card ${featured ? 'card-featured' : ''}">
+            ${thumbHtml(p, featured)}
+            <div class="card-body">
+                ${tags ? `<div class="card-tags">${tags}</div>` : ''}
+                <div class="card-title">${p.title}</div>
+                ${p.summary ? `<div class="card-desc">${p.summary}</div>` : ''}
+                <div class="card-foot">
+                    <span class="card-date">${formatDate(p.date)}</span>
+                    ${p.weather ? `<span class="card-weather">${p.weather}</span>` : ''}
+                </div>
+            </div>
+        </a>`;
+    }
+
+    try {
+        const res   = await fetch('/blog/posts.json');
+        const posts = await res.json();
+        const shown = posts.slice(0, 7);
+
+        if (!shown.length) {
+            grid.innerHTML = '<p class="posts-loading">記事がありません。</p>';
+            return;
+        }
+
+        grid.innerHTML = shown.map((p, i) => cardHtml(p, i === 0)).join('');
+    } catch (e) {
+        grid.innerHTML = '<p class="posts-loading">読み込みに失敗しました。</p>';
+    }
+})();
+</script>
+</body>
+</html>

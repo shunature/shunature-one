@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Nostr — Picturebook from shunature</title>
+<meta name="description" content="Nostr の記事一覧">
+<meta property="og:title" content="Nostr — Picturebook from shunature">
+<meta property="og:url" content="https://shunature.one/blog/Nostr/">
+<meta property="og:site_name" content="Picturebook from shunature">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+<style>
+    :root {
+        --accent:       hsl(24, 55%, 50%);
+        --accent-hover: hsl(24, 55%, 40%);
+    }
+    [data-theme="dark"] {
+        --accent:       hsl(24, 65%, 68%);
+        --accent-hover: hsl(24, 65%, 78%);
+    }
+    .tag-hero {
+        padding: 3.5rem 0 2.5rem;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 2.5rem;
+    }
+    .tag-eyebrow {
+        font-size: .65rem;
+        letter-spacing: .2em;
+        text-transform: uppercase;
+        color: var(--accent);
+        opacity: .8;
+        margin-bottom: .6rem;
+    }
+    .tag-title {
+        font-family: 'Shippori Mincho', serif;
+        font-size: clamp(1.8rem, 5vw, 3rem);
+        font-weight: 500;
+        margin-bottom: .6rem;
+    }
+    .tag-desc {
+        font-size: .85rem;
+        color: var(--text-muted);
+        margin-bottom: .8rem;
+    }
+    .tag-count {
+        font-size: .7rem;
+        color: var(--text-subtle);
+        letter-spacing: .08em;
+    }
+    .tag-back {
+        display: inline-flex;
+        align-items: center;
+        gap: .4rem;
+        font-size: .75rem;
+        color: var(--text-subtle);
+        margin-bottom: 2rem;
+        transition: color .2s;
+        letter-spacing: .04em;
+    }
+    .tag-back:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+<header-module></header-module>
+<main>
+<div style="padding: 0 0 5rem;">
+<div class="container-wide">
+    <div class="tag-hero">
+        <a href="/blog/" class="tag-back">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Blog
+        </a>
+        <p class="tag-eyebrow">Tag</p>
+        <h1 class="tag-title">Nostr</h1>
+        
+        <p class="tag-count">4 posts</p>
+    </div>
+    <div class="card-grid">
+        
+        <a href="/blog/nostr/gotohell/" class="card">
+            <div class="card-thumb"><div class="card-thumb-placeholder">
+                <svg viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M 0,916.875 V 753.74999 H 242.06902 484.1379 V 916.875 1080 H 242.06902 0 Z m 521.3794,0 V 753.74999 h 86.8965 86.89651 V 916.875 1080 H 608.2759 521.3794 Z M 732.41389,1012.5 V 945 h 49.65514 49.65515 v 67.5 67.5 h -49.65515 -49.65514 z m 136.55164,0 V 945 H 974.48278 1080 v 67.5 67.5 H 974.48278 868.96553 Z M 732.41389,832.5 V 753.74999 H 906.20689 1080 V 832.5 911.24999 H 906.20689 732.41389 Z M 0,359.99999 V 0 H 540.00001 1080 v 359.99999 360 H 540.00001 0 Z"/></svg>
+               </div></div>
+            <div class="card-body">
+                <div class="card-title">地獄の底に行こう</div>
+                <div class="card-desc">要は、Nostrはいいぞってこと。</div>
+                <div class="card-foot">
+                    <span class="card-date">2026.01.18</span>
+                    <span class="card-weather">快晴</span>
+                </div>
+            </div>
+        </a>
+        <a href="/blog/nostr/na2025-repo/" class="card">
+            <div class="card-thumb"><img src="/blog/thumbnails/Nostrasia2025_repothumb.webp" alt="Nostrasia2025 会場レポ" loading="lazy"></div>
+            <div class="card-body">
+                <div class="card-title">Nostrasia2025 会場レポ</div>
+                <div class="card-desc">どうも</div>
+                <div class="card-foot">
+                    <span class="card-date">2025.12.20</span>
+                    <span class="card-weather">曇り</span>
+                </div>
+            </div>
+        </a>
+        <a href="/blog/nostr/na2025/" class="card">
+            <div class="card-thumb"><img src="/blog/thumbnails/Nostrasia2025_wp_b.webp" alt="nostrasia2025 勝手に壁紙" loading="lazy"></div>
+            <div class="card-body">
+                <div class="card-title">nostrasia2025 勝手に壁紙</div>
+                <div class="card-desc">ことしも、創意。</div>
+                <div class="card-foot">
+                    <span class="card-date">2025.12.20</span>
+                    <span class="card-weather">霧雨</span>
+                </div>
+            </div>
+        </a>
+        <a href="/blog/nostr/nos2025-adcal/" class="card">
+            <div class="card-thumb"><img src="/blog/thumbnails/nosadcal2025.webp" alt="Nostr、一年のまとめ。" loading="lazy"></div>
+            <div class="card-body">
+                <div class="card-title">Nostr、一年のまとめ。</div>
+                <div class="card-desc">アドカレです</div>
+                <div class="card-foot">
+                    <span class="card-date">2025.12.20</span>
+                    <span class="card-weather">曇り</span>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+</div>
+</main>
+<script src="/common.js"></script>
+</body>
+</html>

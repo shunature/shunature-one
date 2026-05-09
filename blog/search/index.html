@@ -1,0 +1,380 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>検索 — Indigo Night Dull Moon</title>
+    <meta name="robots" content="noindex">
+    <link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+    <link rel="stylesheet" href="/style.css">
+    <style>
+        .search-wrap {
+            padding: 3.5rem 0 6rem;
+        }
+
+        .search-header {
+            margin-bottom: 2.5rem;
+        }
+
+        .search-title {
+            font-family: 'Shippori Mincho', serif;
+            font-size: 1.6rem;
+            font-weight: 500;
+            margin-bottom: 1.5rem;
+        }
+
+        /* 検索バー */
+        .search-form {
+            display: flex;
+            gap: .6rem;
+            max-width: 480px;
+        }
+
+        .search-input-wrap {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            gap: .6rem;
+            border: 1px solid var(--border-mid);
+            border-radius: 999px;
+            padding: .55rem 1.1rem;
+            transition: border-color .2s;
+            background: var(--surface);
+        }
+        .search-input-wrap:focus-within { border-color: var(--accent); }
+        .search-input-wrap svg { color: var(--text-subtle); flex-shrink: 0; }
+
+        .search-input {
+            background: none;
+            border: none;
+            outline: none;
+            font-size: .88rem;
+            color: var(--text);
+            font-family: inherit;
+            width: 100%;
+        }
+        .search-input::placeholder { color: var(--text-subtle); opacity: .6; }
+
+        .search-btn {
+            background: var(--accent);
+            border: none;
+            border-radius: 999px;
+            padding: .55rem 1.2rem;
+            font-size: .78rem;
+            color: #fff;
+            cursor: pointer;
+            font-family: inherit;
+            letter-spacing: .06em;
+            transition: background .2s;
+            flex-shrink: 0;
+        }
+        .search-btn:hover { background: var(--accent-hover); }
+
+        /* 結果 */
+        .search-meta {
+            font-size: .72rem;
+            color: var(--text-subtle);
+            margin-bottom: 1.5rem;
+            letter-spacing: .04em;
+        }
+        .search-meta strong { color: var(--accent); font-weight: 500; }
+
+        .search-loading {
+            font-size: .8rem;
+            color: var(--text-subtle);
+            padding: 2rem 0;
+            opacity: .5;
+        }
+
+        /* 結果リスト */
+        .result-list {
+            display: flex;
+            flex-direction: column;
+            gap: 1px;
+            background: var(--border);
+        }
+
+        .result-item {
+            background: var(--bg);
+            display: flex;
+            gap: 1.2rem;
+            padding: 1.2rem 1.4rem;
+            text-decoration: none;
+            transition: background .2s;
+            align-items: flex-start;
+        }
+        .result-item:hover { background: var(--bg2); }
+
+        .result-thumb {
+            width: 72px;
+            height: 48px;
+            border-radius: var(--radius);
+            overflow: hidden;
+            flex-shrink: 0;
+            background: var(--bg2);
+        }
+        .result-thumb img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        .result-thumb-placeholder {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .result-thumb-placeholder svg {
+            width: 18px;
+            height: 18px;
+            opacity: .12;
+            color: var(--text);
+        }
+
+        .result-body { flex: 1; min-width: 0; }
+
+        .result-tags {
+            display: flex;
+            gap: .3rem;
+            margin-bottom: .3rem;
+            flex-wrap: wrap;
+        }
+        .result-tag {
+            font-size: .58rem;
+            letter-spacing: .1em;
+            text-transform: uppercase;
+            color: var(--text-subtle);
+            background: var(--bg2);
+            padding: .1rem .45rem;
+            border-radius: 1px;
+        }
+
+        .result-title {
+            font-size: .92rem;
+            color: var(--text);
+            font-weight: 400;
+            margin-bottom: .4rem;
+            transition: color .2s;
+            line-height: 1.45;
+        }
+        .result-item:hover .result-title { color: var(--accent); }
+
+        .result-excerpt {
+            font-size: .75rem;
+            color: var(--text-subtle);
+            line-height: 1.7;
+            font-weight: 300;
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+        }
+
+        /* ハイライト */
+        .result-title mark,
+        .result-excerpt mark {
+            background: color-mix(in srgb, var(--accent) 18%, transparent);
+            color: var(--text);
+            padding: .05em .2em;
+            border-radius: 2px;
+            font-style: normal;
+        }
+
+        .result-foot {
+            display: flex;
+            gap: .8rem;
+            align-items: center;
+            margin-top: .5rem;
+        }
+        .result-date {
+            font-size: .62rem;
+            color: var(--text-subtle);
+            font-variant-numeric: tabular-nums;
+            opacity: .7;
+        }
+
+        /* 空状態 */
+        .search-empty {
+            padding: 4rem 0;
+            text-align: center;
+        }
+        .search-empty-icon {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+            opacity: .3;
+        }
+        .search-empty-text {
+            font-size: .88rem;
+            color: var(--text-subtle);
+            line-height: 1.8;
+        }
+        .search-empty-text strong { color: var(--accent); font-weight: 500; }
+    </style>
+</head>
+<body>
+
+<header-module></header-module>
+
+<main>
+<div class="search-wrap">
+<div class="container">
+
+    <div class="search-header">
+        <h1 class="search-title">検索</h1>
+        <form class="search-form" id="search-form">
+            <div class="search-input-wrap">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input type="text" id="search-input" class="search-input" placeholder="キーワードを入力..." autocomplete="off">
+            </div>
+            <button type="submit" class="search-btn">検索</button>
+        </form>
+    </div>
+
+    <p class="search-meta" id="search-meta"></p>
+    <div id="search-results"></div>
+
+</div>
+</div>
+</main>
+
+<script src="/common.js"></script>
+<script>
+(async function () {
+    const input   = document.getElementById('search-input');
+    const meta    = document.getElementById('search-meta');
+    const results = document.getElementById('search-results');
+    const form    = document.getElementById('search-form');
+
+    // URLからクエリ取得
+    const params = new URLSearchParams(location.search);
+    const q = params.get('q') || '';
+    if (q) input.value = q;
+
+    // posts.json読み込み
+    let posts = [];
+    try {
+        posts = await fetch('/blog/posts.json').then(r => r.json());
+    } catch(e) {
+        results.innerHTML = '<p class="search-loading">読み込みに失敗しました。</p>';
+        return;
+    }
+
+    function formatDate(dateStr) {
+        const d = new Date(dateStr.includes('+') || dateStr.includes('Z') ? dateStr : dateStr + '+09:00');
+        return d.toLocaleDateString('ja-JP', {
+            year: 'numeric', month: '2-digit', day: '2-digit', timeZone: 'Asia/Tokyo'
+        }).replace(/\//g, '.');
+    }
+
+    // キーワードをハイライト
+    function highlight(text, keywords) {
+        if (!text) return '';
+        let result = text;
+        for (const kw of keywords) {
+            const escaped = kw.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+            result = result.replace(new RegExp(escaped, 'gi'), m => `<mark>${m}</mark>`);
+        }
+        return result;
+    }
+
+    // ヒット箇所周辺の抜粋を取得
+    function excerpt(text, keywords, len = 120) {
+        if (!text) return '';
+        const lower = text.toLowerCase();
+        let idx = -1;
+        for (const kw of keywords) {
+            idx = lower.indexOf(kw.toLowerCase());
+            if (idx !== -1) break;
+        }
+        if (idx === -1) return text.slice(0, len) + (text.length > len ? '…' : '');
+        const start = Math.max(0, idx - 40);
+        const end   = Math.min(text.length, idx + len);
+        return (start > 0 ? '…' : '') + text.slice(start, end) + (end < text.length ? '…' : '');
+    }
+
+    function search(query) {
+        if (!query.trim()) {
+            meta.innerHTML = '';
+            results.innerHTML = '';
+            return;
+        }
+
+        // URLを更新
+        history.replaceState({}, '', `/blog/search/?q=${encodeURIComponent(query)}`);
+
+        const keywords = query.trim().split(/\s+/).filter(Boolean);
+
+        const scored = posts.map(p => {
+            const titleMatch   = keywords.filter(kw => p.title?.toLowerCase().includes(kw.toLowerCase())).length;
+            const summaryMatch = keywords.filter(kw => p.summary?.toLowerCase().includes(kw.toLowerCase())).length;
+            const bodyMatch    = keywords.filter(kw => p.body?.toLowerCase().includes(kw.toLowerCase())).length;
+            const tagMatch     = keywords.filter(kw => (p.tags || []).some(t => t.toLowerCase().includes(kw.toLowerCase()))).length;
+            const score = titleMatch * 10 + tagMatch * 5 + summaryMatch * 3 + bodyMatch;
+            return { p, score };
+        }).filter(({ score }) => score > 0).sort((a, b) => b.score - a.score);
+
+        meta.innerHTML = scored.length
+            ? `<strong>"${query}"</strong> の検索結果：${scored.length} 件`
+            : '';
+
+        if (!scored.length) {
+            results.innerHTML = `
+            <div class="search-empty">
+                <div class="search-empty-icon">🔍</div>
+                <p class="search-empty-text"><strong>"${query}"</strong> に一致する記事が見つかりませんでした。<br>別のキーワードをお試しください。</p>
+            </div>`;
+            return;
+        }
+
+        results.innerHTML = `<div class="result-list">${scored.map(({ p }) => {
+            const tags = (p.tags || []).slice(0, 2).map(t =>
+                `<span class="result-tag">${t}</span>`
+            ).join('');
+
+            const titleHl   = highlight(p.title, keywords);
+            const bodySnip  = excerpt(p.body || p.summary || '', keywords);
+            const bodyHl    = highlight(bodySnip, keywords);
+
+            const thumb = p.thumbnail
+                ? `<div class="result-thumb"><img src="/blog/thumbnails/${p.thumbnail}" alt="" loading="lazy"></div>`
+                : `<div class="result-thumb"><div class="result-thumb-placeholder">
+                    <svg viewBox="0 0 1080 1080" xmlns="http://www.w3.org/2000/svg"><path fill="currentColor" d="M 0,916.875 V 753.74999 H 242.06902 484.1379 V 916.875 1080 H 242.06902 0 Z m 521.3794,0 V 753.74999 h 86.8965 86.89651 V 916.875 1080 H 608.2759 521.3794 Z M 732.41389,1012.5 V 945 h 49.65514 49.65515 v 67.5 67.5 h -49.65515 -49.65514 z m 136.55164,0 V 945 H 974.48278 1080 v 67.5 67.5 H 974.48278 868.96553 Z M 732.41389,832.5 V 753.74999 H 906.20689 1080 V 832.5 911.24999 H 906.20689 732.41389 Z M 0,359.99999 V 0 H 540.00001 1080 v 359.99999 360 H 540.00001 0 Z"/></svg>
+                   </div></div>`;
+
+            return `
+            <a href="/blog/${p.slug}/" class="result-item">
+                ${thumb}
+                <div class="result-body">
+                    ${tags ? `<div class="result-tags">${tags}</div>` : ''}
+                    <div class="result-title">${titleHl}</div>
+                    ${bodyHl ? `<div class="result-excerpt">${bodyHl}</div>` : ''}
+                    <div class="result-foot">
+                        <span class="result-date">${formatDate(p.date)}</span>
+                        ${p.weather ? `<span class="result-date">${p.weather}</span>` : ''}
+                    </div>
+                </div>
+            </a>`;
+        }).join('')}</div>`;
+    }
+
+    // フォーム送信
+    form.addEventListener('submit', e => {
+        e.preventDefault();
+        search(input.value);
+    });
+
+    // リアルタイム検索（300msデバウンス）
+    let timer;
+    input.addEventListener('input', () => {
+        clearTimeout(timer);
+        timer = setTimeout(() => search(input.value), 300);
+    });
+
+    // 初期検索
+    if (q) search(q);
+    input.focus();
+})();
+</script>
+</body>
+</html>

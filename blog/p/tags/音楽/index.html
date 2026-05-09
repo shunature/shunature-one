@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>音楽 — Picturebook from shunature</title>
+<meta name="description" content="音楽 の記事一覧">
+<meta property="og:title" content="音楽 — Picturebook from shunature">
+<meta property="og:url" content="https://shunature.one/blog/%E9%9F%B3%E6%A5%BD/">
+<meta property="og:site_name" content="Picturebook from shunature">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
+<style>
+    :root {
+        --accent:       hsl(234, 55%, 50%);
+        --accent-hover: hsl(234, 55%, 40%);
+    }
+    [data-theme="dark"] {
+        --accent:       hsl(234, 65%, 68%);
+        --accent-hover: hsl(234, 65%, 78%);
+    }
+    .tag-hero {
+        padding: 3.5rem 0 2.5rem;
+        border-bottom: 1px solid var(--border);
+        margin-bottom: 2.5rem;
+    }
+    .tag-eyebrow {
+        font-size: .65rem;
+        letter-spacing: .2em;
+        text-transform: uppercase;
+        color: var(--accent);
+        opacity: .8;
+        margin-bottom: .6rem;
+    }
+    .tag-title {
+        font-family: 'Shippori Mincho', serif;
+        font-size: clamp(1.8rem, 5vw, 3rem);
+        font-weight: 500;
+        margin-bottom: .6rem;
+    }
+    .tag-desc {
+        font-size: .85rem;
+        color: var(--text-muted);
+        margin-bottom: .8rem;
+    }
+    .tag-count {
+        font-size: .7rem;
+        color: var(--text-subtle);
+        letter-spacing: .08em;
+    }
+    .tag-back {
+        display: inline-flex;
+        align-items: center;
+        gap: .4rem;
+        font-size: .75rem;
+        color: var(--text-subtle);
+        margin-bottom: 2rem;
+        transition: color .2s;
+        letter-spacing: .04em;
+    }
+    .tag-back:hover { color: var(--accent); }
+</style>
+</head>
+<body>
+<header-module></header-module>
+<main>
+<div style="padding: 0 0 5rem;">
+<div class="container-wide">
+    <div class="tag-hero">
+        <a href="/blog/" class="tag-back">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+            Blog
+        </a>
+        <p class="tag-eyebrow">Tag</p>
+        <h1 class="tag-title">音楽</h1>
+        
+        <p class="tag-count">1 posts</p>
+    </div>
+    <div class="card-grid">
+        
+        <a href="/blog/music/acidman-opt/" class="card">
+            <div class="card-thumb"><img src="/blog/thumbnails/acidman-opt.webp" alt="ACIDMANを聞いてみた（再掲）" loading="lazy"></div>
+            <div class="card-body">
+                <div class="card-title">ACIDMANを聞いてみた（再掲）</div>
+                <div class="card-desc">再掲</div>
+                <div class="card-foot">
+                    <span class="card-date">2026.03.24</span>
+                    <span class="card-weather">曇り</span>
+                </div>
+            </div>
+        </a>
+    </div>
+</div>
+</div>
+</main>
+<script src="/common.js"></script>
+</body>
+</html>

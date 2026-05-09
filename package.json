@@ -1,23 +1,5 @@
 {
-  "name": "shunature-one",
-  "version": "1.0.0",
-  "description": "Indigo Night Dull Moon (shunature.one) 用の Hugo テーマ。",
-  "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/dreambgnw/shunature-one.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/dreambgnw/shunature-one/issues"
-  },
-  "homepage": "https://github.com/dreambgnw/shunature-one#readme",
   "dependencies": {
-    "sharp": "^0.34.5"
+    "marked": "^18.0.3"
   }
 }
