@@ -1,6 +1,6 @@
 #!/bin/bash
 # deploy.sh (Incus上で実行)
-# webp変換 → posts.json生成 → OGP HTML生成 → sitemap/feed → git push
+# webp変換 → posts.json生成 → OGP HTML生成 → sitemap → git push
 
 REPO="$HOME/shunature-one"
 LOG="$HOME/publisher.log"
@@ -320,79 +320,10 @@ JS
 log "✓ sitemap.xml生成完了"
 
 # ────────────────────────────────
-# 5. feed.xml生成
-# ────────────────────────────────
-log "▶ feed.xml生成..."
-node - << 'JS'
-const fs    = require('fs');
-const base  = 'https://shunature.one';
-const posts = JSON.parse(fs.readFileSync('./blog/posts.json', 'utf-8'));
-const escXml = s => String(s)
-    .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;');
-
-const items = posts.slice(0, 20).map(p => {
-    const url     = base + '/blog/p/' + p.slug + '/';
-    const pubDate = new Date(p.date.includes('+') || p.date.includes('Z') ? p.date : p.date + '+09:00').toUTCString();
-    const desc    = p.summary || (p.body ? p.body.slice(0, 200) : '');
-    return '    <item>\n'
-        + '      <title>' + escXml(p.title) + '</title>\n'
-        + '      <link>' + url + '</link>\n'
-        + '      <guid isPermaLink="true">' + url + '</guid>\n'
-        + '      <pubDate>' + pubDate + '</pubDate>\n'
-        + '      <description>' + escXml(desc) + '</description>\n'
-        + '    </item>';
-}).join('\n');
-
-const xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
-    + '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n'
-    + '  <channel>\n'
-    + '    <title>Indigo Night Dull Moon</title>\n'
-    + '    <link>' + base + '</link>\n'
-    + '    <description>shunature のブログ。書いたもの、残したもの。</description>\n'
-    + '    <language>ja</language>\n'
-    + '    <lastBuildDate>' + new Date().toUTCString() + '</lastBuildDate>\n'
-    + '    <atom:link href="' + base + '/feed.xml" rel="self" type="application/rss+xml"/>\n'
-    + items + '\n'
-    + '  </channel>\n'
-    + '</rss>';
-
-fs.writeFileSync('./feed.xml', xml);
-console.log('✓ feed.xml生成完了:', Math.min(posts.length, 20), '件');
-JS
-log "✓ feed.xml生成完了"
-
-# ────────────────────────────────
-# 6. Pixelfed最新投稿取得
-# ────────────────────────────────
-log "▶ Pixelfed取得..."
-node - << 'JS'
-const https = require('https');
-const fs    = require('fs');
-
-https.get('https://pixelfed.tokyo/users/shunature.atom', res => {
-    let data = '';
-    res.on('data', c => data += c);
-    res.on('end', () => {
-        try {
-            const entry = data.match(/<entry>([\s\S]*?)<\/entry>/);
-            if (!entry) { console.log('エントリなし'); return; }
-            const e       = entry[1];
-            const title   = (e.match(/<title[^>]*>([^<]*)<\/title>/)             || [])[1] || '';
-            const updated = (e.match(/<updated>([^<]+)<\/updated>/)               || [])[1] || '';
-            const link    = (e.match(/<link[^>]*rel="alternate"[^>]*href="([^"]+)"/) || [])[1] || '';
-            if (!updated) { console.log('パース失敗'); return; }
-            fs.writeFileSync('./pixelfed-latest.json', JSON.stringify({ title, updated, url: link }, null, 2));
-            console.log('✓ pixelfed-latest.json更新:', title || '(no title)');
-        } catch(e) { console.error('パースエラー:', e.message); }
-    });
-}).on('error', e => console.log('Pixelfedスキップ:', e.message));
-JS
-log "✓ Pixelfed取得完了"
-
-# ────────────────────────────────
-# 7. commit & push（変更があれば）
+# 5. commit & push（変更があれば）
 # ────────────────────────────────
 log "▶ git push確認..."
+
 git add -A
 if ! git diff --cached --quiet; then
     CHANGED=$(git diff --cached --name-only | wc -l | tr -d ' ')
