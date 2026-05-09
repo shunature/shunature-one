@@ -14,6 +14,88 @@
 <meta name="twitter:title" content="1ヶ月、サイトを運営してみた結果。 — Indigo Night Dull Moon">
 <meta name="twitter:description" content="早いね">
 <meta name="twitter:image" content="https://shunature.one/blog/thumbnails/1m-site.webp">
+<meta name="fediverse:creator" content="@shunature@hogus.work">
+<link rel="icon" href="/assets/favicon.svg" type="image/svg+xml">
+<link rel="stylesheet" href="/style.css">
 </head>
-<body></body>
+<body>
+<header-module></header-module>
+<main>
+<div class="article-wrap">
+<div class="container">
+    <a href="/blog/" class="article-back">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+        Blog
+    </a>
+    <div class="article-thumb"><img src="/blog/thumbnails/1m-site.webp" alt="1ヶ月、サイトを運営してみた結果。"></div>
+    <div class="article-meta">
+        <span class="article-date">2026年3月27日</span>
+        <span class="article-weather">霧雨</span>
+    </div>
+    <h1 class="article-title">1ヶ月、サイトを運営してみた結果。</h1>
+    <div class="article-body"><p><strong>どうも</strong></p>
+<p>1ヶ月経ったようですね、早かったな。</p>
+<hr>
+<h1 id="なによりも">なによりも</h1>
+<p>Claude Sonnet 4.6とのサイト構築、リビルドなどはとても楽しいということです。</p>
+<p>モックを出してもらいつつ、ここはこう！など指示をし、思った通りにやってもらう。</p>
+<p>いわゆる、<strong>パイプコーディング</strong> というやつですね。</p>
+<hr>
+<p>色々と話す</p>
+<h1 id="その前に">その前に</h1>
+<p>記事が公開されるまでをお話しします</p>
+<p>以下、<br>==横文字が多くなること==<br>が予想されますので、読みやすいように噛み砕いて説明します。</p>
+<ul>
+<li>HPの公開に使うフォルダを、外部からもアクセスできるもの（以下、リポジトリといいます）として登録。</li>
+<li>Macに入っているソフト（以下、Obsidianといいます）で、記事を書く際に使うフォルダを指定。</li>
+<li>Obsidianで執筆（この際、<a href="https://markdown-start.com/">マークダウン</a>というファイルとして保管される）</li>
+<li>画像編集ソフトでサムネをPNGファイルとして作る</li>
+<li>執筆完了の記事のファイル、サムネを置いて、リポジトリに反映。</li>
+</ul>
+<p>ここからは、公開までのシェルファイルについて説明します。</p>
+<ul>
+<li>リポジトリと同期する</li>
+<li>PNGからWEBPという形式に変換する</li>
+<li>天気の情報を取得する</li>
+<li>読了時間を記述する</li>
+<li>記事の一覧が見れるjsonというファイルに、これまでの日付やタグを記述する。</li>
+<li>この際、デプロイ時間よりも後の場合は、jsonファイルへの記述を行いません。</li>
+<li>jsonファイルを変更した上で、リポジトリと同期。</li>
+<li>変更を加えた上で、HPサーバーに転送する。</li>
+<li>転送後、Mastodonの<a href="https://hogus.work/@deploy">DEPLOY BOT</a>で変更内容を投稿する。</li>
+</ul>
+<p>といったところです</p>
+<p>シェルファイルの実行をすごい大まかにしましたが、実際の動作時間は15〜30秒ほど。</p>
+<p>その上、15分おきに実行していて、何も変更がなければ即実行停止するものとしています。</p>
+<hr>
+<h1 id="なぜ">なぜ</h1>
+<p>ちなみに、サイト全体はもちろん、サイトロゴのSVGからデプロイシェルまで。</p>
+<p>全て、<strong>Claude Sonnet 4.6</strong> に書いてもらいました。</p>
+<p>なぜかというと、単純に<strong>技量がない</strong>からです。</p>
+<p>その上、AIに的確に指示を行えば、思った通りになりますので、助かっています。</p>
+<hr>
+<h1 id="ただし">ただし</h1>
+<p>私個人の意見を言わせていただきますと</p>
+<p>Aiに書かせた<strong>記事</strong>だとか、<strong>イラスト</strong>をそのまま、かつ==何食わぬ顔で投稿するAI絵師など==<br>が嫌いです。</p>
+<p>指示して書かせたものを、自身の私腹を肥やすためだけに使うのは、いい気分ではありませんし、個人の自由でもありますが私は嫌いです。</p>
+<hr>
+<h1 id="でもさ">でもさ</h1>
+<p><strong>お前もやってるじゃん</strong>と思うかもしれませんね</p>
+<p>ですが、==私はAIとともに書いている==。</p>
+<p>そう思っています</p>
+<p>確かに、AIが書いたものをコピペで動かしているところもありますが、分かる範囲では自分で手直しもしています。</p>
+<hr>
+<h1 id="苦労した点って？">苦労した点って？</h1>
+<p>やはり、==微調整などがうまく伝わらない==というところです。</p>
+<p>人間の感覚で言うのでは通じないのがAI</p>
+<p>難しいなぁと思いつつ、いかにして伝えるかというのが肝だと思います。</p>
+<hr>
+<h1 id="以上">以上</h1>
+<p>では、また。</p>
+</div>
+</div>
+</div>
+</main>
+<script src="/common.js"></script>
+</body>
 </html>
