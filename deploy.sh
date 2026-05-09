@@ -265,9 +265,6 @@ for (const p of posts) {
 <meta name="twitter:title" content="${esc(titleFull)}">
 <meta name="twitter:description" content="${esc(description)}">
 <meta name="twitter:image" content="${esc(image)}">
-<meta name="fediverse:creator" content="@shunature@hogus.work">
-<meta http-equiv="refresh" content="0; url=/blog/#${p.slug}">
-<script>location.replace('/blog/${p.slug}/');</script>
 </head>
 <body></body>
 </html>`;
