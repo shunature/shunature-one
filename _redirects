@@ -1,1 +1,1 @@
-/blog/:tag/:slug  /blog/p/:tag/:slug  200
+/blog/:tag/:slug  /blog/p/:tag/:slug  301
