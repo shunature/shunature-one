@@ -1,0 +1,12 @@
+{
+  "names": {
+    "me": "82d6c1a0977884d4d4360c19c56b6decb7c09d24ca4d19659792848a12f4bca9"
+  },
+  "relays": {
+    "82d6c1a0977884d4d4360c19c56b6decb7c09d24ca4d19659792848a12f4bca9": [
+      "wss://relay.nostr.band",
+      "wss://relay.damus.io",
+      "wss://nos.lol"
+    ]
+  }
+}
