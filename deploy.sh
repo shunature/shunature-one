@@ -240,6 +240,15 @@ const { marked } = require('marked');
 
 marked.setOptions({ breaks: true, gfm: true });
 
+// ==テキスト== をマーカーに変換
+const renderer = new marked.Renderer();
+const originalParagraph = renderer.paragraph.bind(renderer);
+renderer.paragraph = (text) => {
+    text = text.replace(/==(.+?)==/g, '<mark>$1</mark>');
+    return originalParagraph(text);
+};
+marked.setOptions({ renderer });
+
 const base   = 'https://shunature.one';
 const posts  = JSON.parse(fs.readFileSync('./blog/posts.json', 'utf-8'));
 const esc    = s => String(s)

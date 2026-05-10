@@ -819,3 +819,10 @@ body.newyear-mode::before {
         display: flex;
     }
 }
+
+mark {
+    background: rgba(var(--accent-rgb), 0.25);
+    color: var(--text);
+    border-radius: 2px;
+    padding: 0 .2em;
+}
