@@ -260,7 +260,7 @@ for (const p of posts) {
     const titleFull   = p.title + ' — Indigo Night Dull Moon';
 
     const html = `<!DOCTYPE html>
-<html lang="ja">
+<html lang="ja" data-theme="light">
 <head>
 <meta charset="UTF-8">
 <title>${esc(titleFull)}</title>
