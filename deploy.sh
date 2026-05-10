@@ -306,30 +306,37 @@ for (const p of posts) {
     <div class="article-meta">
         <span class="article-date">${new Date(p.date.includes('+') || p.date.includes('Z') ? p.date : p.date + '+09:00').toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'Asia/Tokyo' })}</span>
         ${p.weather ? `<span class="article-weather">${esc(p.weather)}</span>` : ''}
+        <span class="article-author">shunature</span>
+        ${(p.tags || []).map(t => `<a href="/blog/?tag=${encodeURIComponent(t)}" class="article-tag">${t}</a>`).join('')}
     </div>
     <h1 class="article-title">${esc(p.title)}</h1>
 <div class="article-body">${htmlBody}</div>
 
     <!-- メタ情報フッター -->
     <div class="article-footer">
-        <div class="article-footer-meta">
-            <span class="article-author">
-                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.6-7 8-7s8 3 8 7"/></svg>
-                shunature
-            </span>
-            <span class="article-date-foot">${new Date(p.date.includes('+') || p.date.includes('Z') ? p.date : p.date + '+09:00').toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'Asia/Tokyo' })}</span>
-        </div>
-        ${(p.tags || []).length ? `
-        <div class="article-tags">
-            ${p.tags.map(t => `<a href="/blog/?tag=${encodeURIComponent(t)}" class="article-tag">${t}</a>`).join('')}
-        </div>` : ''}
         <div class="article-share">
             <span class="article-share-label">Share</span>
             <a class="article-share-btn" href="https://twitter.com/intent/tweet?url=${encodeURIComponent(url)}&text=${encodeURIComponent(p.title)}" target="_blank" rel="noopener">X</a>
-            <a class="article-share-btn" href="https://mixi.social/share?url=${encodeURIComponent(url)}" target="_blank" rel="noopener">Misskey</a>
+            <a class="article-share-btn" href="https://misskey.io/share?url=${encodeURIComponent(url)}" target="_blank" rel="noopener">Misskey</a>
             <button class="article-share-btn" onclick="navigator.clipboard.writeText('${url}').then(()=>this.textContent='✓').catch(()=>{})">Copy</button>
         </div>
-        </div>
+        ${related.length ? `
+        <div class="article-related">
+            <p class="section-label">Related</p>
+            <div class="article-related-grid">
+                ${related.map(r => `
+                <a href="/blog/${r.slug}/" class="article-related-card">
+                    ${r.thumbnail
+                        ? `<div class="article-related-thumb"><img src="/blog/thumbnails/${esc(r.thumbnail)}" alt="${esc(r.title)}" loading="lazy"></div>`
+                        : `<div class="article-related-thumb article-related-thumb-ph"></div>`}
+                    <div class="article-related-body">
+                        <div class="article-related-title">${esc(r.title)}</div>
+                        <div class="article-related-date">${new Date(r.date.includes('+') || r.date.includes('Z') ? r.date : r.date + '+09:00').toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'Asia/Tokyo' })}</div>
+                    </div>
+                </a>`).join('')}
+            </div>
+        </div>` : ''}
+    </div>
         ${related.length ? `
     <div class="article-related">
         <p class="section-label">Related</p>
