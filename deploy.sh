@@ -406,3 +406,12 @@ else
 fi
 
 log "🎉 デプロイ完了！"
+
+# ────────────────────────────────
+# 6. ntfy通知
+# ────────────────────────────────
+curl -s \
+  -H "Title: ✅ デプロイ完了" \
+  -H "Tags: white_check_mark" \
+  -d "$(date '+%Y-%m-%d %H:%M') — shunature.one のデプロイが完了しました" \
+  https://ntfy.sh/shntr-dep > /dev/null
