@@ -321,23 +321,6 @@ for (const p of posts) {
             <button class="article-share-btn" onclick="navigator.clipboard.writeText('${url}').then(()=>this.textContent='✓').catch(()=>{})">Copy</button>
         </div>
         ${related.length ? `
-        <div class="article-related">
-            <p class="section-label">Related</p>
-            <div class="article-related-grid">
-                ${related.map(r => `
-                <a href="/blog/${r.slug}/" class="article-related-card">
-                    ${r.thumbnail
-                        ? `<div class="article-related-thumb"><img src="/blog/thumbnails/${esc(r.thumbnail)}" alt="${esc(r.title)}" loading="lazy"></div>`
-                        : `<div class="article-related-thumb article-related-thumb-ph"></div>`}
-                    <div class="article-related-body">
-                        <div class="article-related-title">${esc(r.title)}</div>
-                        <div class="article-related-date">${new Date(r.date.includes('+') || r.date.includes('Z') ? r.date : r.date + '+09:00').toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'Asia/Tokyo' })}</div>
-                    </div>
-                </a>`).join('')}
-            </div>
-        </div>` : ''}
-    </div>
-        ${related.length ? `
     <div class="article-related">
         <p class="section-label">Related</p>
         <div class="article-related-grid">
