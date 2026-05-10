@@ -33,7 +33,5 @@ summary: どうも、こんな人間です。
 
 ---
 
-[100QA](https://shunature.one/about/questions/)や、[Uses](https://shunature.one/about/uses/)も公開してます、
-==みてみてね==
-。
+では
 
