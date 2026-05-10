@@ -807,3 +807,15 @@ body.newyear-mode::before {
 .lfm-artist { font-size: .67rem; color: var(--text-subtle); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; margin-top: 1px; }
 .lfm-plays { font-size: .62rem; color: var(--text-subtle); flex-shrink: 0; font-variant-numeric: tabular-nums; opacity: .55; }
 .lfm-item a:hover .lfm-name { color: var(--accent); }
+
+@media (max-width: 768px) {
+    .sidebar {
+        display: none;
+    }
+    .mobile-header {
+        display: block;
+    }
+    .hamburger {
+        display: flex;
+    }
+}
