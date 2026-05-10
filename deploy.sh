@@ -4,19 +4,38 @@
 
 REPO="$HOME/shunature-one"
 LOG="$HOME/publisher.log"
+NTFY="https://ntfy.sh/shntr-dep"
 
 log() {
     echo "$(date '+%Y-%m-%d %H:%M:%S') $1" | tee -a "$LOG"
 }
 
-cd "$REPO" || exit 1
+notify_ok() {
+    curl -s \
+      -H "Title: ✅ デプロイ完了" \
+      -H "Tags: white_check_mark" \
+      -H "Priority: default" \
+      -d "$(date '+%Y-%m-%d %H:%M') — shunature.one のデプロイが完了しました" \
+      "$NTFY" > /dev/null
+}
+
+notify_error() {
+    curl -s \
+      -H "Title: ❌ デプロイ失敗" \
+      -H "Tags: x,rotating_light" \
+      -H "Priority: high" \
+      -d "$(date '+%Y-%m-%d %H:%M') — $1 で失敗しました" \
+      "$NTFY" > /dev/null
+}
+
+cd "$REPO" || { notify_error "リポジトリ移動"; exit 1; }
 
 # ────────────────────────────────
 # 0. git pull（リモート優先）
 # ────────────────────────────────
 log "▶ git pull..."
 git fetch origin
-git reset --hard origin/main
+git reset --hard origin/main || { notify_error "git pull"; exit 1; }
 log "✓ pull完了"
 
 # ────────────────────────────────
@@ -50,6 +69,7 @@ if (files.length === 0) { console.log('変換対象なし'); process.exit(0); }
     }));
 })().catch(e => { console.error(e); process.exit(1); });
 JS
+[ $? -ne 0 ] && { notify_error "webp変換"; exit 1; }
 log "✓ webp変換完了"
 
 # ────────────────────────────────
@@ -227,6 +247,7 @@ console.log(files.length, '件のmdを検出');
     console.log('✓ posts.json生成完了:', posts.length, '件');
 })();
 JS
+[ $? -ne 0 ] && { notify_error "posts.json生成"; exit 1; }
 log "✓ posts.json生成完了"
 
 # ────────────────────────────────
@@ -269,8 +290,8 @@ for (const p of posts) {
     const titleFull   = p.title + ' — Picturebook from shunature';
 
     const related = posts
-    .filter(r => r.slug !== p.slug && (r.tags || []).some(t => (p.tags || []).includes(t)))
-    .slice(0, 3);
+        .filter(r => r.slug !== p.slug && (r.tags || []).some(t => (p.tags || []).includes(t)))
+        .slice(0, 3);
 
     const html = `<!DOCTYPE html>
 <html lang="ja" data-theme="light">
@@ -310,9 +331,8 @@ for (const p of posts) {
         ${(p.tags || []).map(t => `<a href="/blog/?tag=${encodeURIComponent(t)}" class="article-tag">${t}</a>`).join('')}
     </div>
     <h1 class="article-title">${esc(p.title)}</h1>
-<div class="article-body">${htmlBody}</div>
+    <div class="article-body">${htmlBody}</div>
 
-    <!-- メタ情報フッター -->
     <div class="article-footer">
         <div class="article-share">
             <span class="article-share-label">Share</span>
@@ -321,22 +341,23 @@ for (const p of posts) {
             <button class="article-share-btn" onclick="navigator.clipboard.writeText('${url}').then(()=>this.textContent='✓').catch(()=>{})">Copy</button>
         </div>
         ${related.length ? `
-    <div class="article-related">
-        <p class="section-label">Related</p>
-        <div class="article-related-grid">
-            ${related.map(r => `
-            <a href="/blog/${r.slug}/" class="article-related-card">
-                ${r.thumbnail
-                    ? `<div class="article-related-thumb"><img src="/blog/thumbnails/${esc(r.thumbnail)}" alt="${esc(r.title)}" loading="lazy"></div>`
-                    : `<div class="article-related-thumb article-related-thumb-ph"></div>`}
-                <div class="article-related-body">
-                    <div class="article-related-title">${esc(r.title)}</div>
-                    <div class="article-related-date">${new Date(r.date.includes('+') || r.date.includes('Z') ? r.date : r.date + '+09:00').toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'Asia/Tokyo' })}</div>
-                </div>
-            </a>`).join('')}
-        </div>
-    </div>` : ''}
+        <div class="article-related">
+            <p class="section-label">Related</p>
+            <div class="article-related-grid">
+                ${related.map(r => `
+                <a href="/blog/${r.slug}/" class="article-related-card">
+                    ${r.thumbnail
+                        ? `<div class="article-related-thumb"><img src="/blog/thumbnails/${esc(r.thumbnail)}" alt="${esc(r.title)}" loading="lazy"></div>`
+                        : `<div class="article-related-thumb article-related-thumb-ph"></div>`}
+                    <div class="article-related-body">
+                        <div class="article-related-title">${esc(r.title)}</div>
+                        <div class="article-related-date">${new Date(r.date.includes('+') || r.date.includes('Z') ? r.date : r.date + '+09:00').toLocaleDateString('ja-JP', { year: 'numeric', month: 'long', day: 'numeric', timeZone: 'Asia/Tokyo' })}</div>
+                    </div>
+                </a>`).join('')}
+            </div>
+        </div>` : ''}
     </div>
+</div>
 </div>
 </main>
 <script src="/common.js"></script>
@@ -350,6 +371,7 @@ for (const p of posts) {
 }
 console.log('✓ HTML生成完了:', count, '件');
 JS
+[ $? -ne 0 ] && { notify_error "記事HTML生成"; exit 1; }
 log "✓ 記事HTML生成完了"
 
 # ────────────────────────────────
@@ -388,6 +410,7 @@ const xml = '<?xml version="1.0" encoding="UTF-8"?>\n'
 fs.writeFileSync('./sitemap.xml', xml);
 console.log('✓ sitemap.xml生成完了:', all.length, 'URLs');
 JS
+[ $? -ne 0 ] && { notify_error "sitemap.xml生成"; exit 1; }
 log "✓ sitemap.xml生成完了"
 
 # ────────────────────────────────
@@ -399,7 +422,7 @@ git add -A
 if ! git diff --cached --quiet; then
     CHANGED=$(git diff --cached --name-only | wc -l | tr -d ' ')
     git commit -m "deploy: auto update (${CHANGED} files) [$(date '+%Y-%m-%d %H:%M')]"
-    git push origin main
+    git push origin main || { notify_error "git push"; exit 1; }
     log "✓ push完了 (${CHANGED} files)"
 else
     log "- 変更なし、pushスキップ"
@@ -408,10 +431,6 @@ fi
 log "🎉 デプロイ完了！"
 
 # ────────────────────────────────
-# 6. ntfy通知
+# 6. ntfy通知（成功）
 # ────────────────────────────────
-curl -s \
-  -H "Title: ✅ デプロイ完了" \
-  -H "Tags: white_check_mark" \
-  -d "$(date '+%Y-%m-%d %H:%M') — shunature.one のデプロイが完了しました" \
-  https://ntfy.sh/shntr-dep > /dev/null
+notify_ok
