@@ -259,12 +259,12 @@ for (const p of posts) {
     const description = p.summary || (p.body ? p.body.slice(0, 200) : '');
     const titleFull   = p.title + ' — Indigo Night Dull Moon';
 
-    const html = `const html = `<!DOCTYPE html>
+    const html = `<!DOCTYPE html>
 <html lang="ja" data-theme="light">
 <head>
 <meta charset="UTF-8">
-<title>${esc(titleFull)}</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>${esc(titleFull)}</title>
 <meta name="description" content="${esc(description)}">
 <meta property="og:type" content="article">
 <meta property="og:title" content="${esc(titleFull)}">
