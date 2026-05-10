@@ -266,7 +266,7 @@ for (const p of posts) {
     const url         = base + '/blog/p/' + p.slug + '/';
     const image       = p.thumbnail ? base + '/blog/thumbnails/' + p.thumbnail : base + '/assets/icon.png';
     const description = p.summary || (p.body ? p.body.slice(0, 200) : '');
-    const titleFull   = p.title + ' — Indigo Night Dull Moon';
+    const titleFull   = p.title + ' — Picturebook from shunature';
 
     const html = `<!DOCTYPE html>
 <html lang="ja" data-theme="light">
@@ -280,7 +280,7 @@ for (const p of posts) {
 <meta property="og:description" content="${esc(description)}">
 <meta property="og:url" content="${esc(url)}">
 <meta property="og:image" content="${esc(image)}">
-<meta property="og:site_name" content="Indigo Night Dull Moon">
+<meta property="og:site_name" content="Picturebook from shunature">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="${esc(titleFull)}">
 <meta name="twitter:description" content="${esc(description)}">
