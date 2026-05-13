@@ -1,0 +1,16 @@
+[
+    {
+        "id": "the-park-bench",
+        "title": "The Park Bench",
+        "description": "公園のベンチで聴くような、落ち着いた曲を集めました。",
+        "artwork": "/assets/pl-bench.webp",
+        "url": "https://open.spotify.com/playlist/0DmKQm9vhR2ygvhMgSc27j"
+    },
+    {
+        "id": "the-drive-a-car",
+        "title": "The Drive a Car",
+        "description": "クルマでドライブしたいとき。アップテンポからミドルまで、なんでもあり。",
+        "artwork": "/assets/pl-drive.webp",
+        "url": "https://open.spotify.com/playlist/5Szq23sVl0GJdheHgSZWU3?si=2BBIaJy-Svm-U7ETLpyiUw"
+    }
+]
