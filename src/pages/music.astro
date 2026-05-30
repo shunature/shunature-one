@@ -142,7 +142,7 @@ import NowPlaying from '../components/NowPlaying.astro';
     if (!grid) return;
 
     try {
-      const playlists = await fetch('/music/playlists/list.json').then(r => r.json());
+      const playlists = await fetch('list.json').then(r => r.json());
 
       if (!playlists || playlists.length === 0) {
         grid.innerHTML = '<p class="loading-text">プレイリストが見つかりません。</p>';
