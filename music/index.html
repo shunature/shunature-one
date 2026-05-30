@@ -267,7 +267,7 @@
     async function loadPlaylists() {
         const grid = document.getElementById('playlists-grid');
         try {
-            const response = await fetch('/playlists/list.json');
+            const response = await fetch('list.json');
             const playlists = await response.json();
             
             grid.innerHTML = playlists.map(pl => `
