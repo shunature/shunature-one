@@ -1,0 +1,149 @@
+---
+// Client-side hydrated toast for special days
+---
+
+<div id="special-toast-container"></div>
+
+<script is:inline>
+  (function () {
+    const now  = new Date();
+    const md   = `${now.getMonth() + 1}/${now.getDate()}`;
+    const year = now.getFullYear();
+
+    const DISASTER_YEARS = {
+      '1/1':   2024,
+      '1/17':  1995,
+      '3/11':  2011,
+      '4/14':  2016,
+      '4/16':  2016,
+      '9/1':   1923,
+      '9/6':   2018,
+      '10/23': 2004,
+    };
+
+    const disasterMsg = md => {
+      const elapsed = year - DISASTER_YEARS[md];
+      return `あの日から、${elapsed} 年。 これまでも、これからも。`;
+    };
+
+    const MODES = {
+      '11/3':  { cls: 'birthday-mode', msg: 'Happy Birthday, shunature。' },
+      '8/12':  { cls: 'birthday-mode', msg: 'Happy Birthday, to Yuu。' },
+      '1/1':   { cls: 'newyear-mode',  msg: disasterMsg('1/1') },
+      '1/17':  { cls: 'memorial-mode', msg: disasterMsg('1/17') },
+      '3/11':  { cls: 'memorial-mode', msg: disasterMsg('3/11') },
+      '4/14':  { cls: 'memorial-mode', msg: disasterMsg('4/14') },
+      '4/16':  { cls: 'memorial-mode', msg: disasterMsg('4/16') },
+      '9/1':   { cls: 'memorial-mode', msg: disasterMsg('9/1') },
+      '9/6':   { cls: 'memorial-mode', msg: disasterMsg('9/6') },
+      '10/23': { cls: 'memorial-mode', msg: disasterMsg('10/23') },
+    };
+
+    const special = MODES[md];
+    if (!special) return;
+
+    document.addEventListener('DOMContentLoaded', () => {
+      document.body.classList.add(special.cls);
+
+      const container = document.getElementById('special-toast-container');
+      if (!container) return;
+
+      const toast = document.createElement('div');
+      toast.className = 'special-toast';
+      toast.innerHTML = `
+        <span class="toast-dot"></span>
+        <span class="toast-text">${special.msg}</span>
+      `;
+      container.appendChild(toast);
+
+      // Trigger show animation
+      setTimeout(() => {
+        toast.classList.add('show');
+      }, 1000);
+
+      // Trigger hide animation
+      setTimeout(() => {
+        toast.classList.remove('show');
+        toast.classList.add('hide');
+      }, 9500);
+
+      // Clean up DOM after animation completes
+      setTimeout(() => {
+        toast.remove();
+      }, 10500);
+    });
+  })();
+</script>
+
+<style is:global>
+  /* ── Toast Container & Styles ── */
+  #special-toast-container {
+    position: fixed;
+    bottom: 2rem;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 9999;
+    pointer-events: none;
+  }
+
+  .special-toast {
+    background: var(--surface);
+    backdrop-filter: blur(12px) saturate(1.2);
+    -webkit-backdrop-filter: blur(12px) saturate(1.2);
+    border: 1px solid var(--border-mid);
+    border-radius: 999px;
+    padding: 0.65rem 1.4rem;
+    font-size: 0.76rem;
+    color: var(--text-muted);
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    box-shadow: var(--shadow), 0 20px 40px -15px rgba(0, 0, 0, 0.1);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s cubic-bezier(0.16, 1, 0.3, 1), transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+    pointer-events: auto;
+  }
+
+  .special-toast.show {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  .special-toast.hide {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+
+  .toast-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: var(--accent);
+    flex-shrink: 0;
+    box-shadow: 0 0 8px var(--accent);
+  }
+
+  .toast-text {
+    letter-spacing: 0.04em;
+    font-weight: 400;
+  }
+
+  /* Special Theme overlays mapped globally on body */
+  body.birthday-mode::before {
+    background: radial-gradient(ellipse at 80% 20%, rgba(240, 98, 146, 0.12) 0%, transparent 60%),
+                radial-gradient(ellipse at 20% 80%, rgba(216, 27, 96, 0.06) 0%, transparent 60%);
+    opacity: 1;
+  }
+
+  body.memorial-mode::before {
+    background: radial-gradient(ellipse at 50% 0%, rgba(100, 140, 190, 0.18) 0%, transparent 70%);
+    opacity: 1;
+  }
+
+  body.newyear-mode::before {
+    background: radial-gradient(ellipse at 70% 10%, rgba(255, 200, 80, 0.12) 0%, transparent 60%);
+    opacity: 1;
+  }
+</style>

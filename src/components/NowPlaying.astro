@@ -1,0 +1,253 @@
+---
+interface Props {
+  variant?: 'mini' | 'large';
+}
+
+const { variant = 'mini' } = Astro.props;
+---
+
+<div class={`np-container ${variant}`} id="now-playing-widget" style="display: none;">
+  <a id="np-link" href="/music/" class="np-card-link">
+    <div class="np-avatar-wrap">
+      <span id="np-live-dot" class="live-dot" style="display: none;"></span>
+    </div>
+    
+    <div class="np-info">
+      <div id="np-track-name" class="np-track">Loading track...</div>
+      <div id="np-artist-name" class="np-artist">Loading artist...</div>
+      <div id="np-status-text" class="np-status">Last Played</div>
+    </div>
+  </a>
+</div>
+
+<script is:inline>
+  (async function() {
+    const widget = document.getElementById('now-playing-widget');
+    const npLink = document.getElementById('np-link');
+    const artwork = document.getElementById('np-artwork');
+    const placeholder = document.getElementById('np-artwork-placeholder');
+    const liveDot = document.getElementById('np-live-dot');
+    const trackName = document.getElementById('np-track-name');
+    const artistName = document.getElementById('np-artist-name');
+    const statusText = document.getElementById('np-status-text');
+
+    if (!widget) return;
+
+    try {
+      // Fetch local last.fm config
+      const cfg = await fetch('/last-config.json').then(r => r.json());
+      const { lastfm_api_key: key, lastfm_user: user } = cfg;
+      if (!key || !user) return;
+
+      // Query Last.fm API
+      const res = await fetch(
+        `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${encodeURIComponent(user)}&limit=1&api_key=${key}&format=json`
+      );
+      const data = await res.json();
+      const track = data?.recenttracks?.track?.[0];
+      if (!track) return;
+
+      const isLive = track['@attr']?.nowplaying === 'true';
+      const title = track.name;
+      const artist = track.artist['#text'];
+      const images = track.image || [];
+      const lfmImg = images.find(i => i.size === 'large')?.['#text'] || images.find(i => i.size === 'medium')?.['#text'];
+      const hasImg = lfmImg && !lfmImg.includes('2a96cbd8b46e442fc41c2b86b821562f');
+
+      // Update contents
+      trackName.textContent = title;
+      artistName.textContent = artist;
+
+
+      if (isLive) {
+        liveDot.style.display = 'block';
+        statusText.textContent = 'Now Playing';
+        statusText.classList.add('live');
+      } else {
+        liveDot.style.display = 'none';
+        statusText.textContent = 'Last Played';
+        statusText.classList.remove('live');
+      }
+
+      // Dynamic navigation details
+      npLink.href = `/music/scrobbles/?artist=${encodeURIComponent(artist)}&track=${encodeURIComponent(title)}`;
+      widget.style.display = 'block';
+    } catch (e) {
+      console.error('Failed to load now playing track:', e);
+    }
+  })();
+</script>
+
+<style>
+  /* ── General Widget Card ── */
+  .np-container {
+    width: fit-content;
+    animation: fadeIn 0.5s ease both;
+  }
+
+  .np-card-link {
+    display: flex;
+    align-items: center;
+    gap: 0.9rem;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .np-avatar-wrap {
+    position: relative;
+    flex-shrink: 0;
+  }
+
+  .np-avatar-wrap img {
+    border-radius: 4px;
+    object-fit: cover;
+    display: none;
+    background: var(--bg2);
+    border: 1px solid var(--border);
+  }
+
+  .np-art-ph {
+    border-radius: 4px;
+    background: var(--bg2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--text-subtle);
+    opacity: 0.4;
+    border: 1px solid var(--border);
+  }
+
+  .np-info {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .np-track {
+    font-size: 0.8rem;
+    font-weight: 500;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4;
+  }
+
+  .np-artist {
+    font-size: 0.72rem;
+    color: var(--text-subtle);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 1px;
+    line-height: 1.4;
+  }
+
+  .np-status {
+    font-size: 0.56rem;
+    color: var(--text-subtle);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-top: 3px;
+    font-weight: 600;
+    opacity: 0.65;
+    display: flex;
+    align-items: center;
+  }
+
+  .np-status.live {
+    color: var(--accent);
+    opacity: 1;
+  }
+
+  /* ── Pulsing Red Dot ── */
+  .live-dot {
+    position: absolute;
+    bottom: -3px;
+    right: -3px;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--accent);
+    border: 1.5px solid var(--bg);
+    box-shadow: 0 0 8px var(--accent);
+    animation: npPulse 1.8s infinite ease-in-out;
+  }
+
+  @keyframes npPulse {
+    0%, 100% { transform: scale(1); opacity: 1; }
+    50% { transform: scale(0.7); opacity: 0.4; }
+  }
+
+  /* ── Mini Variant Styling (Home Hero) ── */
+  .np-container.mini {
+    background: rgba(var(--accent-rgb), 0.03);
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    padding: 0.35rem 1rem 0.35rem 0.4rem;
+    max-width: 290px;
+    transition: all 0.3s ease;
+  }
+
+  .np-container.mini:hover {
+    background: rgba(var(--accent-rgb), 0.06);
+    border-color: var(--border-mid);
+    transform: translateY(-2px);
+  }
+
+  .np-container.mini .np-avatar-wrap img,
+  .np-container.mini .np-art-ph {
+    width: 32px;
+    height: 32px;
+  }
+
+  .np-container.mini .np-track {
+    max-width: 170px;
+  }
+
+  .np-container.mini .np-artist {
+    max-width: 170px;
+  }
+
+  .np-container.mini .np-status {
+    display: none; /* Hide status text on mini */
+  }
+
+  /* ── Large Variant Styling (Music Section) ── */
+  .np-container.large {
+    background: var(--surface);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.2rem 1.5rem;
+    width: 100%;
+    max-width: 480px;
+    box-shadow: var(--shadow);
+    transition: all 0.3s ease;
+  }
+
+  .np-container.large:hover {
+    border-color: var(--border-mid);
+    background: var(--surface-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 20px 40px -15px rgba(0, 0, 0, 0.08);
+  }
+
+  .np-container.large .np-avatar-wrap img,
+  .np-container.large .np-art-ph {
+    width: 60px;
+    height: 60px;
+  }
+
+  .np-container.large .np-track {
+    font-size: 0.95rem;
+    font-family: var(--font-serif);
+    margin-bottom: 2px;
+  }
+
+  .np-container.large .np-artist {
+    font-size: 0.8rem;
+  }
+</style>

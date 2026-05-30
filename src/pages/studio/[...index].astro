@@ -1,0 +1,51 @@
+---
+// src/pages/studio/[...index].astro
+import Layout from '../../layouts/Layout.astro';
+
+export function getStaticPaths() {
+  return [
+    { params: { index: undefined } },
+  ];
+}
+---
+
+<Layout title="Sanity Studio">
+  <div id="sanity-studio-wrapper">
+    <div id="sanity"></div>
+  </div>
+</Layout>
+
+<script>
+  import { renderStudio } from 'sanity';
+  import config from '../../../sanity.config';
+
+  const target = document.getElementById('sanity');
+  if (target) {
+    renderStudio(target, config);
+  }
+</script>
+
+<style is:global>
+  /* Studio fills the whole area under the header if needed, 
+     but here we'll let it handle its own full-screen styles. */
+  #sanity-studio-wrapper {
+    height: 100vh;
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 9999;
+    background: #fff;
+  }
+  
+  /* Hide sidebar and navigation when in studio if your Layout has them */
+  body:has(#sanity-studio-wrapper) nav,
+  body:has(#sanity-studio-wrapper) aside {
+    display: none !important;
+  }
+  
+  body:has(#sanity-studio-wrapper) {
+    padding-left: 0 !important;
+    overflow: hidden;
+  }
+</style>

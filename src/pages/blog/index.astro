@@ -1,0 +1,330 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { sanityClient } from '../../lib/sanity';
+
+interface Post {
+  title: string;
+  slug: string;
+  date: string;
+  tags?: string[];
+  weather?: string;
+  summary?: string;
+}
+
+// Fetch all posts from Sanity
+let posts: Post[] = [];
+try {
+  posts = await sanityClient.fetch(`
+    *[_type == "post"] | order(date desc) {
+      title,
+      "slug": slug.current,
+      date,
+      tags,
+      weather,
+      summary
+    }
+  `);
+} catch (e) {
+  console.error("Failed to fetch posts from Sanity:", e);
+}
+
+// Extract all unique tags
+const allTags = new Set<string>();
+posts.forEach(p => {
+  if (p.tags) {
+    p.tags.forEach(t => allTags.add(t));
+  }
+});
+const tagsList = Array.from(allTags);
+
+// Helper to format date
+const formatDate = (dateStr: string) => {
+  const d = new Date(dateStr);
+  return d.toLocaleDateString('ja-JP', { 
+    year: 'numeric', 
+    month: '2-digit', 
+    day: '2-digit' 
+  }).replace(/\//g, '.');
+};
+---
+
+<Layout title="Blog">
+  <div class="blog-wrap container-wide">
+    <h1 class="blog-title title-serif">Blog</h1>
+
+    <!-- Elegant Tag Filters -->
+    {tagsList.length > 0 && (
+      <div class="tag-filters-container">
+        <button class="tag-filter-btn active" data-tag="all">All</button>
+        {tagsList.map(tag => (
+          <button class="tag-filter-btn" data-tag={tag}>{tag}</button>
+        ))}
+      </div>
+    )}
+
+    {posts.length > 0 ? (
+      <div class="blog-list" id="blog-grid">
+        {posts.map((post, idx) => {
+          const formattedDate = formatDate(post.date);
+          const tagsAttr = post.tags ? post.tags.join(',') : '';
+
+          return (
+            <a 
+              href={`/blog/${post.slug}`} 
+              class="blog-item" 
+              data-tags={tagsAttr}
+              data-index={idx}
+            >
+              <div class="blog-item-meta">
+                <span class="blog-item-date">{formattedDate}</span>
+                {post.tags && post.tags.length > 0 && (
+                  <div class="blog-item-tags">
+                    {post.tags.slice(0, 1).map(tag => (
+                      <span class="blog-item-tag">{tag}</span>
+                    ))}
+                  </div>
+                )}
+              </div>
+              <div class="blog-item-content">
+                <h2 class="blog-item-title">{post.title}</h2>
+                {post.summary && <p class="blog-item-desc">{post.summary}</p>}
+              </div>
+              <div class="blog-item-arrow">
+                <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </div>
+            </a>
+          );
+        })}
+      </div>
+    ) : (
+      <div class="empty-state">
+        <p>記事が見つかりません。Sanity CMS にて記事を投稿するか、インポートスクリプトを実行してください。</p>
+      </div>
+    )}
+  </div>
+</Layout>
+
+<style>
+  /* ── Page Layout ── */
+  .blog-wrap {
+    padding-top: 3.5rem;
+    padding-bottom: 8rem;
+  }
+
+  .blog-title {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 2rem;
+  }
+
+  /* ── Tag Filters Styling ── */
+  .tag-filters-container {
+    display: flex;
+    gap: 0.6rem;
+    flex-wrap: wrap;
+    margin-bottom: 3.5rem;
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 1.2rem;
+  }
+
+  .tag-filter-btn {
+    background: none;
+    border: 1px solid var(--border-mid);
+    border-radius: 999px;
+    padding: 0.4rem 1.1rem;
+    font-family: var(--font-sans);
+    font-size: 0.72rem;
+    color: var(--text-subtle);
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+  }
+
+  .tag-filter-btn:hover {
+    color: var(--accent);
+    border-color: var(--accent);
+  }
+
+  .tag-filter-btn.active {
+    color: #fff;
+    background: var(--accent);
+    border-color: var(--accent);
+    box-shadow: 0 4px 12px rgba(var(--accent-rgb), 0.25);
+  }
+
+  /* ── Blog List (Minimalist) ── */
+  .blog-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--border);
+  }
+
+  .blog-item {
+    display: flex;
+    align-items: center;
+    gap: 2.5rem;
+    padding: 2.2rem 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .blog-item:hover {
+    padding-left: 0.5rem;
+    background: linear-gradient(90deg, rgba(var(--accent-rgb), 0.02) 0%, transparent 100%);
+  }
+
+  .blog-item-meta {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    width: 140px;
+    flex-shrink: 0;
+  }
+
+  .blog-item-date {
+    font-size: 0.75rem;
+    color: var(--text-subtle);
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+  }
+
+  .blog-item-tag {
+    font-size: 0.6rem;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 700;
+    opacity: 0.8;
+  }
+
+  .blog-item-content {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .blog-item-title {
+    font-family: var(--font-serif);
+    font-size: 1.25rem;
+    font-weight: 500;
+    color: var(--text);
+    line-height: 1.4;
+    margin-bottom: 0.5rem;
+    transition: color 0.3s ease;
+  }
+
+  .blog-item:hover .blog-item-title {
+    color: var(--accent);
+  }
+
+  .blog-item-desc {
+    font-size: 0.88rem;
+    color: var(--text-muted);
+    line-height: 1.7;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .blog-item-arrow {
+    color: var(--text-subtle);
+    opacity: 0.2;
+    transition: all 0.3s ease;
+  }
+
+  .blog-item:hover .blog-item-arrow {
+    opacity: 1;
+    color: var(--accent);
+    transform: translate(2px, -2px);
+  }
+
+  @media (max-width: 768px) {
+    .blog-item {
+      flex-direction: column;
+      align-items: flex-start;
+      gap: 0.8rem;
+      padding: 1.8rem 0;
+    }
+    .blog-item-meta {
+      flex-direction: row;
+      align-items: center;
+      width: 100%;
+      gap: 1rem;
+    }
+  }
+
+  /* Empty state */
+  .empty-state {
+    padding: 5rem 2rem;
+    text-align: center;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    color: var(--text-subtle);
+    font-size: 0.88rem;
+    box-shadow: var(--shadow);
+  }
+</style>
+
+<!-- Client Side Tag Filtering Logic -->
+<script is:inline>
+  document.addEventListener('DOMContentLoaded', () => {
+    const buttons = document.querySelectorAll('.tag-filter-btn');
+    const items = document.querySelectorAll('.blog-item');
+    const grid = document.getElementById('blog-grid');
+
+    if (!grid || items.length === 0) return;
+
+    // Filters posts based on active tag
+    const filterTag = (tag) => {
+      items.forEach(item => {
+        const tags = item.getAttribute('data-tags') ? item.getAttribute('data-tags').split(',') : [];
+        const isMatch = tag === 'all' || tags.includes(tag);
+
+        if (isMatch) {
+          item.style.display = 'flex';
+        } else {
+          item.style.display = 'none';
+        }
+      });
+
+      // Update button visual states
+      buttons.forEach(btn => {
+        const btnTag = btn.getAttribute('data-tag');
+        if (btnTag === tag) {
+          btn.classList.add('active');
+        } else {
+          btn.classList.remove('active');
+        }
+      });
+    };
+
+    // Click triggers
+    buttons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const tag = btn.getAttribute('data-tag');
+        
+        // Update URL parameter
+        if (tag === 'all') {
+          history.replaceState(null, '', '/blog/');
+        } else {
+          history.replaceState(null, '', `?tag=${encodeURIComponent(tag)}`);
+        }
+        
+        filterTag(tag);
+      });
+    });
+
+    // Check URL parameters on mount
+    const urlTag = new URLSearchParams(location.search).get('tag');
+    if (urlTag) {
+      filterTag(urlTag);
+    } else {
+      // Set initial layout
+      filterTag('all');
+    }
+  });
+</script>

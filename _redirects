@@ -1,3 +1,0 @@
-/blog/posts.json        /blog/posts.json        200
-/blog/thumbnails/*      /blog/thumbnails/:splat  200
-/blog/:tag/:slug        /blog/p/:tag/:slug       200

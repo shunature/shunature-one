@@ -1,0 +1,277 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import NowPlaying from '../../components/NowPlaying.astro';
+---
+
+<Layout title="Scrobbles — Music">
+  <div class="scrobbles-wrap container">
+
+    <a href="/music/" class="page-back">
+      <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="15 18 9 12 15 6"/>
+      </svg>
+      Music
+    </a>
+
+    <h1 class="page-title title-serif">Scrobbles</h1>
+
+    <!-- Now Playing -->
+    <div class="music-section">
+      <h2 class="section-label">Now Playing</h2>
+      <NowPlaying variant="large" />
+    </div>
+
+    <!-- Weekly Top 30 -->
+    <div class="music-section">
+      <div class="weekly-header">
+        <h2 class="section-label" style="margin-bottom: 0;">This Week</h2>
+        <span class="weekly-updated" id="weekly-updated"></span>
+      </div>
+      <div id="track-list">
+        <p class="loading-text">読み込み中...</p>
+      </div>
+    </div>
+
+  </div>
+</Layout>
+
+<style>
+  .scrobbles-wrap {
+    padding-top: 3.5rem;
+    padding-bottom: 8rem;
+  }
+
+  .page-back {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-size: 0.74rem;
+    font-weight: 500;
+    color: var(--text-subtle);
+    margin-bottom: 2rem;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    transition: color 0.2s ease;
+  }
+
+  .page-back:hover {
+    color: var(--accent);
+  }
+
+  .page-title {
+    font-size: 1.8rem;
+    font-weight: 500;
+    margin-bottom: 3.5rem;
+  }
+
+  .music-section {
+    margin-bottom: 4.5rem;
+  }
+
+  .weekly-header {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    padding-bottom: 1.2rem;
+    margin-bottom: 2rem;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .weekly-updated {
+    font-size: 0.64rem;
+    color: var(--text-subtle);
+    opacity: 0.55;
+    font-variant-numeric: tabular-nums;
+  }
+
+  /* ── Track List ── */
+  .track-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--border);
+  }
+
+  .track-item {
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+    padding: 1.6rem 0;
+    border-bottom: 1px solid var(--border);
+    text-decoration: none;
+    transition: all 0.3s ease;
+  }
+
+  .track-item:hover {
+    padding-left: 0.5rem;
+    background: linear-gradient(90deg, rgba(var(--accent-rgb), 0.02) 0%, transparent 100%);
+  }
+
+  .track-rank {
+    font-size: 0.68rem;
+    font-weight: 700;
+    color: var(--accent);
+    font-variant-numeric: tabular-nums;
+    width: 2rem;
+    flex-shrink: 0;
+    opacity: 0.7;
+  }
+
+  .track-info {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .track-name {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--text);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.4;
+    transition: color 0.3s ease;
+  }
+
+  .track-item:hover .track-name {
+    color: var(--accent);
+  }
+
+  .track-artist {
+    font-size: 0.78rem;
+    color: var(--text-muted);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    margin-top: 0.25rem;
+  }
+
+  .track-plays {
+    font-size: 0.7rem;
+    color: var(--text-subtle);
+    font-variant-numeric: tabular-nums;
+    font-weight: 500;
+    flex-shrink: 0;
+    opacity: 0.6;
+  }
+
+  .track-arrow {
+    color: var(--text-subtle);
+    opacity: 0.2;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+  }
+
+  .track-item:hover .track-arrow {
+    opacity: 1;
+    color: var(--accent);
+    transform: translate(2px, -2px);
+  }
+
+  .loading-text {
+    font-size: 0.8rem;
+    color: var(--text-subtle);
+    opacity: 0.5;
+    padding: 2rem 0;
+  }
+</style>
+
+<script is:inline>
+  (async function () {
+    const LFM_KEY    = 'lfm_tracks_30';
+    const LFM_TS_KEY = 'lfm_fetched_at';
+
+    function getLastSunday18() {
+      const now = new Date();
+      const d   = new Date(now);
+      const diff = d.getDay() === 0 ? 0 : d.getDay();
+      d.setDate(d.getDate() - diff);
+      d.setHours(18, 0, 0, 0);
+      if (d > now) d.setDate(d.getDate() - 7);
+      return d;
+    }
+
+    function shouldRefresh() {
+      const ts = localStorage.getItem(LFM_TS_KEY);
+      if (!ts) return true;
+      return new Date(Number(ts)) < getLastSunday18();
+    }
+
+    const listEl     = document.getElementById('track-list');
+    const updatedEl  = document.getElementById('weekly-updated');
+    if (!listEl) return;
+
+    let key = '', user = '';
+    try {
+      const cfg = await fetch('/last-config.json').then(r => r.json());
+      key  = cfg.lastfm_api_key;
+      user = cfg.lastfm_user;
+    } catch (e) {
+      listEl.innerHTML = '<p class="loading-text">設定が見つかりません。</p>';
+      return;
+    }
+
+    const needRefresh = shouldRefresh();
+    const cached      = localStorage.getItem(LFM_KEY);
+
+    let tracks = [];
+
+    if (!needRefresh && cached) {
+      tracks = JSON.parse(cached);
+      const ts = localStorage.getItem(LFM_TS_KEY);
+      if (ts && updatedEl) {
+        updatedEl.textContent = new Date(Number(ts)).toLocaleDateString('ja-JP') + ' 更新';
+      }
+    } else {
+      try {
+        const data = await fetch(
+          `https://ws.audioscrobbler.com/2.0/?method=user.gettoptracks&user=${encodeURIComponent(user)}&period=7day&limit=30&api_key=${key}&format=json`
+        ).then(r => r.json());
+
+        if (data.error || !data.toptracks?.track?.length) {
+          listEl.innerHTML = '<p class="loading-text">データがありません。</p>';
+          return;
+        }
+
+        tracks = data.toptracks.track.map(t => ({
+          name:   t.name,
+          artist: t.artist.name,
+          url:    t.url,
+          plays:  parseInt(t.playcount, 10),
+          img: (() => {
+            const u = t.image?.find(i => i.size === 'large')?.['#text'];
+            return u && !u.includes('2a96cbd8b46e442fc41c2b86b821562f') ? u : '';
+          })()
+        }));
+
+        const now = Date.now();
+        localStorage.setItem(LFM_KEY, JSON.stringify(tracks));
+        localStorage.setItem(LFM_TS_KEY, String(now));
+        if (updatedEl) updatedEl.textContent = new Date(now).toLocaleDateString('ja-JP') + ' 更新';
+      } catch (e) {
+        listEl.innerHTML = '<p class="loading-text">取得に失敗しました。</p>';
+        return;
+      }
+    }
+
+    listEl.innerHTML = `
+      <div class="track-list">
+        ${tracks.map((t, i) => `
+          <a class="track-item" href="${t.url}" target="_blank" rel="noopener">
+            <span class="track-rank">${i + 1}</span>
+            <div class="track-info">
+              <div class="track-name" title="${t.name}">${t.name}</div>
+              <div class="track-artist" title="${t.artist}">${t.artist}</div>
+            </div>
+            <div class="track-plays">${t.plays} plays</div>
+            <div class="track-arrow">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </div>
+          </a>
+        `).join('')}
+      </div>
+    `;
+  })();
+</script>

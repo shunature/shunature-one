@@ -1,4 +1,13 @@
-public/
+# 依存ライブラリ
+node_modules/
+
+# Astroのビルド成果物とキャッシュ
+dist/
+.astro/
+
+# ローカルの設定ファイル・ログ
+*.log
+
+# OSが生成するゴミファイル (MacやWindows用)
 .DS_Store
-.obsidian
-node_modules
+Thumbs.db
