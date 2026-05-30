@@ -1,0 +1,11 @@
+# /studio/* — Sanity Studio に必要な CSP を緩める
+/studio/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.sanity.io; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: blob: https://cdn.sanity.io https://lh3.googleusercontent.com; connect-src 'self' https://*.sanity.io wss://*.sanity.io https://api.sanity.io; frame-src 'self' https://cdn.sanity.io; worker-src 'self' blob:;
+  X-Frame-Options: SAMEORIGIN
+  X-Content-Type-Options: nosniff
+
+# その他のページはシンプルに
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin

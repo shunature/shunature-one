@@ -181,6 +181,7 @@
   },
   "active": "4fae26a88d284ea4",
   "lastOpenFiles": [
+    "dist",
     "music/list.json",
     "sitemap.xml",
     "blog/p/scene/5/index.html",
@@ -191,7 +192,6 @@
     "blog/p/scene/40/index.html",
     "blog/p/scene/38/index.html",
     "blog/p/scene/39/index.html",
-    "blog/p/scene/37/index.html",
     "dire.md",
     "node_modules/astro-portabletext/README.md",
     "node_modules/astro-portabletext/CHANGELOG.md",
