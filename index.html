@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="ja" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>shunature.one</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --bg:   #ffffff;
+      --text: #000000;
+      --muted: #3b3b3b;
+      --subtle: #929292;
+      --accent: #000000;
+    }
+
+    [data-theme="dark"] {
+      --bg:   #000000;
+      --text: #ffffff;
+      --muted: #939393;
+      --subtle: #5f5f5f;
+      --accent: #ffffff;
+    }
+
+    html {
+      font-family: 'Zen Kaku Gothic New', 'JetBrains Mono', 'Fira Code', monospace;
+      background: var(--bg);
+      color: var(--text);
+      -webkit-font-smoothing: antialiased;
+      transition: background 0.2s ease, color 0.2s ease;
+    }
+
+    body {
+      min-height: 100svh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      padding: 4rem 2rem;
+    }
+
+    main {
+      max-width: 520px;
+    }
+
+    .eyebrow {
+      font-size: 0.62rem;
+      letter-spacing: 0.24em;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1.4rem;
+      display: block;
+    }
+
+    h1 {
+      font-size: clamp(2.4rem, 10vw, 4rem);
+      font-weight: 500;
+      line-height: 1.08;
+      letter-spacing: -0.01em;
+      margin-bottom: 1.6rem;
+    }
+
+    .divider {
+      width: 28px;
+      height: 1px;
+      background: var(--subtle);
+      margin-bottom: 1.6rem;
+    }
+
+    .bio {
+      font-size: 0.9rem;
+      font-weight: 300;
+      color: var(--muted);
+      line-height: 2;
+    }
+
+    footer {
+      margin-top: 4rem;
+      font-size: 0.6rem;
+      letter-spacing: 0.16em;
+      color: var(--subtle);
+    }
+
+    .theme-toggle {
+      position: fixed;
+      top: 1.4rem;
+      right: 1.4rem;
+      background: none;
+      border: 1px solid var(--subtle);
+      color: var(--muted);
+      width: 32px;
+      height: 32px;
+      cursor: pointer;
+      font-size: 0.7rem;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: border-color 0.2s ease, color 0.2s ease;
+    }
+
+    .theme-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    ul {
+      margin-top: 0.8rem;
+      color: var(--muted);
+      font-size: 0.9rem;
+      list-style: disc;
+      padding-left: 1.6rem;
+    }
+    @media (max-width: 480px) {
+      body {
+        padding: 3rem 1.4rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button class="theme-toggle" id="toggle" aria-label="テーマ切替">
+    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" id="icon">
+      <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
+    </svg>
+  </button>
+
+  <main>
+    <span class="eyebrow">shunature.one</span>
+    <h1>DUSTPROOF<br>DREAMER</h1>
+    <div class="divider"></div>
+    <p class="bio">Shun Tonegawa <br>
+        ラジオと音楽が好きです、それとなく楽しく生きてます。</p><br>
+        <p class="bio">
+          件名によってフォルダが変わるため、以下の書式で目的ごとにメールを送信してください。
+          <ul>
+            <li>サイト: 【サイトについて】 -- </li>
+            <li>管理人宛: 【管理人宛】 -- </li>
+            <li>急を要するもの: 【重要】 -- </li>
+            <li>その他: 件名に特に指定なし</li>
+          </ul>
+          <a href="mailto:contact@ffnet.work" class="bio">contact@ffnet.work</a>
+        </p>
+    <footer>(C) 2026 Shun Tonegawa. Designed by Claude Sonnet 4.6</footer>
+  </main>
+
+  <script>
+    const toggle = document.getElementById('toggle');
+    const icon = document.getElementById('icon');
+    const html = document.documentElement;
+
+    const moon = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>`;
+    const sun = `<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>`;
+
+    const saved = localStorage.getItem('theme') ||
+      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+    const apply = (theme) => {
+      html.setAttribute('data-theme', theme);
+      icon.innerHTML = theme === 'dark' ? sun : moon;
+      localStorage.setItem('theme', theme);
+    };
+
+    apply(saved);
+
+    toggle.addEventListener('click', () => {
+      apply(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    });
+  </script>
+</body>
+</html>
