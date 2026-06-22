@@ -1,245 +1,327 @@
 <!DOCTYPE html>
-<html lang="ja" data-theme="light">
-  <!--
-
-`　  w　　______
- （0 0）√ポメー」
-　/ \`
-from https://pomate.cc/
-
--->
+<html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>shunature.one</title>
-  <a rel="me" href="https://social.vivaldi.net/@shunature"></a>
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Zen+Kaku+Gothic+New:wght@300;400;500&display=swap" rel="stylesheet" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Shun Tonegawa / SQUARE fractal</title>
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;600&family=Zen+Kaku+Gothic+New:wght@300;500&family=JetBrains+Mono&display=swap" rel="stylesheet">
+  
   <style>
-    *, *::before, *::after {
-      box-sizing: border-box;
-      margin: 0;
-      padding: 0;
-    }
-
     :root {
-      --bg:   #ffffff;
-      --text: #000000;
-      --muted: #3b3b3b;
-      --subtle: #929292;
-      --accent: #000000;
-    }
-
-    [data-theme="dark"] {
-      --bg:   #000000;
-      --text: #ffffff;
-      --muted: #939393;
-      --subtle: #5f5f5f;
       --accent: #ffffff;
+      --glass: rgba(255, 255, 255, 0.05);
+      --glass-heavy: rgba(0, 0, 0, 0.85);
+      --blur: blur(20px);
+      --font-main: 'Zen Kaku Gothic New', sans-serif;
+      --font-en: 'Outfit', sans-serif;
+      --font-mono: 'JetBrains Mono', monospace;
+      --transition: 1.2s cubic-bezier(0.23, 1, 0.32, 1);
     }
 
-    html {
-      font-family: 'Zen Kaku Gothic New', 'JetBrains Mono', 'Fira Code', monospace;
-      background: var(--bg);
-      color: var(--text);
-      -webkit-font-smoothing: antialiased;
-      transition: background 0.2s ease, color 0.2s ease;
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body { background: #000; color: #fff; font-family: var(--font-main); overflow: hidden; }
+
+    /* Snap Scroll Container */
+    .scroll-container {
+      height: 100vh;
+      overflow-y: scroll;
+      scroll-snap-type: y mandatory;
+      scroll-behavior: smooth;
     }
 
-    body {
-      min-height: 100svh;
+    section {
+      height: 100vh;
+      width: 100%;
+      scroll-snap-align: start;
+      position: relative;
       display: flex;
-      flex-direction: column;
+      align-items: center;
       justify-content: center;
-      padding: 4rem 2rem;
+      padding: 2rem;
+      overflow: hidden;
     }
 
-    main {
-      max-width: 520px;
+    .bg-image {
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      z-index: -1;
+      background-size: cover;
+      background-position: center;
+      filter: brightness(0.4);
+      transform: scale(1.15);
+      transition: var(--transition);
     }
+    section.active .bg-image { transform: scale(1); }
 
+    /* Content Styling */
+    .content-box {
+      max-width: 1000px;
+      width: 100%;
+      opacity: 0;
+      transform: translateY(50px);
+      transition: var(--transition);
+      transition-delay: 0.3s;
+      z-index: 10;
+    }
+    section.active .content-box { opacity: 1; transform: translateY(0); }
+
+    /* Typography */
     .eyebrow {
-      font-size: 0.62rem;
-      letter-spacing: 0.24em;
-      text-transform: uppercase;
-      color: var(--muted);
-      margin-bottom: 1.4rem;
-      display: block;
-    }
-
-    h1 {
-      font-size: clamp(2.4rem, 10vw, 4rem);
-      font-weight: 500;
-      line-height: 1.08;
-      letter-spacing: -0.01em;
-      margin-bottom: 1.6rem;
-    }
-
-    .divider {
-      width: 28px;
-      height: 1px;
-      background: var(--subtle);
-      margin-bottom: 1.6rem;
-    }
-
-    .bio {
-      font-size: 0.9rem;
-      font-weight: 300;
-      color: var(--muted);
-      line-height: 2;
-    }
-
-    .hero-container {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      width: 100%;
-      color: var(--muted);
-      margin-bottom: 3rem;
-      font-size: clamp(6px, 1.4vw, 15px); /* base scale unit */
-    }
-
-    .hero {
-      display: flex;
-      flex-wrap: nowrap;
-      justify-content: center;
-      align-items: flex-start;
-      width: 100%;
-      margin-bottom: 0.5em;
-      gap: 10px;
-    }
-
-    .hero-sub {
-      display: flex;
-      flex-wrap: nowrap;
-      justify-content: center;
-      align-items: flex-end;
-      width: 100%;
-      gap: 0.2em;
-    }
-
-    .hero-mask {
-      background-color: var(--muted);
-      -webkit-mask-size: contain;
-      mask-size: contain;
-      -webkit-mask-repeat: no-repeat;
-      mask-repeat: no-repeat;
-      -webkit-mask-position: center;
-      mask-position: center;
-      transition: background-color 0.2s ease;
-    }
-
-    footer {
-      margin-top: 4rem;
-      font-size: 0.6rem;
-      letter-spacing: 0.16em;
-      color: var(--subtle);
-    }
-
-    .theme-toggle {
-      position: fixed;
-      top: 1.4rem;
-      right: 1.4rem;
-      background: none;
-      border: 1px solid var(--subtle);
-      color: var(--muted);
-      width: 32px;
-      height: 32px;
-      cursor: pointer;
+      font-family: var(--font-mono);
       font-size: 0.7rem;
-      display: flex;
+      letter-spacing: 0.6em;
+      color: rgba(255, 255, 255, 0.4);
+      margin-bottom: 1.5rem;
+      display: block;
+      text-transform: uppercase;
+    }
+    h1 {
+      font-family: var(--font-en);
+      font-size: clamp(2.8rem, 10vw, 6rem);
+      font-weight: 600;
+      line-height: 1;
+      margin-bottom: 1.5rem;
+    }
+    .diagnosis-badge {
+      display: inline-flex;
       align-items: center;
-      justify-content: center;
-      transition: border-color 0.2s ease, color 0.2s ease;
+      padding: 0.4rem 1rem;
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.2);
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      margin-top: 1rem;
+      letter-spacing: 0.1em;
     }
 
-    .theme-toggle:hover {
-      border-color: var(--accent);
-      color: var(--accent);
+    /* Question Slide Specific */
+    .question-text {
+      font-size: clamp(1.5rem, 4vw, 2.5rem);
+      font-weight: 300;
+      line-height: 1.6;
+      color: rgba(255,255,255,0.9);
     }
 
-    ul {
-      margin-top: 0.8rem;
-      color: var(--muted);
-      font-size: 0.9rem;
-      list-style: disc;
-      padding-left: 1.6rem;
+    /* Interests Description */
+    .interest-description {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 3rem;
+      margin-top: 3rem;
     }
-    @media (max-width: 480px) {
-      body {
-        padding: 3rem 1.4rem;
-      }
+    .interest-col h3 {
+      font-family: var(--font-en);
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      color: #fff;
+    }
+    .interest-col p {
+      font-size: 0.95rem;
+      color: rgba(255,255,255,0.6);
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    /* Modal */
+    .modal-overlay {
+      position: fixed;
+      top: 0; left: 0; width: 100%; height: 100%;
+      background: var(--glass-heavy);
+      backdrop-filter: var(--blur);
+      z-index: 1000;
+      display: none;
+      align-items: center; justify-content: center;
+    }
+    .modal-content {
+      background: #000;
+      border: 1px solid #222;
+      padding: clamp(2rem, 5vw, 4rem);
+      max-width: 550px;
+      width: 90%;
+      position: relative;
+    }
+    .template-btn {
+      width: 100%; text-align: left; padding: 1.2rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid #222; color: #fff;
+      margin-bottom: 0.8rem; cursor: pointer; transition: 0.3s;
+    }
+    .template-btn:hover { background: #fff; color: #000; }
+
+    /* UI Elements */
+    .mail-link {
+      font-family: var(--font-en);
+      font-size: 1.2rem;
+      text-decoration: none;
+      color: #fff;
+      border-bottom: 1px solid #fff;
+      padding-bottom: 5px;
+      cursor: pointer;
+    }
+    nav {
+      position: fixed; right: 3rem; top: 50%; transform: translateY(-50%);
+      z-index: 100; display: flex; flex-direction: column; gap: 2rem;
+    }
+    .nav-dot { width: 8px; height: 8px; background: rgba(255,255,255,0.2); border-radius: 50%; cursor: pointer; position: relative; }
+    .nav-dot.active { background: #fff; }
+    .nav-dot::after {
+      content: ''; position: absolute; top: -6px; left: -6px; right: -6px; bottom: -6px;
+      border: 1px solid transparent; border-radius: 50%; transition: 0.3s;
+    }
+    .nav-dot.active::after { border-color: #fff; }
+
+    @media (max-width: 768px) {
+      .interest-description { grid-template-columns: 1fr; gap: 2rem; }
+      nav { right: 1.5rem; }
     }
   </style>
 </head>
 <body>
-  <button class="theme-toggle" id="toggle" aria-label="テーマ切替">
-    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" id="icon">
-      <circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
-    </svg>
-  </button>
 
-  <main>
-    <span class="eyebrow">shunature.one</span>
-    <div class="hero-container">
-      <div class="hero" aria-label="SQUARE logo">
-        <div class="hero-mask" style="width: 2.72em; height: 6.65em; -webkit-mask-image: url(/assets/svg/S.svg); mask-image: url(/assets/svg/S.svg);" aria-label="S"></div>
-        <div class="hero-mask" style="width: 2.72em; height: 6.65em; -webkit-mask-image: url(/assets/svg/Q.svg); mask-image: url(/assets/svg/Q.svg);" aria-label="Q"></div>
-        <div class="hero-mask" style="width: 2.72em; height: 6.80em; -webkit-mask-image: url(/assets/svg/U.svg); mask-image: url(/assets/svg/U.svg);" aria-label="U"></div>
-        <div class="hero-mask" style="width: 2.70em; height: 6.84em; -webkit-mask-image: url(/assets/svg/A.svg); mask-image: url(/assets/svg/A.svg);" aria-label="A"></div>
-        <div class="hero-mask" style="width: 2.70em; height: 6.84em; -webkit-mask-image: url(/assets/svg/R-2.svg); mask-image: url(/assets/svg/R-2.svg);" aria-label="R"></div>
-        <div class="hero-mask" style="width: 2.73em; height: 6.84em; -webkit-mask-image: url(/assets/svg/E.svg); mask-image: url(/assets/svg/E.svg);" aria-label="E"></div>
-      </div>
-      <div class="hero-sub" aria-label="fractal logo">
-        <div class="hero-mask" style="width: 1.12em; height: 1.87em; -webkit-mask-image: url(/assets/svg/f.svg); mask-image: url(/assets/svg/f.svg);" aria-label="f"></div>
-        <div class="hero-mask" style="width: 1.00em; height: 1.47em; -webkit-mask-image: url(/assets/svg/r-1.svg); mask-image: url(/assets/svg/r-1.svg);" aria-label="r"></div>
-        <div class="hero-mask" style="width: 1.17em; height: 1.47em; -webkit-mask-image: url(/assets/svg/a-1.svg); mask-image: url(/assets/svg/a-1.svg);" aria-label="a"></div>
-        <div class="hero-mask" style="width: 1.18em; height: 1.47em; -webkit-mask-image: url(/assets/svg/c.svg); mask-image: url(/assets/svg/c.svg);" aria-label="c"></div>
-        <div class="hero-mask" style="width: 1.12em; height: 1.87em; -webkit-mask-image: url(/assets/svg/t.svg); mask-image: url(/assets/svg/t.svg);" aria-label="t"></div>
-        <div class="hero-mask" style="width: 1.16em; height: 1.47em; -webkit-mask-image: url(/assets/svg/a-2.svg); mask-image: url(/assets/svg/a-2.svg);" aria-label="a"></div>
-        <div class="hero-mask" style="width: 0.98em; height: 1.87em; -webkit-mask-image: url(/assets/svg/l.svg); mask-image: url(/assets/svg/l.svg);" aria-label="l"></div>
-      </div>
-    </div>
-    <div class="divider"></div>
-    <p class="bio">Shun Tonegawa <br>
-      2007/11/3生まれ。東京都在住。<br>
-        ラジオと音楽が好きです、それとなく楽しく生きてます。</p><br>
-        <p class="bio">
-          件名によってフォルダが変わるため、以下の書式で目的ごとにメールを送信してください。
-          <ul>
-            <li>サイト: 【サイトについて】 -- </li>
-            <li>管理人宛: 【管理人宛】 -- </li>
-            <li>急を要するもの: 【重要】 -- </li>
-            <li>その他: 件名に特に指定なし</li>
-          </ul>
-          <a href="mailto:contact@ffnet.work" class="bio">contact@ffnet.work</a>
+  <nav id="nav">
+    <div class="nav-dot active" onclick="scrollToSlide(0)"></div>
+    <div class="nav-dot" onclick="scrollToSlide(1)"></div>
+    <div class="nav-dot" onclick="scrollToSlide(2)"></div>
+    <div class="nav-dot" onclick="scrollToSlide(3)"></div>
+      <div class="nav-dot" onclick="scrollToSlide(4)"></div>
+  </nav>
+
+  <div class="scroll-container" id="container">
+    
+    <!-- Slide 1: Identity -->
+    <section class="active">
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1557683316-973673baf926?auto=format&fit=crop&q=80&w=2000')"></div>
+      <div class="content-box">
+        <span class="eyebrow">square fractal</span>
+        <h1>Shun<br>Tonegawa</h1>
+        <p style="margin-top: 2rem; color: rgba(255,255,255,0.5); font-weight: 300; max-width: 450px;">
+          よく言えば、真面目。<br>それと、広く深い知識。
         </p>
-    <footer>(C) 2026 Shun Tonegawa. Designed by Claude Sonnet 4.6</footer>
-  </main>
+      </div>
+    </section>
 
+    <!-- Slide 2: The Question -->
+    <section>
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1508700115892-45ecd05ae2ad?auto=format&fit=crop&q=80&w=2000')"></div>
+      <div class="content-box" style="text-align: center;">
+        <span class="eyebrow">The Question</span>
+        <p class="question-text">
+          何が突き動かすのか
+        </p>
+      </div>
+    </section>
+
+    <!-- Slide 3: The Answer (Description of Favorites) -->
+    <section>
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1478737270239-2f02b77fc618?auto=format&fit=crop&q=80&w=2000')"></div>
+      <div class="content-box">
+        <span class="eyebrow">The Answer</span>
+        <h1>Fractals</h1>
+        <div class="interest-description">
+          <div class="interest-col">
+            <h3>Sound & Game</h3>
+            <p>
+              ラジオから流れるあの人の声<br>日常の制裁さを表現した音楽<br>
+              ゲームなども好きです
+            </p>
+          </div>
+          <div class="interest-col">
+            <h3>Food & Photography</h3>
+            <p>
+              ドトールや、UCCのBLACK 無糖が好きです。<br>
+              写真を撮ることも好きです
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 4: Connect -->
+    <section>
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&q=80&w=2000')"></div>
+      <div class="content-box">
+        <span class="eyebrow">Future</span>
+        <h1>Take your time</h1>
+        <p style="margin-bottom: 3rem; color: #fff;" text-align="center">It’s something everyone goes through.</p>
+        <p style="margin-bottom: 3rem; color: rgba(255,255,255,0.7);">ゆっくりでいい、<br>誰しも抱えることなのだから。</p>
+        <span class="mail-link" onclick="openModal()">contact@ffnet.work</span>
+      </div>
+    </section>
+
+    <!-- Slide 5: Farewell -->
+    <section>
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&q=80&w=2000')"></div>
+      <div class="content-box" style="text-align: center;">
+        <span class="eyebrow">The End</span>
+        <h1>Thank you for visiting</h1>
+        <p style="margin-top: 4rem; color: rgba(255,255,255,0.5); font-weight: 300; max-width: 1000px;">
+          最後までご覧いただき<br>ありがとうございました。<br>
+          そのほか、何かご質問やご連絡がある場合は、<br>メールアドレスにお問い合わせください。<br>
+          それでは
+        </p>
+      </div>
+  </div>
+
+  <!-- Mail Modal (Optimized) -->
+  <div class="modal-overlay" id="mailModal">
+    <div class="modal-content">
+      <button style="position: absolute; top: 1.5rem; right: 1.5rem; background: none; border: none; color: #fff; font-size: 2rem; cursor: pointer;" onclick="closeModal()">&times;</button>
+      <span class="eyebrow" style="margin-bottom: 2rem;">Contact Template</span>
+      
+      <button class="template-btn" onclick="sendMail('【サイトについて】')">
+        <strong>About this site</strong><br><small>サイトの感想・不備のご報告</small>
+      </button>
+      <button class="template-btn" onclick="sendMail('【管理人宛】')">
+        <strong>To Administrator</strong><br><small>私個人へのメッセージ・対話</small>
+      </button>
+      <button class="template-btn" onclick="sendMail('【重要】')">
+        <strong>Urgent</strong><br><small>至急確認が必要なご連絡</small>
+      </button>
+      <button class="template-btn" onclick="sendMail('')">
+        <strong>Others</strong><br><small>その他・件名指定なし</small>
+      </button>
+    </div>
+  </div>
+  <footer style="position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%); font-size: 0.8rem; color: rgba(255,255,255,0.4); z-index: 100;">
+    &copy; 2026 Shun Tonegawa
+  </footer>
   <script>
-    const toggle = document.getElementById('toggle');
-    const icon = document.getElementById('icon');
-    const html = document.documentElement;
+    const container = document.getElementById('container');
+    const sections = document.querySelectorAll('section');
+    const dots = document.querySelectorAll('.nav-dot');
+    const modal = document.getElementById('mailModal');
 
-    const moon = `<path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" fill="none"/>`;
-    const sun = `<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>`;
-
-    const saved = localStorage.getItem('theme') ||
-      (window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
-
-    const apply = (theme) => {
-      html.setAttribute('data-theme', theme);
-      icon.innerHTML = theme === 'dark' ? sun : moon;
-      localStorage.setItem('theme', theme);
-    };
-
-    apply(saved);
-
-    toggle.addEventListener('click', () => {
-      apply(html.getAttribute('data-theme') === 'dark' ? 'light' : 'dark');
+    // Scroll Logic
+    container.addEventListener('scroll', () => {
+      let current = 0;
+      sections.forEach((sec, i) => {
+        const rect = sec.getBoundingClientRect();
+        if (rect.top <= window.innerHeight / 2 && rect.bottom >= window.innerHeight / 2) {
+          current = i;
+        }
+      });
+      sections.forEach((sec, i) => sec.classList.toggle('active', i === current));
+      dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
     });
+
+    function scrollToSlide(i) {
+      container.scrollTo({ top: sections[i].offsetTop, behavior: 'smooth' });
+    }
+
+    // Modal Logic
+    function openModal() { modal.style.display = 'flex'; }
+    function closeModal() { modal.style.display = 'none'; }
+    window.onclick = (e) => { if (e.target == modal) closeModal(); }
+
+    function sendMail(subject) {
+      const email = "contact@ffnet.work";
+      const body = "--%0D%0Aこちらに本文を入力してください。";
+      window.location.href = `mailto:${email}?subject=${encodeURIComponent(subject)}&body=${body}`;
+      closeModal();
+    }
   </script>
 </body>
 </html>
