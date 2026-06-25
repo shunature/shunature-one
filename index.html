@@ -173,9 +173,50 @@
     }
     .nav-dot.active::after { border-color: #fff; }
 
+    /* Image Credits */
+    .image-credits {
+      position: absolute;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 20;
+      background: rgba(0, 0, 0, 0.6);
+      padding: 1rem 1.5rem;
+      border-radius: 4px;
+      backdrop-filter: var(--blur);
+    }
+    .image-credits ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+    .image-credits li {
+      display: block;
+      margin: 0;
+    }
+    .image-credits a {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: rgba(255, 255, 255, 0.7);
+      text-decoration: none;
+      transition: color 0.3s;
+      letter-spacing: 0.05em;
+    }
+    .image-credits a:hover {
+      color: #fff;
+      text-decoration: underline;
+    }
+
     @media (max-width: 768px) {
       .interest-description { grid-template-columns: 1fr; gap: 2rem; }
       nav { right: 1.5rem; }
+      .image-credits {
+        bottom: 1rem;
+        right: 1rem;
+        padding: 0.8rem 1rem;
+      }
+      .image-credits a {
+        font-size: 0.65rem;
+      }
     }
   </style>
 </head>
@@ -202,6 +243,11 @@
           よく言えば、真面目。<br>それと、広く深い知識。
         </p>
       </div>
+      <div class="image-credits">
+        <ul>
+          <li><a href="https://unsplash.com/@austindistel">Photo by Austin Distel on Unsplash</a></li>
+        </ul>
+      </div>
     </section>
 
     <!-- Slide 2: The Question -->
@@ -213,6 +259,11 @@
         <p class="question-text">
           何が突き動かすのか
         </p>
+      </div>
+      <div class="image-credits">
+        <ul>
+          <li><a href="https://unsplash.com/@juangomez">Photo by Juan Gomez on Unsplash</a></li>
+        </ul>
       </div>
     </section>
 
@@ -240,6 +291,11 @@
           </div>
         </div>
       </div>
+      <div class="image-credits">
+        <ul>
+          <li><a href="https://unsplash.com/@martinadams">Photo by Martin Adams on Unsplash</a></li>
+        </ul>
+      </div>
     </section>
 
     <!-- Slide 4: Connect -->
@@ -252,6 +308,11 @@
         <p style="margin-bottom: 3rem; color: #fff;" text-align="center">It’s something everyone goes through.</p>
         <p style="margin-bottom: 3rem; color: rgba(255,255,255,0.7);">ゆっくりでいい、<br>誰しも抱えることなのだから。</p>
         <span class="mail-link" onclick="openModal()">contact@ffnet.work</span>
+      </div>
+      <div class="image-credits">
+        <ul>
+          <li><a href="https://unsplash.com/@aionyhaust">Photo by Aiony Haust on Unsplash</a></li>
+        </ul>
       </div>
     </section>
 
@@ -271,7 +332,12 @@
           本サイトではUnsplashの画像を使用しております。
         </p>
       </div>
-  </div>
+      <div class="image-credits">
+        <ul>
+          <li><a href="https://unsplash.com/@joshuaearle">Photo by Joshua Earle on Unsplash</a></li>
+        </ul>
+      </div>
+    </section>
 
   <!-- Mail Modal (Optimized) -->
   <div class="modal-overlay" id="mailModal">
