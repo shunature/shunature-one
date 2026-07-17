@@ -227,7 +227,8 @@
     <div class="nav-dot" onclick="scrollToSlide(1)"></div>
     <div class="nav-dot" onclick="scrollToSlide(2)"></div>
     <div class="nav-dot" onclick="scrollToSlide(3)"></div>
-      <div class="nav-dot" onclick="scrollToSlide(4)"></div>
+    <div class="nav-dot" onclick="scrollToSlide(4)"></div>
+    <div class="nav-dot" onclick="scrollToSlide(5)"></div>
   </nav>
 
   <div class="scroll-container" id="container">
@@ -298,7 +299,19 @@
       </div>
     </section>
 
-    <!-- Slide 4: Connect -->
+    <!-- Slide 4: Blog (CMS Integration) -->
+    <section>
+      <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D')"></div>
+      <div class="content-box">
+        <span class="eyebrow">Blog</span>
+        <h1>Latest Articles</h1>
+        <div id="blog-container" style="margin-top: 2rem; display: flex; flex-direction: column; gap: 1.5rem; max-height: 400px; overflow-y: auto; padding-right: 1rem;">
+          <p style="color: rgba(255,255,255,0.5);">Loading articles...</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Slide 5: Connect -->
     <!-- Photo by Aiony Haust on Unsplash -->
     <section>
       <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1519331379826-f10be5486c6f?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?auto=format&fit=crop&q=80&w=2000')"></div>
@@ -316,7 +329,7 @@
       </div>
     </section>
 
-    <!-- Slide 5: Farewell -->
+    <!-- Slide 6: Farewell -->
     <!-- Photo by Joshua Earle on Unsplash -->
     <section>
       <div class="bg-image" style="background-image: url('https://images.unsplash.com/photo-1513151233558-d860c5398176?q=80&w=2670&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D?auto=format&fit=crop&q=80&w=2000')"></div>
@@ -362,6 +375,40 @@
   <footer style="position: fixed; bottom: 1rem; left: 50%; transform: translateX(-50%); font-size: 0.8rem; color: rgba(255,255,255,0.4); z-index: 100;">
     &copy; 2026 Shun "Sqlio" Tonegawa
   </footer>
+  <style>
+    /* Blog Styles */
+    .article-card {
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      padding: 1.5rem;
+      border-radius: 8px;
+      transition: var(--transition);
+    }
+    .article-card:hover {
+      background: rgba(255, 255, 255, 0.1);
+      transform: translateX(10px);
+    }
+    .article-card h3 {
+      font-size: 1.2rem;
+      margin-bottom: 0.5rem;
+    }
+    .article-card p {
+      font-size: 0.9rem;
+      color: rgba(255,255,255,0.7);
+      display: -webkit-box;
+      -webkit-line-clamp: 2;
+      -webkit-box-orient: vertical;
+      overflow: hidden;
+    }
+    #blog-container::-webkit-scrollbar {
+      width: 6px;
+    }
+    #blog-container::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.3);
+      border-radius: 3px;
+    }
+  </style>
+
   <script>
     const container = document.getElementById('container');
     const sections = document.querySelectorAll('section');
@@ -380,6 +427,40 @@
       sections.forEach((sec, i) => sec.classList.toggle('active', i === current));
       dots.forEach((dot, i) => dot.classList.toggle('active', i === current));
     });
+
+    // Fetch Blog Articles
+    async function fetchArticles() {
+      const container = document.getElementById('blog-container');
+      try {
+        const response = await fetch('http://localhost:3000/articles');
+        if (!response.ok) throw new Error('Network response was not ok');
+        const articles = await response.json();
+        
+        container.innerHTML = '';
+        const publishedArticles = articles.filter(a => a.published);
+        
+        if (publishedArticles.length === 0) {
+          container.innerHTML = '<p style="color: rgba(255,255,255,0.5);">No articles found.</p>';
+          return;
+        }
+
+        publishedArticles.forEach(article => {
+          const card = document.createElement('div');
+          card.className = 'article-card';
+          card.innerHTML = `
+            <h3>${article.title}</h3>
+            <p>${article.content}</p>
+          `;
+          container.appendChild(card);
+        });
+      } catch (error) {
+        console.error('Failed to fetch articles:', error);
+        container.innerHTML = '<p style="color: rgba(255,100,100,0.8);">Could not load articles. Is the API running?</p>';
+      }
+    }
+
+    // Call fetch on load
+    document.addEventListener('DOMContentLoaded', fetchArticles);
 
     function scrollToSlide(i) {
       container.scrollTo({ top: sections[i].offsetTop, behavior: 'smooth' });
