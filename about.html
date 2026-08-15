@@ -3,34 +3,25 @@
   <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SQUARE fractal</title>
+    <title>About | SQUARE fractal</title>
   </head>
   <body>
     <div class="theme-toggle-button">テーマ切り替え</div>
     <div class="front-texts">
     <a href="index.html"><h1>SQUARE fractal  <br>Shun "Squlio" Tonegawa</h1></a>
-    <br>
-    <p>どうも、利根川です。</p>
-    <a class="about" href="about.html">このサイトについて</a>
-  <br>
-  <div class="mail-introduction">
-    <p>メールでのご連絡は下記までお願いします。<br>件名別にファイルが違いますので、要件に合わせてください。</p><br>
-      <ul>
-        <li>【サイトについて】: サイトについての不具合など</li>
-        <li>【管理人宛】: 管理人へのお問い合わせ、交流。</li>
-        <li>【重要】: 緊急での対応が必要なもの</li>
-        <li>その他: 件名の指定はございません。</li>
-      </ul>
-      <br>
-      <a href="mailto:contact@ffnet.work">contact@ffnet.work</a>
-  </div>
     </div>
-    <div class="links">
-    <a href="https://mixi.social/@shunature">mixi2</a>
-    <a href="https://www.reddit.com/user/Jealous_Local_550/">Reddit</a>
-    <a href="https://shunature.hateblo.jp/">Hateblo</a>
-    <a href="https://signal.me/#eu/UaFw5dUSJqKwsd-DzyAxd8fXuJaIXFKuSsxNX_nOuCin02HaRHtOnYznwzBm-nU5">Signal</a>
-  </div>
+    <br>
+    <div class="about-texts">
+      <h2>このサイトについて</h2>
+      <hr>
+    <p>どうも、利根川です。<br>
+    <b>なぜこのサイトを作ったかと言いますと...</b><br>
+    AIにつくってもらうよりも、<br>自分で軽いサイトを作っちゃう方がわかりやすいんじゃないかと思ったからです。<br>
+    また、<a href="https://youtu.be/XZnevu5f2N4" target="_blank">AIに作ってもらうポップについての動画</a>見て、こうも思いました。<br>
+    <b>情報量多くない？</b>と<br>
+    そのため、わかりやすさ重視でVSCodeのコードサジェストで作りました。</p>
+    </div>
+    <br>
   <footer class="footer">
     <p>© {{ year }} Shun "Squlio" Tonegawa</p>  
   </footer>
@@ -51,18 +42,9 @@
       justify-content: center;
       align-items: center;
     }
-    .about {
-      color: var(--text-color);
-      font-weight: bold;
-      text-decoration: underline;
-    }
-    .about:hover {
-      color: var(--accent-color);
-      text-decoration: underline;
-    }
     .p {
       font-size: 1.2em;
-      line-height: 1.5;
+      line-height: 3em;
     }
     .h1 {
       font-size: 2em;
@@ -82,53 +64,26 @@
     .front-texts h1:hover {
       color: var(--accent-color);
     }
-    .email-introduction {
+    .about-texts {
       position: absolute;
       bottom: 100px;
-      top: 50%;
+      top: 40%;
       left: 50%;
       transform: translate(-50%);
       text-align: center;
     }
-    .mail-introduction a {
-      display: block;
-      margin: 5px 0;
-      text-decoration: none;
-      color: var(--text-color);
-    }
-    .mail-introduction a:hover {
-      text-decoration: underline;
+    .about-texts b {
+      font-weight: bold;
       color: var(--accent-color);
     }
-
-    .mail-introduction h1 {
-      font-size: 1.5em;
-      margin-bottom: 10px;
-    }
-    .mail-introduction h2 {
+    .about-texts p {
       font-size: 1.2em;
-      margin-bottom: 10px;
+      line-height: 2em;
     }
-    .mail-introduction li {
-      font-size: 1em;
-      margin-bottom: 5px;
-      list-style-type: none;
-    }
-
-    .links {
-      position: absolute;
-      bottom: 50px;
-      left: 50%;
-      transform: translateX(-50%);
-      text-align: center;
-    }
-      .links a {
-      display: inline-block;
-      margin: 0 10px;
-      text-decoration: none;
+    .about-texts a {
       color: var(--text-color);
     }
-    .links a:hover {
+    .about-texts a:hover {
       text-decoration: underline;
       color: var(--accent-color);
     }
