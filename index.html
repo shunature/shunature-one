@@ -4,13 +4,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SQUARE fractal</title>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/gsap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/gsap@3.13.0/dist/DrawSVGPlugin.min.js"></script>
-  </head>
+      </head>
   <body>
-    <svg viewBox="0 0 200 200">
-  <path id="path" d="M100,50 a50,50 0 1,0 0.1,0" />
-</svg>
     <div class="theme-toggle-button">テーマ切り替え</div>
     <div class="front-texts">
     <a href="index.html"><h1>SQUARE fractal  <br>Shun "Sqlio" Tonegawa</h1></a>
@@ -37,7 +32,7 @@
     <a href="https://signal.me/#eu/UaFw5dUSJqKwsd-DzyAxd8fXuJaIXFKuSsxNX_nOuCin02HaRHtOnYznwzBm-nU5">Signal</a>
   </div>
   <footer class="footer">
-    <p>© {{ year }} Shun "Squlio" Tonegawa</p>  
+    <p>© {{ year }} Shun "Sqlio" Tonegawa</p>  
   </footer>
   </body>
   <style>
@@ -226,13 +221,6 @@ hr::after {
     });
 
     const year = new Date().getFullYear();
-    document.querySelector(".footer p").textContent = `© ${year} Shun "Squlio" Tonegawa`;
-
-    gsap.registerPlugin(DrawSVGPlugin);  // DrawSVGPlugin を登録（SVG線の描画アニメ用）
-
-gsap.from("#path", {
-  drawSVG: "0%",      // 線を長さ0％から描き始める（＝何も見えない状態から）
-  duration: 2         // 2秒かけて完全に描画される
-});
+    document.querySelector(".footer p").textContent = `© ${year} Shun "Sqlio" Tonegawa`;
   </script>
 </html>
