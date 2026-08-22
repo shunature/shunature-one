@@ -4,22 +4,26 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>About | SQUARE fractal</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
+  </head>
   <style>
-:root{--background-color:#fff;--text-color:#000;--accent-color:#00ffee}*{box-sizing:border-box}html{min-height:100%}
-body{background-color:var(--background-color);color:var(--text-color);font-family:Arial,sans-serif;margin:0;min-height:100vh;padding:72px 20px 64px;display:flex;flex-direction:column;align-items:center;overflow-x:hidden}
-.theme-toggle-button{position:fixed;top:12px;left:12px;z-index:10;padding:7px 12px;background-color:var(--accent-color);color:var(--background-color);border:none;cursor:pointer;border-radius:4px;font-size:.9rem;white-space:nowrap}
-.front-texts{width:min(100%,760px);text-align:center}.front-texts a{text-decoration:none;color:var(--text-color)}.front-texts h1{font-size:clamp(1.7rem,5vw,2.6rem);line-height:1.25;margin:0;overflow-wrap:anywhere}.front-texts h1:hover{color:var(--accent-color)}
+.front-texts h1{margin:0}
 .about-texts{width:min(100%,760px);margin-top:3rem;text-align:center}.about-texts h2{font-size:clamp(1.35rem,4vw,1.8rem);line-height:1.35;margin:0 0 1rem}.about-texts p{font-size:clamp(.95rem,2.5vw,1.2rem);line-height:2;margin:0;overflow-wrap:anywhere}.about-texts b{font-weight:bold;color:var(--accent-color)}.about-texts a{color:var(--text-color);overflow-wrap:anywhere}.about-texts a:hover{text-decoration:underline;color:var(--accent-color)}
-.footer{width:100%;margin-top:auto;padding-top:2rem;text-align:center}.footer p{margin:10px 0;font-size:.9rem}
-hr{border:none;border-top:3px double var(--text-color);color:var(--text-color);overflow:visible;text-align:center;height:5px;margin:1rem 0 1.5rem}hr::after{background:var(--background-color);content:"§";padding:0 4px;position:relative;top:-13px}
-.today{position:fixed;top:5px;right:50%;transform:translateX(50%);font-size:1em;color:var(--text-color);text-align:center}
-@media(prefers-color-scheme:dark){:root{--background-color:#000;--text-color:#fff;--accent-color:#ff00ee}}
-@media screen and (max-width:600px){body{padding:68px 14px 52px}.theme-toggle-button{top:8px;left:8px;padding:6px 9px;font-size:.8rem}.about-texts{margin-top:2rem}.about-texts p{line-height:1.8}.footer{padding-top:1.5rem}}
-@media screen and (max-width:380px){body{padding-left:10px;padding-right:10px}.about-texts p{font-size:.9rem}}
+.footer{margin-top:auto;padding-top:2rem}
+hr{margin:1rem 0 1.5rem}
+@media screen and (max-width:600px){body{padding-bottom:52px}.about-texts{margin-top:2rem}.about-texts p{line-height:1.8}.footer{padding-top:1.5rem}}
+@media screen and (max-width:380px){.about-texts p{font-size:.9rem}}
 </style>
   </head>
   <body>
-    <div class="theme-toggle-button">テーマ切り替え</div>
+    <div class="theme-toggle-button"
+      data-light-background="#f2ede4"
+      data-light-text="#1e2235"
+      data-light-accent="#b8963e"
+      data-dark-background="#0e1020"
+      data-dark-text="#e8dfc8"
+      data-dark-accent="#d4a94a">テーマ切り替え</div>
     <div class="front-texts">
     <a href="index.html"><h1>SQUARE fractal  <br>Shun "Sqlio" Tonegawa</h1></a>
     </div>
@@ -39,23 +43,4 @@ hr{border:none;border-top:3px double var(--text-color);color:var(--text-color);o
     <p>© {{ year }} Shun "Sqlio" Tonegawa</p>  
   </footer>
   </body>
-  <script>
-    //テーマをボタンでで切り替え
-    const themeToggleButton = document.querySelector(".theme-toggle-button");
-    themeToggleButton.addEventListener("click", () => {
-      const currentTheme = getComputedStyle(document.documentElement).getPropertyValue('--background-color').trim();
-      if (currentTheme === '#fff') {
-        document.documentElement.style.setProperty('--background-color', '#000');
-        document.documentElement.style.setProperty('--text-color', '#fff');
-        document.documentElement.style.setProperty('--accent-color', '#ff00ee');
-      } else {
-        document.documentElement.style.setProperty('--background-color', '#fff');
-        document.documentElement.style.setProperty('--text-color', '#000');
-        document.documentElement.style.setProperty('--accent-color', '#00ffee');
-      }
-    });
-
-    const year = new Date().getFullYear();
-    document.querySelector(".footer p").textContent = `© ${year} Shun "Sqlio" Tonegawa`;
-  </script>
 </html>

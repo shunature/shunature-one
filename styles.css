@@ -1,0 +1,130 @@
+:root {
+  --background-color: #f2ede4;
+  --text-color: #1e2235;
+  --accent-color: #b8963e;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-height: 100%;
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+  font-family: Arial, sans-serif;
+  margin: 0;
+  min-height: 100vh;
+  padding: 72px 20px 88px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+a {
+  color: var(--text-color);
+}
+
+.theme-toggle-button {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 10;
+  padding: 7px 12px;
+  background-color: var(--accent-color);
+  color: var(--background-color);
+  border: none;
+  cursor: pointer;
+  border-radius: 4px;
+  font-size: .9rem;
+  white-space: nowrap;
+}
+
+.front-texts {
+  width: min(100%, 760px);
+  text-align: center;
+}
+
+.front-texts a {
+  text-decoration: none;
+  color: var(--text-color);
+}
+
+.front-texts h1 {
+  font-size: clamp(1.7rem, 5vw, 2.6rem);
+  line-height: 1.25;
+  overflow-wrap: anywhere;
+}
+
+.front-texts h1:hover {
+  color: var(--accent-color);
+}
+
+.footer {
+  width: 100%;
+  text-align: center;
+}
+
+.footer p {
+  margin: 10px 0;
+  font-size: .9rem;
+}
+
+hr {
+  border: none;
+  border-top: 3px double var(--text-color);
+  color: var(--text-color);
+  overflow: visible;
+  text-align: center;
+  height: 5px;
+}
+
+hr::after {
+  background: var(--background-color);
+  content: "§";
+  padding: 0 4px;
+  position: relative;
+  top: -13px;
+}
+
+.today {
+  position: fixed;
+  top: 5px;
+  right: 50%;
+  transform: translateX(50%);
+  font-size: 1em;
+  color: var(--text-color);
+  text-align: center;
+}
+
+@media screen and (max-width: 600px) {
+  body {
+    padding: 68px 14px 78px;
+  }
+
+  .theme-toggle-button {
+    top: 8px;
+    left: 8px;
+    padding: 6px 9px;
+    font-size: .8rem;
+  }
+}
+
+@media screen and (max-width: 380px) {
+  body {
+    padding-left: 10px;
+    padding-right: 10px;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --background-color: #0e1020;
+    --text-color: #e8dfc8;
+    --accent-color: #d4a94a;
+  }
+}

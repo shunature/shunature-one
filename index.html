@@ -2,32 +2,31 @@
 <html lang="ja">
   <head>
     <meta charset="UTF-8">
+    <meta favicon="favicon.svg" href="favicon.svg" type="image/x-icon">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <script src="scripts.js" defer></script>
     <title>SQUARE fractal</title>
       <style>
-:root{--background-color:#fff;--text-color:#000;--accent-color:#00ffee}
-*{box-sizing:border-box} html{min-height:100%}
-body{background-color:var(--background-color);color:var(--text-color);font-family:Arial,sans-serif;margin:0;min-height:100vh;padding:72px 20px 88px;display:flex;flex-direction:column;align-items:center;overflow-x:hidden}
-a{color:var(--text-color)}
-.theme-toggle-button{position:fixed;top:12px;left:12px;z-index:10;padding:7px 12px;background-color:var(--accent-color);color:var(--background-color);border:none;cursor:pointer;border-radius:4px;font-size:.9rem;white-space:nowrap}
-.front-texts{width:min(100%,760px);text-align:center}.front-texts a{text-decoration:none;color:var(--text-color)}
-.front-texts h1{font-size:clamp(1.7rem,5vw,2.6rem);line-height:1.25;margin:0 0 1.5rem;overflow-wrap:anywhere}.front-texts h1:hover{color:var(--accent-color)}
+    .front-texts h1{margin:0 0 1.5rem}
 .front-texts>p{font-size:clamp(1rem,2.5vw,1.2rem);line-height:1.7;margin:0 0 .75rem}
 .about{color:var(--text-color);font-weight:bold;text-decoration:underline}.about:hover{color:var(--accent-color)}
 .mail-introduction{width:min(100%,760px);margin-top:2.5rem;text-align:center}.mail-introduction p{font-size:clamp(.95rem,2.4vw,1.1rem);line-height:1.7;margin:0}
 .mail-introduction ul{width:fit-content;max-width:100%;margin:1rem auto;padding:0;text-align:left}.mail-introduction li{font-size:clamp(.9rem,2.3vw,1rem);line-height:1.6;margin-bottom:.35rem;list-style-type:none;overflow-wrap:anywhere}
 .mail-introduction a{display:inline-block;margin:5px 0;text-decoration:none;color:var(--text-color);overflow-wrap:anywhere}.mail-introduction a:hover{text-decoration:underline;color:var(--accent-color)}
 .links{width:min(100%,760px);margin-top:2.5rem;display:flex;flex-wrap:wrap;justify-content:center;gap:.5rem 1.25rem;text-align:center}.links a{text-decoration:none;color:var(--text-color);padding:.25rem}.links a:hover{text-decoration:underline;color:var(--accent-color)}
-.footer{width:100%;margin-top:2rem;text-align:center}.footer p{margin:10px 0;font-size:.9rem}
-hr{border:none;border-top:3px double var(--text-color);color:var(--text-color);overflow:visible;text-align:center;height:5px}hr::after{background:var(--background-color);content:"§";padding:0 4px;position:relative;top:-13px}
-.today{position:fixed;top:5px;right:50%;transform:translateX(50%);font-size:1em;color:var(--text-color);text-align:center}
-@media(prefers-color-scheme:dark){:root{--background-color:#000;--text-color:#fff;--accent-color:#ff00ee}}
-@media screen and (max-width:600px){body{padding:68px 14px 78px}.theme-toggle-button{top:8px;left:8px;padding:6px 9px;font-size:.8rem}.front-texts h1{margin-bottom:1.25rem}.mail-introduction{margin-top:2rem}.links{margin-top:2rem;gap:.25rem .6rem}.footer{margin-top:1.5rem}}
-@media screen and (max-width:380px){body{padding-left:10px;padding-right:10px}.mail-introduction li{font-size:.85rem}.links{flex-direction:column;align-items:center}}
+    @media screen and (max-width:600px){.front-texts h1{margin-bottom:1.25rem}.mail-introduction{margin-top:2rem}.links{margin-top:2rem;gap:.25rem .6rem}.footer{margin-top:1.5rem}}
+    @media screen and (max-width:380px){.mail-introduction li{font-size:.85rem}.links{flex-direction:column;align-items:center}}
 </style>
   </head>
   <body>
-    <div class="theme-toggle-button">テーマ切り替え</div>
+    <div class="theme-toggle-button"
+      data-light-background="#f2ede4"
+      data-light-text="#1e2235"
+      data-light-accent="#b8963e"
+      data-dark-background="#0e1020"
+      data-dark-text="#e8dfc8"
+      data-dark-accent="#d4a94a">テーマ切り替え</div>
     <div class="front-texts">
     <a href="index.html"><h1>SQUARE fractal  <br>Shun "Sqlio" Tonegawa</h1></a>
 
@@ -56,23 +55,4 @@ hr{border:none;border-top:3px double var(--text-color);color:var(--text-color);o
     <p>© {{ year }} Shun "Sqlio" Tonegawa</p>  
   </footer>
   </body>
-  <script>
-    //テーマをボタンでで切り替え
-    const themeToggleButton = document.querySelector(".theme-toggle-button");
-    themeToggleButton.addEventListener("click", () => {
-      const currentTheme = getComputedStyle(document.documentElement).getPropertyValue('--background-color').trim();
-      if (currentTheme === '#fff') {
-        document.documentElement.style.setProperty('--background-color', '#000');
-        document.documentElement.style.setProperty('--text-color', '#fff');
-        document.documentElement.style.setProperty('--accent-color', '#ff00ee');
-      } else {
-        document.documentElement.style.setProperty('--background-color', '#fff');
-        document.documentElement.style.setProperty('--text-color', '#000');
-        document.documentElement.style.setProperty('--accent-color', '#00ffee');
-      }
-    });
-
-    const year = new Date().getFullYear();
-    document.querySelector(".footer p").textContent = `© ${year} Shun "Sqlio" Tonegawa`;
-  </script>
 </html>
