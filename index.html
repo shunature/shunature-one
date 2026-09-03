@@ -1,8 +1,6 @@
 <!doctype html>
 <html lang="ja">
 <head>
-  <link rel="icon" href="favicon.svg" type="image/svg+xml">
-  <link rel="alternate icon" href="favicon.png" type="image/png">
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="SQUARE fractal — Shun Tonegawaのパーソナル・ウェブスペース">
@@ -66,18 +64,33 @@
     .hero-copy > p { margin: 38px 0 14px; font-size: clamp(21px, 3vw, 37px); line-height: 1.3; font-weight: 900; letter-spacing: -.05em; }
     .hero-copy > a { color: var(--text); font-weight: 700; text-underline-offset: 6px; text-decoration-thickness: 2px; }
     .hero-copy > a:hover { color: var(--hover); }
-    .contact-panel { position: absolute; right: 0; bottom: 36px; width: 47%; padding: 18px 22px 0; border-top: 2px solid var(--line); background: var(--bg); }
-    .contact-panel p { margin: 0; font-size: 15px; line-height: 1.75; }
-    .contact-panel ul { margin: 18px 0; padding: 0; list-style: none; }
-    .contact-panel li { margin: 5px 0; font-size: 13px; line-height: 1.55; overflow-wrap: anywhere; }
-    .contact-panel li::before { content: "— "; color: var(--accent); font-weight: 900; }
-    .contact-panel a { font-weight: 700; text-underline-offset: 4px; overflow-wrap: anywhere; }
-    .contact-panel a:hover { color: var(--hover); }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 18px; margin-top: 28px; }
+    .hero-actions a { display: inline-block; padding: 9px 18px; border: 2px solid var(--line); color: var(--text); font-weight: 700; text-decoration: none; }
+    .hero-actions a:hover, .hero-actions a:focus-visible { border-color: var(--hover); color: var(--hover); }
     .links { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px 28px; padding: 20px 0 16px; border-bottom: 2px solid var(--line); }
     .links a { padding: 3px 0; font-size: 15px; text-decoration: none; }
     .links a::after { content: " ↗"; color: var(--accent); }
     .links a:hover { color: var(--hover); text-decoration: underline; }
     .footer { width: min(100%, var(--max)); margin: 0 auto; padding: 16px 0 20px; text-align: center; }
+    .contact-modal[hidden] { display: none; }
+    .contact-modal { position: fixed; z-index: 80; inset: 0; display: grid; place-items: center; padding: 24px; background: rgba(26,26,26,.72); }
+    .contact-dialog { width: min(100%, 560px); max-height: min(90vh, 620px); overflow: auto; border: 2px solid var(--line); background: var(--bg); color: var(--text); }
+    .contact-dialog-head { display: flex; align-items: start; justify-content: space-between; gap: 20px; padding: 24px 24px 18px; border-bottom: 2px solid var(--line); }
+    .contact-dialog-head h2 { margin: 0; font-size: clamp(24px, 5vw, 34px); line-height: 1.2; font-weight: 900; }
+    .contact-dialog-head p { margin: 8px 0 0; color: var(--muted); font-size: 14px; }
+    .contact-close { width: 42px; height: 42px; flex: 0 0 auto; border: 2px solid var(--line); background: transparent; color: var(--text); cursor: pointer; font: inherit; font-size: 22px; line-height: 1; }
+    .contact-options { display: grid; gap: 10px; padding: 22px 24px 24px; }
+    .contact-option { display: flex; align-items: center; justify-content: space-between; gap: 18px; width: 100%; min-height: 64px; padding: 12px 16px; border: 2px solid var(--line); background: transparent; color: var(--text); cursor: pointer; text-align: left; font: inherit; }
+    .contact-option:hover, .contact-option:focus-visible { border-color: var(--hover); color: var(--hover); }
+    .contact-option strong { display: block; font-size: 16px; }
+    .contact-option span { display: block; color: var(--muted); font-size: 12px; }
+    .contact-option::after { content: "→"; color: var(--accent); font-size: 22px; }
+    body.modal-open { overflow: hidden; }
+    @media (max-width: 767px) {
+      .contact-modal { align-items: end; padding: 12px; }
+      .contact-dialog { width: 100%; max-height: 88vh; }
+      .contact-dialog-head, .contact-options { padding-left: 18px; padding-right: 18px; }
+    }
     .footer p { margin: 0; color: var(--muted); font-size: 12px; }
     .about-page { position: relative; min-height: 610px; padding: clamp(70px, 9vw, 116px) 52% 68px 0; border-bottom: 2px solid var(--line); }
     .about-page::before { content: ""; position: absolute; z-index: 0; top: 122px; right: 5%; width: min(31vw, 370px); height: min(31vw, 370px); border: 2px solid var(--line); }
@@ -110,7 +123,7 @@
       .hero-copy h1 { font-size: clamp(30px, 9vw, 42px); }
       .hero-copy h1::before { margin-bottom: 24px; }
       .hero-copy > p { margin-top: 40px; font-size: clamp(31px, 11vw, 48px); }
-      .contact-panel { position: relative; right: auto; bottom: auto; width: 100%; margin-top: 40px; padding: 18px 0 0; }
+      .hero-actions { margin-top: 28px; }
       .links { justify-content: space-between; gap: 6px 18px; }
       .links a { min-width: 40%; font-size: 14px; }
       .about-page { min-height: 0; padding: 70px 0 50px; }
@@ -168,19 +181,11 @@
       <div class="home-hero">
         <div class="hero-copy">
           <h1 id="home-title">SQUARE fractal<br>Shun Tonegawa</h1>
-          <p>どうも<br>
-            利根川です</p>
-          <a href="#about">このサイトについて</a>
-        </div>
-        <div class="contact-panel" id="contact-panel">
-          <p>メールでのご連絡は下記までお願いします。<br>件名別にファイルが違いますので、<br>ご希望の要件に近いもので送ってください。</p>
-          <ul>
-            <li>【サイトについて】：サイトについての不具合など</li>
-            <li>【管理人宛】：管理人へのお問い合わせ、交流。</li>
-            <li>【重要】：緊急の対応が必要なもの</li>
-            <li>その他：件名の指定はございません。</li>
-          </ul>
-          <a href="mailto:contact@ffnet.work">contact@ffnet.work</a>
+          <p>どうも、利根川です。</p>
+          <div class="hero-actions">
+            <a href="#about">このサイトについて</a>
+            <a href="mailto:contact@ffnet.work" class="modal-trigger">Contact</a>
+          </div>
         </div>
       </div>
       <nav class="links" aria-label="外部リンク">
@@ -201,11 +206,10 @@
             どうも、利根川です。<br>
             <strong>なぜこのサイトを作ったかと言いますと...</strong><br>
             AIにつくってもらうよりも、<br>
-            自分で軽いサイトを作っちゃう方が<br>わかりやすいんじゃないかと思ったからです。<br>
-            また、<a href="https://youtu.be/XZnevu5f2N4" target="_blank" rel="noopener noreferrer">AIに作ってもらうポップについての動画</a><br>を見て、こうも思いました。<br>
+            自分で軽いサイトを作っちゃう方がわかりやすいんじゃないかと思ったからです。<br>
+            また、<a href="https://youtu.be/XZnevu5f2N4" target="_blank" rel="noopener noreferrer">AIに作ってもらうポップについての動画</a>を見て、こうも思いました。<br>
             <strong>情報量多くない？</strong>と<br>
-
-            そのため、わかりやすさを重視し<br>VSCodeのコードサジェストで作りました。
+            そのため、わかりやすさ重視でVSCodeのコードサジェストで作りました。
           </p>
           <a class="back-home" href="#home">← ホームへ戻る</a>
         </div>
@@ -213,7 +217,22 @@
     </section>
   </main>
 
-  <footer class="footer"><p>© 2026 Shun Tonegawa</p></footer>
+  <div class="contact-modal" id="contact-modal" hidden aria-hidden="true">
+    <section class="contact-dialog" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
+      <div class="contact-dialog-head">
+        <div><h2 id="contact-modal-title">Contact</h2><p>ご用件に近い件名を選んでください。</p></div>
+        <button class="contact-close" type="button" aria-label="Contactモーダルを閉じる">×</button>
+      </div>
+      <div class="contact-options">
+        <button class="contact-option" type="button" data-subject="サイトについて"><span><strong>サイトについて</strong><span>サイトについての不具合など</span></span></button>
+        <button class="contact-option" type="button" data-subject="管理人宛"><span><strong>管理人宛</strong><span>管理人へのお問い合わせ、交流</span></span></button>
+        <button class="contact-option" type="button" data-subject="重要"><span><strong>重要</strong><span>緊急での対応が必要なもの</span></span></button>
+        <button class="contact-option" type="button" data-subject=""><span><strong>その他</strong><span>件名の指定はありません</span></span></button>
+      </div>
+    </section>
+  </div>
+
+  <footer class="footer"><p>© 2026 Shun "Sqlio" Tonegawa</p></footer>
 
   <script>
     (() => {
@@ -282,6 +301,51 @@
       menu?.addEventListener("click", (event) => { if (event.target === menu || event.target.closest("a")) closeMenu(); });
       document.addEventListener("keydown", (event) => { if (event.key === "Escape") closeMenu(); });
       window.addEventListener("hashchange", showView);
+
+      const contactModal = document.querySelector("#contact-modal");
+      const contactClose = contactModal?.querySelector(".contact-close");
+      const contactOptions = contactModal?.querySelectorAll(".contact-option") || [];
+      const contactTriggers = [...document.querySelectorAll('a[href^="mailto:"], a[href*="email-protection"]')];
+      let lastContactTrigger = null;
+
+      function openContactModal(trigger) {
+        if (!contactModal) return;
+        lastContactTrigger = trigger || document.activeElement;
+        contactModal.hidden = false;
+        contactModal.setAttribute("aria-hidden", "false");
+        body.classList.add("modal-open");
+        contactClose?.focus();
+      }
+
+      function closeContactModal() {
+        if (!contactModal) return;
+        contactModal.hidden = true;
+        contactModal.setAttribute("aria-hidden", "true");
+        body.classList.remove("modal-open");
+        lastContactTrigger?.focus?.();
+      }
+
+      contactTriggers.forEach((trigger) => {
+        trigger.addEventListener("click", (event) => {
+          event.preventDefault();
+          openContactModal(trigger);
+        });
+      });
+      contactClose?.addEventListener("click", closeContactModal);
+      contactModal?.addEventListener("click", (event) => {
+        if (event.target === contactModal) closeContactModal();
+      });
+      contactOptions.forEach((option) => {
+        option.addEventListener("click", () => {
+          const subject = option.dataset.subject || "";
+          const query = subject ? `?subject=${encodeURIComponent(subject)}` : "";
+          closeContactModal();
+          window.location.href = `mailto:contact@ffnet.work${query}`;
+        });
+      });
+      document.addEventListener("keydown", (event) => {
+        if (event.key === "Escape" && contactModal && !contactModal.hidden) closeContactModal();
+      });
       systemTheme.addEventListener?.("change", (event) => {
         try { if (localStorage.getItem(themeKey)) return; } catch (_) {}
         setTheme(event.matches ? "dark" : "light", false);
