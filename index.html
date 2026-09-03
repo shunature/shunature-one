@@ -92,6 +92,43 @@
       .contact-dialog-head, .contact-options { padding-left: 18px; padding-right: 18px; }
     }
     .footer p { margin: 0; color: var(--muted); font-size: 12px; }
+    .profile-page { position: relative; min-height: 610px; padding: clamp(70px, 9vw, 116px) 52% 68px 0; border-bottom: 2px solid var(--line); }
+    .profile-page::before {
+      content: none;
+    }
+    .profile-photo {
+      position: absolute;
+      z-index: 1;
+      top: 122px;
+      right: 5%;
+      width: min(31vw, 370px);
+      height: min(31vw, 370px);
+      padding: 0;
+      border: 2px solid var(--line);
+      overflow: hidden;
+      background: var(--bg);
+    }
+
+.profile-photo img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  filter: saturate(.82) contrast(.96);
+}
+    .profile-page::after { content: ""; position: absolute; z-index: 1; top: 315px; right: 11%; width: min(10vw, 120px); height: min(10vw, 120px); background: var(--accent); box-shadow: min(10vw, 120px) 36px 0 var(--beige); }
+    .profile-photo { position: absolute; z-index: 1; top: 122px; right: 5%; width: min(31vw, 370px); height: min(31vw, 370px); padding: 10px; }
+    .profile-photo img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: center; filter: saturate(.82) contrast(.96); }
+    .profile-copy { position: relative; z-index: 2; }
+    .profile-copy .eyebrow { margin: 0 0 15px; color: var(--accent); font-size: 13px; font-weight: 700; letter-spacing: .16em; }
+    .profile-copy h1 { margin: 0 0 26px; font-size: clamp(36px, 5vw, 62px); line-height: 1.15; font-weight: 900; letter-spacing: -.06em; }
+    .profile-copy hr { margin: 0 0 28px; border: 0; border-top: 2px solid var(--line); }
+    .profile-lead { margin: 0 0 24px; font-size: clamp(17px, 2vw, 23px); line-height: 1.7; font-weight: 700; }
+    .profile-facts { display: grid; grid-template-columns: max-content 1fr; gap: 8px 22px; margin: 0; font-size: 15px; line-height: 1.8; }
+    .profile-facts dt { color: var(--accent); font-weight: 700; }
+    .profile-facts dd { margin: 0; }
+    .profile-note { margin: 26px 0 0; color: var(--muted); font-size: 13px; }
     .about-page { position: relative; min-height: 610px; padding: clamp(70px, 9vw, 116px) 52% 68px 0; border-bottom: 2px solid var(--line); }
     .about-page::before { content: ""; position: absolute; z-index: 0; top: 122px; right: 5%; width: min(31vw, 370px); height: min(31vw, 370px); border: 2px solid var(--line); }
     .about-page::after { content: ""; position: absolute; z-index: 1; top: 320px; right: 11%; width: min(10vw, 120px); height: min(10vw, 120px); background: var(--accent); box-shadow: min(10vw, 120px) 36px 0 var(--beige); }
@@ -126,6 +163,23 @@
       .hero-actions { margin-top: 28px; }
       .links { justify-content: space-between; gap: 6px 18px; }
       .links a { min-width: 40%; font-size: 14px; }
+      .profile-page { min-height: 0; padding: 70px 0 280px; }
+      .profile-page::before {
+    content: none;
+  }
+  .profile-photo {
+    top: auto;
+    right: calc(50% - 150px);
+    bottom: 55px;
+    width: min(100%, 300px);
+    height: 190px;
+    padding: 0;
+  }
+      .profile-page::after { top: auto; right: calc(50% - 92px); bottom: 95px; width: 80px; height: 80px; box-shadow: 80px 28px 0 var(--beige); }
+      .profile-copy h1 { font-size: clamp(32px, 10vw, 46px); }
+      .profile-facts { grid-template-columns: 1fr; gap: 0; }
+      .profile-facts dt { margin-top: 12px; }
+      .profile-facts dd { margin-bottom: 4px; }
       .about-page { min-height: 0; padding: 70px 0 50px; }
       .about-page::before { position: relative; top: auto; right: auto; display: block; width: min(100%, 300px); height: 210px; margin: 48px auto 0; }
       .about-page::after { top: 340px; right: calc(50% - 90px); width: 80px; height: 80px; box-shadow: 80px 28px 0 var(--beige); }
@@ -143,7 +197,7 @@
       .theme-toggle { width: 54px; height: 32px; }
       .theme-toggle::before { width: 20px; height: 20px; top: 4px; left: 4px; }
       :root[data-theme="dark"] .theme-toggle::before { transform: translateX(22px); }
-      .home-hero::before, .about-page::before { height: 190px; }
+      .home-hero::before, .about-page::before, .profile-page::before { height: 190px; }
       .contact-panel li { font-size: 12px; }
       .links { display: grid; grid-template-columns: 1fr 1fr; }
       .links a { min-width: 0; }
@@ -161,6 +215,7 @@
       <span class="brand-name">SQUARE fractal<span>Shun Tonegawa</span></span>
     </a>
     <div class="header-actions">
+      <a class="header-link" href="#profile">プロフィール</a>
       <a class="header-link" href="#about">このサイトについて</a>
       <a class="header-link" href="mailto:contact@ffnet.work">Contact</a>
       <button class="theme-toggle" type="button" aria-label="ダークテーマに切り替え" aria-pressed="false">テーマ切り替え</button>
@@ -171,6 +226,7 @@
   <div class="mobile-menu" id="mobile-menu" aria-hidden="true">
     <nav aria-label="メインメニュー">
       <a href="#home">ホーム</a>
+      <a href="#profile">プロフィール</a>
       <a href="#about">このサイトについて</a>
       <a href="mailto:contact@ffnet.work">Contact</a>
     </nav>
@@ -183,6 +239,7 @@
           <h1 id="home-title">SQUARE fractal<br>Shun Tonegawa</h1>
           <p>どうも<br>利根川です</p>
           <div class="hero-actions">
+            <a href="#profile">プロフィール</a>
             <a href="#about">このサイトについて</a>
             <a href="mailto:contact@ffnet.work" class="modal-trigger">Contact</a>
           </div>
@@ -196,10 +253,31 @@
       </nav>
     </section>
 
+    <section class="view" id="profile-view" data-view="profile" aria-labelledby="profile-title" hidden>
+      <div class="profile-page">
+        <div class="profile-photo">
+          <img src="https://image.nostr.build/f204c4c0b5912a0a305cf5a9f56850173271a0a8ee2103593c9e1b217b3766be.png" alt="">
+        </div>
+        <div class="profile-copy">
+          <p class="eyebrow">PROFILE</p>
+          <h1 id="profile-title">利根川 駿</h1>
+          <hr>
+          <p class="profile-lead">Shun Tonegawa</p>
+          <dl class="profile-facts">
+            <dt>拠点</dt><dd>東京都 板橋区</dd>
+            <dt>関心</dt><dd>イヤホン、ゲーム</dd>
+            <dt>活動分野</dt><dd>現在整理中</dd>
+          </dl>
+          <p class="profile-note">このページでは、利根川駿について一目で分かる基本情報をまとめています。</p>
+          <a class="back-home" href="#home">← ホームへ戻る</a>
+        </div>
+      </div>
+    </section>
+
     <section class="view" id="about-view" data-view="about" aria-labelledby="about-title" hidden>
       <div class="about-page">
         <div class="about-copy">
-          <p class="eyebrow">SQUARE / ABOUT</p>
+          <p class="eyebrow">ABOUT</p>
           <h1 id="about-title">このサイトについて</h1>
           <hr>
           <p>
@@ -286,9 +364,9 @@
       }
 
       function showView() {
-        const about = window.location.hash === "#about";
-        views.forEach((view) => { view.hidden = view.dataset.view === "about" ? !about : about; });
-        document.title = about ? "About | SQUARE fractal" : "SQUARE fractal — Shun Tonegawa";
+        const page = ["home", "profile", "about"].includes(window.location.hash.slice(1)) ? window.location.hash.slice(1) : "home";
+        views.forEach((view) => { view.hidden = view.dataset.view !== page; });
+        document.title = page === "profile" ? "Profile | SQUARE fractal" : page === "about" ? "About | SQUARE fractal" : "SQUARE fractal — Shun Tonegawa";
         closeMenu();
         window.scrollTo({ top: 0, behavior: "auto" });
       }
