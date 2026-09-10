@@ -32,7 +32,7 @@
     }
     * { box-sizing: border-box; }
     html { min-width: 320px; min-height: 100%; scroll-behavior: smooth; }
-    body { min-width: 320px; min-height: 100vh; margin: 0; overflow-x: hidden; background: var(--bg); color: var(--text); font-family: Arial, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif; line-height: 1.7; }
+    body { min-width: 320px; min-height: 100svh; margin: 0; overflow-x: hidden; background: var(--bg); color: var(--text); font-family: Arial, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif; line-height: 1.7; }
     body::before { content: ""; position: fixed; z-index: 100; inset: 0 0 auto; height: 3px; background: var(--accent); }
     body.menu-open { overflow: hidden; }
     a { color: var(--text); }
@@ -72,9 +72,8 @@
     .links a::after { content: " ↗"; color: var(--accent); }
     .links a:hover { color: var(--hover); text-decoration: underline; }
     .footer { width: min(100%, var(--max)); margin: 0 auto; padding: 16px 0 20px; text-align: center; }
-    .contact-modal[hidden] { display: none; }
-    .contact-modal { position: fixed; z-index: 80; inset: 0; display: grid; place-items: center; padding: 24px; background: rgba(26,26,26,.72); }
-    .contact-dialog { width: min(100%, 560px); max-height: min(90vh, 620px); overflow: auto; border: 2px solid var(--line); background: var(--bg); color: var(--text); }
+    .contact-dialog { position: relative; width: min(100%, 560px); max-height: min(90svh, 620px); margin: auto; padding: 0; overflow: auto; border: 2px solid var(--line); background: var(--bg); color: var(--text); }
+    .contact-dialog::backdrop { background: rgba(26,26,26,.72); }
     .contact-dialog-head { display: flex; align-items: start; justify-content: space-between; gap: 20px; padding: 24px 24px 18px; border-bottom: 2px solid var(--line); }
     .contact-dialog-head h2 { margin: 0; font-size: clamp(24px, 5vw, 34px); line-height: 1.2; font-weight: 900; }
     .contact-dialog-head p { margin: 8px 0 0; color: var(--muted); font-size: 14px; }
@@ -85,11 +84,9 @@
     .contact-option strong { display: block; font-size: 16px; }
     .contact-option span { display: block; color: var(--muted); font-size: 12px; }
     .contact-option::after { content: "→"; color: var(--accent); font-size: 22px; }
-    body.modal-open { overflow: hidden; }
     @media (max-width: 767px) {
-      .contact-modal { align-items: end; padding: 12px; }
-      .contact-dialog { width: 100%; max-height: 88vh; }
-      .contact-dialog-head, .contact-options { padding-left: 18px; padding-right: 18px; }
+      .contact-dialog { position: fixed; inset: auto 0 0; width: calc(100% - 24px); max-height: 88svh; margin: 0 auto 12px; }
+      .contact-dialog-head, .contact-options { padding-inline: 18px; }
     }
     .footer p { margin: 0; color: var(--muted); font-size: 12px; }
     .profile-page { position: relative; min-height: 610px; padding: clamp(70px, 9vw, 116px) 52% 68px 0; border-bottom: 2px solid var(--line); }
@@ -295,8 +292,7 @@
     </section>
   </main>
 
-  <div class="contact-modal" id="contact-modal" hidden aria-hidden="true">
-    <section class="contact-dialog" role="dialog" aria-modal="true" aria-labelledby="contact-modal-title">
+  <dialog class="contact-dialog" id="contact-modal" aria-labelledby="contact-modal-title">
       <div class="contact-dialog-head">
         <div><h2 id="contact-modal-title">Contact</h2><p>ご用件に近い件名を選んでください。</p></div>
         <button class="contact-close" type="button" aria-label="Contactモーダルを閉じる">×</button>
@@ -307,8 +303,7 @@
         <button class="contact-option" type="button" data-subject="重要"><span><strong>重要</strong><span>緊急での対応が必要なもの</span></span></button>
         <button class="contact-option" type="button" data-subject=""><span><strong>その他</strong><span>件名の指定はありません</span></span></button>
       </div>
-    </section>
-  </div>
+  </dialog>
 
   <footer class="footer"><p>© 2026 Shun Tonegawa</p></footer>
 
@@ -383,24 +378,19 @@
       const contactModal = document.querySelector("#contact-modal");
       const contactClose = contactModal?.querySelector(".contact-close");
       const contactOptions = contactModal?.querySelectorAll(".contact-option") || [];
-      const contactTriggers = [...document.querySelectorAll('a[href^="mailto:"], a[href*="email-protection"]')];
+      const contactTriggers = [...document.querySelectorAll('a[href^="mailto:"], a[href*="contact@ffnet.work"]')];
       let lastContactTrigger = null;
 
       function openContactModal(trigger) {
         if (!contactModal) return;
         lastContactTrigger = trigger || document.activeElement;
-        contactModal.hidden = false;
-        contactModal.setAttribute("aria-hidden", "false");
-        body.classList.add("modal-open");
+        contactModal.showModal();
         contactClose?.focus();
       }
 
       function closeContactModal() {
-        if (!contactModal) return;
-        contactModal.hidden = true;
-        contactModal.setAttribute("aria-hidden", "true");
-        body.classList.remove("modal-open");
-        lastContactTrigger?.focus?.();
+        if (!contactModal?.open) return;
+        contactModal.close();
       }
 
       contactTriggers.forEach((trigger) => {
@@ -410,9 +400,16 @@
         });
       });
       contactClose?.addEventListener("click", closeContactModal);
+      // バックドロップクリック判定（::backdrop 上のクリックは dialog 自身がターゲットになる）
       contactModal?.addEventListener("click", (event) => {
-        if (event.target === contactModal) closeContactModal();
+        if (!contactModal.open) return;
+        const rect = contactModal.getBoundingClientRect();
+        const inDialog = rect.top <= event.clientY && event.clientY <= rect.bottom
+          && rect.left <= event.clientX && event.clientX <= rect.right;
+        if (!inDialog) closeContactModal();
       });
+      // Escape による閉鎖（cancel）と close の両方でフォーカスを戻す
+      contactModal?.addEventListener("close", () => { lastContactTrigger?.focus?.(); });
       contactOptions.forEach((option) => {
         option.addEventListener("click", () => {
           const subject = option.dataset.subject || "";
@@ -420,9 +417,6 @@
           closeContactModal();
           window.location.href = `mailto:contact@ffnet.work${query}`;
         });
-      });
-      document.addEventListener("keydown", (event) => {
-        if (event.key === "Escape" && contactModal && !contactModal.hidden) closeContactModal();
       });
       systemTheme.addEventListener?.("change", (event) => {
         try { if (localStorage.getItem(themeKey)) return; } catch (_) {}
