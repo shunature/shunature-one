@@ -11,7 +11,7 @@ $og_image = isset($og_image) && !empty($og_image) ? $og_image : $base_path . 'im
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="<?php echo $base_path; ?>favicon.svg">
+  <link rel="icon" type="image/x-icon" href="<?php echo $base_path; ?>favicon.png">
   <meta name="description" content="<?php echo htmlspecialchars($page_description, ENT_QUOTES, 'UTF-8'); ?>">
   <meta name="fediverse:creator" content="@dockker7mb@famichiki.jp">
 
