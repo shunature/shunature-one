@@ -1,0 +1,140 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="./favicon.svg">
+  <meta name="description" content="鯨とネガ (Whale and Negafilms)">
+  <meta name="fediverse:creator" content="@dockker7mb@famichiki.jp">
+
+  <!-- Open Graph Protocol (OGP) -->
+  <meta property="og:site_name" content="鯨とネガ">
+  <meta property="og:title" content="鯨とネガ — Whale and Negafilms">
+  <meta property="og:description" content="鯨とネガ (Whale and Negafilms)">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="./images/kujira_to_nega.png">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="鯨とネガ — Whale and Negafilms">
+  <meta name="twitter:description" content="鯨とネガ (Whale and Negafilms)">
+  <meta name="twitter:image" content="./images/kujira_to_nega.png">
+
+  <title>鯨とネガ — Whale and Negafilms</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+  <!-- Loader Animation Overlay ("鯨" -> "と" -> "ネガ") - Only rendered on index page -->
+  <div id="loader-overlay" class="loader-overlay" aria-hidden="true">
+    <div class="loader-text">
+      <span class="char-1">鯨</span><span class="char-2">と</span><span class="char-3">ネガ</span>
+    </div>
+  </div>
+
+<div class="layout-wrapper">
+  <!-- Mobile Header (Visible on Mobile) -->
+<header class="mobile-header">
+  <a class="brand" href="./index.html">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <span class="brand-name">鯨とネガ<span>Whale and Negafilms</span></span>
+  </a>
+  <div class="header-actions">
+    <button class="theme-toggle" type="button" aria-label="テーマ切り替え"></button>
+    <button class="menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobile-menu">MENU</button>
+  </div>
+</header>
+
+<!-- Mobile Slide-out Drawer Menu -->
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <nav aria-label="モバイルメニュー">
+    <a href="./index.html" class="active">ホーム</a>
+    <a href="./profile.html" class="">プロフィール</a>
+    <a href="./about.html" class="">このサイトについて</a>
+    <a href="./blog/index.html" class="">ブログ</a>
+    <a href="mailto:contact@ffnet.work" class="modal-trigger">Contact</a>
+  </nav>
+</div>
+
+<!-- Desktop Sidebar (Visible on Desktop) -->
+<aside class="site-sidebar">
+  <div class="sidebar-inner">
+    <div class="sidebar-brand">
+      <a class="brand" href="./index.html">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-title">鯨とネガ</span>
+      </a>
+      <p class="brand-subtitle">Whale and Negafilms</p>
+    </div>
+
+    <nav class="sidebar-nav" aria-label="メインナビゲーション">
+      <ul>
+        <li><a href="./index.html" class="active">ホーム</a></li>
+        <li><a href="./profile.html" class="">プロフィール</a></li>
+        <li><a href="./about.html" class="">このサイトについて</a></li>
+        <li><a href="./blog/index.html" class="">ブログ</a></li>
+        <li><a href="mailto:contact@ffnet.work" class="modal-trigger">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
+        <span class="theme-label">テーマ切り替え</span>
+      </button>
+      <p class="copyright">&copy; 2026 Shun Tonegawa</p>
+    </div>
+  </div>
+</aside>
+
+  <main class="main-content">
+    <section class="hero-container animate-fade-in">
+      <div class="hero-text">
+        <h1>鯨とネガ<br><span style="font-size: 0.65em; font-weight: 700; color: var(--muted);">Whale and Negafilms</span></h1>
+        <p class="hero-intro">
+          ホームページへようこそ。
+        </p>
+      </div>
+
+      <!-- Single Photo Card with Animation -->
+      <div class="photo-card" title="Gyoza Photo">
+        <img src="https://image.nostr.build/f204c4c0b5912a0a305cf5a9f56850173271a0a8ee2103593c9e1b217b3766be.png" alt="Gyoza">
+      </div>
+    </section>
+
+    <!-- Origin & Concept of Site Name -->
+    <section class="section-block animate-fade-in">
+      <h2 class="section-title">サイト名の由来</h2>
+      <p>
+        「<strong>鯨とネガ</strong>」は、某コンテナで有名な鯨と、フイルムカメラのフィルムで用いられる「ネガティヴフィルム（ネガ）」を組み合わせた造語です。<br>
+        実のところ、MastodonのIDを先行で思いつき、この名前はあとづけで決めました。
+      </p>
+    </section>
+
+    <section class="section-block animate-fade-in">
+      <h2 class="section-title">Links & Presence</h2>
+      <nav class="social-links" aria-label="外部リンク">
+        <a rel="me" href="https://famichiki.jp/@dockker7mb" target="_blank">Mastodon</a>
+        <a href="https://matrix.to/#/@shunature:matrix.org" target="_blank">Matrix</a>
+        <a href="https://signal.me/#eu/UaFw5dUSJqKwsd-DzyAxd8fXuJaIXFKuSsxNX_nOuCin02HaRHtOnYznwzBm-nU5" target="_blank">Signal</a>
+        <a href="https://www.last.fm/user/shunature" target="_blank">Last.fm</a>
+      </nav>
+    </section>
+  </main>
+</div>
+
+  <!-- Contact Modal -->
+  <dialog class="contact-dialog" id="contact-modal" aria-labelledby="contact-modal-title">
+      <div class="contact-dialog-head">
+        <div><h2 id="contact-modal-title">Contact</h2><p>ご用件に近い件名を選んでください。</p></div>
+        <button class="contact-close" type="button" aria-label="Contactモーダルを閉じる">×</button>
+      </div>
+      <div class="contact-options">
+        <button class="contact-option" type="button" data-subject="サイトについて"><span><strong>サイトについて</strong><span>サイトについての不具合など</span></span></button>
+        <button class="contact-option" type="button" data-subject="管理人宛"><span><strong>管理人宛</strong><span>管理人へのお問い合わせ、交流</span></span></button>
+        <button class="contact-option" type="button" data-subject="重要"><span><strong>重要</strong><span>緊急での対応が必要なもの</span></span></button>
+        <button class="contact-option" type="button" data-subject=""><span><strong>その他</strong><span>件名の指定はありません</span></span></button>
+      </div>
+  </dialog>
+
+  <script src="./js/main.js"></script>
+</body>
+</html>

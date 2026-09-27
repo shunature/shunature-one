@@ -1,0 +1,160 @@
+<!doctype html>
+<html lang="ja">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" type="image/x-icon" href="./favicon.svg">
+  <meta name="description" content="鯨とネガ (Whale and Negafilms) の設計思想、制作の動機、ゼロ依存PHP＋Markdownの技術スタック">
+  <meta name="fediverse:creator" content="@dockker7mb@famichiki.jp">
+
+  <!-- Open Graph Protocol (OGP) -->
+  <meta property="og:site_name" content="鯨とネガ">
+  <meta property="og:title" content="About | 鯨とネガ">
+  <meta property="og:description" content="鯨とネガ (Whale and Negafilms) の設計思想、制作の動機、ゼロ依存PHP＋Markdownの技術スタック">
+  <meta property="og:type" content="website">
+  <meta property="og:image" content="./images/kujira_to_nega.png">
+
+  <!-- Twitter Cards -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="About | 鯨とネガ">
+  <meta name="twitter:description" content="鯨とネガ (Whale and Negafilms) の設計思想、制作の動機、ゼロ依存PHP＋Markdownの技術スタック">
+  <meta name="twitter:image" content="./images/kujira_to_nega.png">
+
+  <title>About | 鯨とネガ</title>
+  <link rel="stylesheet" href="./css/style.css">
+</head>
+<body>
+
+<div class="layout-wrapper">
+  <!-- Mobile Header (Visible on Mobile) -->
+<header class="mobile-header">
+  <a class="brand" href="./index.html">
+    <span class="brand-mark" aria-hidden="true"></span>
+    <span class="brand-name">鯨とネガ<span>Whale and Negafilms</span></span>
+  </a>
+  <div class="header-actions">
+    <button class="theme-toggle" type="button" aria-label="テーマ切り替え"></button>
+    <button class="menu-toggle" type="button" aria-label="メニューを開く" aria-expanded="false" aria-controls="mobile-menu">MENU</button>
+  </div>
+</header>
+
+<!-- Mobile Slide-out Drawer Menu -->
+<div class="mobile-menu" id="mobile-menu" aria-hidden="true">
+  <nav aria-label="モバイルメニュー">
+    <a href="./index.html" class="">ホーム</a>
+    <a href="./profile.html" class="">プロフィール</a>
+    <a href="./about.html" class="active">このサイトについて</a>
+    <a href="./blog/index.html" class="">ブログ</a>
+    <a href="mailto:contact@ffnet.work" class="modal-trigger">Contact</a>
+  </nav>
+</div>
+
+<!-- Desktop Sidebar (Visible on Desktop) -->
+<aside class="site-sidebar">
+  <div class="sidebar-inner">
+    <div class="sidebar-brand">
+      <a class="brand" href="./index.html">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <span class="brand-title">鯨とネガ</span>
+      </a>
+      <p class="brand-subtitle">Whale and Negafilms</p>
+    </div>
+
+    <nav class="sidebar-nav" aria-label="メインナビゲーション">
+      <ul>
+        <li><a href="./index.html" class="">ホーム</a></li>
+        <li><a href="./profile.html" class="">プロフィール</a></li>
+        <li><a href="./about.html" class="active">このサイトについて</a></li>
+        <li><a href="./blog/index.html" class="">ブログ</a></li>
+        <li><a href="mailto:contact@ffnet.work" class="modal-trigger">Contact</a></li>
+      </ul>
+    </nav>
+
+    <div class="sidebar-footer">
+      <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
+        <span class="theme-label">テーマ切り替え</span>
+      </button>
+      <p class="copyright">&copy; 2026 Shun Tonegawa</p>
+    </div>
+  </div>
+</aside>
+
+  <main class="main-content animate-fade-in">
+    <h1 class="page-title">このサイトについて</h1>
+    <p class="page-subtitle">Whale and Negafilms — Technical Architecture & Philosophy</p>
+
+    <div style="max-width: 740px;">
+      <section style="margin-bottom: 36px;">
+        <h2 class="section-title">動機とコンセプト</h2>
+        <p>
+          まず、断りを入れておきましょう。<br>
+          サイト全体にAIやフレームワークを導入することは、決して悪いことではありませんし、このサイト自体デザインをClaude、コードをAntigravityにお任せしました。<br>
+          <br>
+          ですが、いろいろと進化して、それに依存をしてきましたね。<br>
+          WordPressに、AIに。<br>
+          しかし、「<strong>AIやフレームワークに<strong>頼り切る</strong>よりも、自分で中身がわかる仕組みを組む方が、結果的に理解しやすく長期的な運用も楽なのでは？</strong>」と考えたことが、このサイトを構築したきっかけです。
+        </p>
+        <p>
+          また、ごちゃついた表現を削ぎ落とし、閲覧者にとっても制作者にとっても視認性と取り回しの良さを最優先した設計を行なっています。
+        </p>
+      </section>
+
+      <section style="margin-bottom: 36px;">
+        <h2 class="section-title">技術スタック（Tech Stack）</h2>
+        <p>
+          このサイトは、外部のライブラリやヘビーなビルドツール（Node.js/npmパッケージ等）を一切使用せず、<strong>純粋なPHPとVanilla JS / CSS</strong> のみで構成されています。
+        </p>
+
+        <ul style="line-height: 2; padding-left: 20px;">
+          <li><strong>テンプレートエンジン (PHP 8.x)</strong>: `src/pages/` 配下でページを記述し、`src/includes/` でパーツ化。</li>
+          <li><strong>ゼロ依存 Markdown パーサー</strong>: `src/includes/markdown.php` にて自作の軽量パーサーを実装。`.md` ファイルから見出し、太字、コードブロック、画像をパース。</li>
+          <li><strong>静的サイトジェネレーター (`build.php`)</strong>: PHPの出力バッファリングを利用して `dist/` ディレクトリに高速なHTMLを出力。</li>
+          <li><strong>レスポンシブ CSS</strong>: 画面幅に応じたPCサイドバー／スマホヘッダー・ドロワー切替、CSS変数を活用したダークモード対応。</li>
+        </ul>
+      </section>
+
+      <section style="margin-bottom: 36px;">
+        <h2 class="section-title">仕組みと運用フロー（Workflow）</h2>
+        
+        <div style="padding: 20px; border: 2px solid var(--line); background: var(--surface); margin-top: 16px;">
+          <h3 style="margin: 0 0 12px; font-size: 17px;">1. ローカル編集</h3>
+          <p style="margin: 0 0 12px; font-size: 14px; color: var(--muted);">
+            記事を書くときは `src/blog/posts/*.md` にファイルを追加するだけ。画像は `public/images/` に配置します。
+          </p>
+
+          <h3 style="margin: 0 0 12px; font-size: 17px;">2. ビルド (`php build.php`)</h3>
+          <p style="margin: 0 0 12px; font-size: 14px; color: var(--muted);">
+            `php build.php` を1回実行すると、PHPとMarkdownがコンパイルされ、`dist/` ディレクトリに完全な静的HTML/CSS/JSが出力されます。
+          </p>
+
+          <h3 style="margin: 0 0 12px; font-size: 17px;">3. プラットフォーム非依存のデプロイ</h3>
+          <p style="margin: 0; font-size: 14px; color: var(--muted);">
+            生成物 `dist/` を Vercel、Firebase Hosting、Cloudflare Pages 等の静的ホスティングにコミット＆Pushするだけで世界中に配信されます。
+          </p>
+        </div>
+      </section>
+
+      <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid var(--line);">
+        <a href="./index.html" style="font-weight: 700;">&larr; ホームへ戻る</a>
+      </div>
+    </div>
+  </main>
+</div>
+
+  <!-- Contact Modal -->
+  <dialog class="contact-dialog" id="contact-modal" aria-labelledby="contact-modal-title">
+      <div class="contact-dialog-head">
+        <div><h2 id="contact-modal-title">Contact</h2><p>ご用件に近い件名を選んでください。</p></div>
+        <button class="contact-close" type="button" aria-label="Contactモーダルを閉じる">×</button>
+      </div>
+      <div class="contact-options">
+        <button class="contact-option" type="button" data-subject="サイトについて"><span><strong>サイトについて</strong><span>サイトについての不具合など</span></span></button>
+        <button class="contact-option" type="button" data-subject="管理人宛"><span><strong>管理人宛</strong><span>管理人へのお問い合わせ、交流</span></span></button>
+        <button class="contact-option" type="button" data-subject="重要"><span><strong>重要</strong><span>緊急での対応が必要なもの</span></span></button>
+        <button class="contact-option" type="button" data-subject=""><span><strong>その他</strong><span>件名の指定はありません</span></span></button>
+      </div>
+  </dialog>
+
+  <script src="./js/main.js"></script>
+</body>
+</html>
