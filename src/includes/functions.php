@@ -47,7 +47,7 @@ function parse_post_file($filePath) {
         'excerpt' => '',
         'cover' => '',
         'tags' => [],
-        'thumbnail' => $hasThumbnail ? $thumbnailRelPath : '',
+        'thumbnail' => $hasThumbnail ? $thumbnailRelPath : 'images/kujira_to_nega.png',
         'url_path' => "blog/{$year}/{$month}/{$day}/{$slug}/index.html",
         'path' => $filePath
     ];
