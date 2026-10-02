@@ -37,19 +37,23 @@ function parse_post_file($filePath) {
     $thumbnailFullPath = __DIR__ . '/../../public/' . $thumbnailRelPath;
     $hasThumbnail = file_exists($thumbnailFullPath);
 
+    // フロントマターに明示的な date: があるかを追跡するフラグ
+    $dateFromFrontmatter = false;
+
     $metadata = [
-        'title' => $slug,
-        'date' => $date,
-        'year' => $year,
-        'month' => $month,
-        'day' => $day,
-        'slug' => $slug,
-        'excerpt' => '',
-        'cover' => '',
-        'tags' => [],
+        'title'     => $slug,
+        'date'      => $date,
+        'year'      => $year,
+        'month'     => $month,
+        'day'       => $day,
+        'slug'      => $slug,
+        'excerpt'   => '',
+        'cover'     => '',
+        'tags'      => [],
+        'draft'     => false,
         'thumbnail' => $hasThumbnail ? $thumbnailRelPath : 'images/kujira_to_nega.png',
-        'url_path' => "blog/{$year}/{$month}/{$day}/{$slug}/index.html",
-        'path' => $filePath
+        'url_path'  => "blog/{$year}/{$month}/{$day}/{$slug}/index.html",
+        'path'      => $filePath
     ];
 
     $markdownBody = $content;
@@ -68,6 +72,12 @@ function parse_post_file($filePath) {
 
                 if ($key === 'tags') {
                     $metadata['tags'] = array_map('trim', explode(',', $val));
+                } elseif ($key === 'draft') {
+                    // "true" / "1" / "yes" を true として扱う
+                    $metadata['draft'] = in_array(strtolower($val), ['true', '1', 'yes'], true);
+                } elseif ($key === 'date') {
+                    $metadata['date'] = $val;
+                    $dateFromFrontmatter = true;
                 } else {
                     $metadata[$key] = $val;
                 }
@@ -75,11 +85,16 @@ function parse_post_file($filePath) {
         }
     }
 
+    // draft: true または date: が書かれていない場合は下書き扱い
+    if (!$dateFromFrontmatter) {
+        $metadata['draft'] = true;
+    }
+
     $htmlBody = parse_markdown($markdownBody);
 
     return [
         'metadata' => $metadata,
-        'body' => $htmlBody,
+        'body'     => $htmlBody,
         'raw_body' => $markdownBody
     ];
 }
