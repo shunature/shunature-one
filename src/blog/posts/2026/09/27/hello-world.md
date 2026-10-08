@@ -23,10 +23,10 @@ tags: お知らせ
 ### 画像の埋め込み例
 
 ```markdown
-![サンプル画像](../../images/sample.png)
+![サンプル画像](/images/sample.png)
 ```
 
-![サンプル画像](../../images/sample.png)
+![サンプル画像](/images/sample.png)
 
 ---
 
