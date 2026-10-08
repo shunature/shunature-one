@@ -673,7 +673,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outlin
   border-radius: var(--radius-soft);
   border: 1px solid var(--line);
   margin: 20px auto;
-  display: block;
+  display: block; 
 }
 
 .article-body blockquote {
