@@ -667,11 +667,13 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outlin
 }
 
 .article-body img {
-  max-width: 100%;
+  max-width: 50%;
+  min-width: 120px;
   height: auto;
   border-radius: var(--radius-soft);
   border: 1px solid var(--line);
-  margin: 20px 0;
+  margin: 20px auto;
+  display: block;
 }
 
 .article-body blockquote {
@@ -698,6 +700,42 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outlin
   border-radius: 5px;
   font-family: monospace;
   font-size: 0.9em;
+}
+
+.article-body mark {
+  background: var(--accent);
+  color: var(--bg);
+  padding: 0 3px;
+  border-radius: 3px;
+}
+
+.article-body del {
+  color: var(--muted);
+  text-decoration: line-through;
+}
+
+.article-body table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 0.95em;
+}
+
+.article-body th,
+.article-body td {
+  padding: 10px 14px;
+  border: 1px solid var(--line);
+  text-align: left;
+}
+
+.article-body thead th {
+  background: var(--surface);
+  font-weight: 600;
+  border-color: var(--line-strong);
+}
+
+.article-body tbody tr:nth-child(even) {
+  background: var(--surface);
 }
 
 /* Contact Modal */

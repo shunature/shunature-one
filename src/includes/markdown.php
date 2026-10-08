@@ -19,6 +19,8 @@ function parse_markdown($markdown) {
     $in_list = false;
     $list_type = ''; // 'ul' or 'ol'
     $in_blockquote = false;
+    $in_table = false;
+    $table_has_header = false;
 
     foreach ($lines as $line) {
         $trimmed = trim($line);
@@ -58,7 +60,7 @@ function parse_markdown($markdown) {
         if (preg_match('/^>\s?(.*)$/', $line, $m)) {
             if ($in_list) { $html[] = "</{$list_type}>"; $in_list = false; }
             if (!$in_blockquote) {
-                $html[] = "blockquote>";
+                $html[] = "<blockquote>";
                 $in_blockquote = true;
             }
             $html[] = "<p>" . parse_inline_markdown($m[1]) . "</p>";
@@ -93,20 +95,62 @@ function parse_markdown($markdown) {
 
         // If line is preformatted code block HTML from earlier, output direct
         if (strpos($trimmed, '<pre><code') === 0 || strpos($trimmed, '</code></pre>') !== false) {
+            if ($in_table) { $html[] = '</tbody></table>'; $in_table = false; }
             $html[] = $line;
             continue;
         }
 
+        // Table row: starts and ends with |
+        if (preg_match('/^\|(.+)\|$/', $trimmed)) {
+            $cells = array_map('trim', explode('|', trim($trimmed, '|')));
+
+            // Separator row (|---|---|) → marks previous row as header
+            $isSeparator = true;
+            foreach ($cells as $cell) {
+                if (!preg_match('/^:?-+:?$/', $cell)) { $isSeparator = false; break; }
+            }
+            if ($isSeparator) {
+                // Close thead if we were building a header row
+                if ($in_table && !$table_has_header) {
+                    $html[] = '</tr></thead><tbody>';
+                    $table_has_header = true;
+                }
+                continue;
+            }
+
+            if (!$in_table) {
+                if ($in_list) { $html[] = "</{$list_type}>"; $in_list = false; }
+                if ($in_blockquote) { $html[] = '</blockquote>'; $in_blockquote = false; }
+                $html[] = '<table><thead><tr>';
+                $in_table = true;
+                $table_has_header = false;
+                $tag = 'th';
+            } else {
+                $tag = $table_has_header ? 'td' : 'th';
+                $html[] = '<tr>';
+            }
+
+            foreach ($cells as $cell) {
+                $html[] = "<{$tag}>" . parse_inline_markdown($cell) . "</{$tag}>";
+            }
+            $html[] = '</tr>';
+            continue;
+        }
+
+        // Non-table line closes table
+        if ($in_table) { $html[] = '</tbody></table>'; $in_table = false; }
+
         // Standard Paragraph
         if ($in_list) { $html[] = "</{$list_type}>"; $in_list = false; }
-        if ($in_blockquote) { $html[] = "</blockquote>"; $in_blockquote = false; }
+        if ($in_blockquote) { $html[] = '</blockquote>'; $in_blockquote = false; }
 
         $content = parse_inline_markdown($line);
         $html[] = "<p>{$content}</p>";
     }
 
     if ($in_list) $html[] = "</{$list_type}>";
-    if ($in_blockquote) $html[] = "</blockquote>";
+    if ($in_blockquote) $html[] = '</blockquote>';
+    if ($in_table) $html[] = '</tbody></table>';
 
     return implode("\n", $html);
 }
@@ -122,11 +166,16 @@ function parse_inline_markdown($text) {
     // Italic: *text* or _text_
     $text = preg_replace('/\*([^*]+)\*/', '<em>$1</em>', $text);
     $text = preg_replace('/_([^_]+)_/', '<em>$1</em>', $text);
+    // Strikethrough: ~~text~~
+    $text = preg_replace('/~~([^~]+)~~/', '<del>$1</del>', $text);
+    // Highlight/Marker: ==text==
+    $text = preg_replace('/==([^=]+)==/', '<mark>$1</mark>', $text);
     // Inline code: `code`
     $text = preg_replace('/`([^`]+)`/', '<code>$1</code>', $text);
 
     return $text;
 }
+
 
 /**
  * Generates Table of Contents (TOC) and inserts anchor IDs into h1, h2, h3 tags

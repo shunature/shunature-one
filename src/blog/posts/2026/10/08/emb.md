@@ -24,7 +24,7 @@ excerpt: ふと考えてみる
 
 話はその日に戻るが、写真は別にスクショや、このような写真が主なのでそこまで。
 
-<img src="/images/forest.png" width="50%">
+![forest](/images/forest.png)
 
 うーむ、どこまでならダメなんだろう...正直LINEも見られて困るもんでもない。
 
