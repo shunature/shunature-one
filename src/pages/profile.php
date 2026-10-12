@@ -1,6 +1,6 @@
 <?php
 $page_title = 'Profile | 鯨とネガ';
-$page_description = '柏羽 駿（鯨）のプロフィール、拠点情報、関心領域（イヤホン、インディーゲーム、ガジェット環境等）';
+$page_description = 'プロフィール、拠点情報、関心領域（イヤホン、インディーゲーム、ガジェット環境等）';
 $current_page = 'profile';
 $base_path = './';
 require __DIR__ . '/../includes/head.php';
@@ -18,15 +18,15 @@ require __DIR__ . '/../includes/head.php';
         <h2 class="section-title">基本情報</h2>
         <dl style="display: grid; grid-template-columns: 120px 1fr; gap: 14px; font-size: 16px;">
           <dt style="color: var(--muted); font-weight: 700;">名前</dt>
-          <dd style="margin: 0; font-weight: 700;">利根川 駿（Shun Tonegawa）</dd>
+          <dd style="margin: 0; font-weight: 700;">柏羽 駿（Shun Kashiwaba）</dd>
 
           <dt style="color: var(--muted); font-weight: 700;">別名 / ID</dt>
           <dd style="margin: 0;">鯨とネガ (Whale and Negafilms) / @dockker7mb</dd>
 
-          <dt style="color: var(--muted); font-weight: 700;">拠点</dt>
+          <dt style="color: var(--muted); font-weight: 700;">出身</dt>
           <dd style="margin: 0;">東京都 板橋区</dd>
 
-          <dt style="color: var(--muted); font-weight: 700;">活動領域</dt>
+          <dt style="color: var(--muted); font-weight: 700;">得意分野</dt>
           <dd style="margin: 0;">タイポグラフィ</dd>
         </dl>
       </section>
