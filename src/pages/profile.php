@@ -1,6 +1,6 @@
 <?php
 $page_title = 'Profile | 鯨とネガ';
-$page_description = '利根川 駿 (Shun Tonegawa) のプロフィール、拠点情報、関心領域（イヤホン、インディーゲーム、ガジェット環境等）';
+$page_description = '柏羽 駿（鯨）のプロフィール、拠点情報、関心領域（イヤホン、インディーゲーム、ガジェット環境等）';
 $current_page = 'profile';
 $base_path = './';
 require __DIR__ . '/../includes/head.php';

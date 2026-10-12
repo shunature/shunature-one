@@ -50,7 +50,7 @@ $current_page = isset($current_page) ? $current_page : 'home';
       <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
         <span class="theme-label">テーマ切り替え</span>
       </button>
-      <p class="copyright">&copy; 2026 Shun Tonegawa</p>
+      <p class="copyright">&copy; 2026 鯨とネガ</p>
     </div>
   </div>
 </aside>
