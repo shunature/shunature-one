@@ -16,6 +16,10 @@ require __DIR__ . '/../includes/head.php';
         <p class="hero-intro">
           ホームページへようこそ。
         </p>
+        <p style="font-size: 1em; color: var(--muted);">
+          このサイトは、個人の趣味・興味に基づいて運営されています。<br>
+          関連する組織・団体とは一切関係ありませんので、悪しからず。</p>
+        </p>
       </div>
 
       <!-- Single Photo Card with Animation -->
