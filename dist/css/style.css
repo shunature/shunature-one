@@ -5,10 +5,10 @@
   --surface: #f0ede9;
   --text: #2c292d;
   --muted: #6f6c6f;
-  --accent: #ffd866; /* Monokai Pro Yellow */
-  --accent-text: #2c292d;
+  --accent: #ff6188; /* Monokai Pro Magenta */
+  --accent-text: #ffffff;
   --beige: #e8e4e0;
-  --hover: #f0c020;
+  --hover: #e04070;
   --line: rgba(44, 41, 45, 0.12);
   --line-strong: rgba(44, 41, 45, 0.22);
   --shadow-soft: none;
@@ -28,10 +28,10 @@
   --surface: #221f22;
   --text: #fcfcfa;
   --muted: #939293;
-  --accent: #ffd866; /* Monokai Pro Yellow */
-  --accent-text: #2d2a2e;
+  --accent: #ff6188; /* Monokai Pro Magenta */
+  --accent-text: #ffffff;
   --beige: #3a373b;
-  --hover: #ffe599;
+  --hover: #ff85a1;
   --line: rgba(252, 252, 250, 0.10);
   --line-strong: rgba(252, 252, 250, 0.18);
   --shadow-soft: none;
