@@ -1,15 +1,16 @@
 :root {
   color-scheme: light;
-  --bg: #fbfaf6;
-  --surface: #f2efe8;
-  --text: #1c1b18;
-  --muted: #7a776e;
-  --accent: #f0bf3f; /* Soft Gold (was Electric Yellow) */
-  --accent-text: #1c1b18;
-  --beige: #e9e4d8;
-  --hover: #e3ac2b;
-  --line: rgba(28, 27, 24, 0.12);
-  --line-strong: rgba(28, 27, 24, 0.2);
+  /* Monokai Pro — Light */
+  --bg: #fafafa;
+  --surface: #f0ede9;
+  --text: #2c292d;
+  --muted: #6f6c6f;
+  --accent: #ffd866; /* Monokai Pro Yellow */
+  --accent-text: #2c292d;
+  --beige: #e8e4e0;
+  --hover: #f0c020;
+  --line: rgba(44, 41, 45, 0.12);
+  --line-strong: rgba(44, 41, 45, 0.22);
   --shadow-soft: none;
   --shadow-lift: none;
   --radius-card: 20px;
@@ -22,16 +23,17 @@
 
 :root[data-theme="dark"] {
   color-scheme: dark;
-  --bg: #17181a;
-  --surface: #202224;
-  --text: #f2f0ea;
-  --muted: #9b988e;
-  --accent: #f0bf3f;
-  --accent-text: #17181a;
-  --beige: #2c2e30;
-  --hover: #f6cd5f;
-  --line: rgba(242, 240, 234, 0.12);
-  --line-strong: rgba(242, 240, 234, 0.22);
+  /* Monokai Pro — Dark */
+  --bg: #2d2a2e;
+  --surface: #221f22;
+  --text: #fcfcfa;
+  --muted: #939293;
+  --accent: #ffd866; /* Monokai Pro Yellow */
+  --accent-text: #2d2a2e;
+  --beige: #3a373b;
+  --hover: #ffe599;
+  --line: rgba(252, 252, 250, 0.10);
+  --line-strong: rgba(252, 252, 250, 0.18);
   --shadow-soft: none;
   --shadow-lift: none;
 }
