@@ -30,6 +30,11 @@ jobs:
           php-version: "8.5"
           extensions: mbstring
           coverage: none
+        env:
+          update: true
+
+      - name: Check PHP version
+        run: php -v
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
