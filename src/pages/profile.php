@@ -1,5 +1,5 @@
 <?php
-$page_title = 'Profile | 鯨とネガ';
+$page_title = 'Profile | わどわど';
 $page_description = 'プロフィール、拠点情報、関心領域（イヤホン、インディーゲーム、ガジェット環境等）';
 $current_page = 'profile';
 $base_path = './';
@@ -11,7 +11,7 @@ require __DIR__ . '/../includes/head.php';
 
   <main class="main-content animate-fade-in">
     <h1 class="page-title">プロフィール</h1>
-    <p class="page-subtitle">Whale and Negafilms — Profile & Interests</p>
+    <p class="page-subtitle">WadoWado Studios — Profile & Interests</p>
 
     <div style="max-width: 720px;">
       <section style="margin-bottom: 40px;">
@@ -21,13 +21,13 @@ require __DIR__ . '/../includes/head.php';
           <dd style="margin: 0; font-weight: 700;">柏羽 駿（Shun Kashiwaba）</dd>
 
           <dt style="color: var(--muted); font-weight: 700;">別名 / ID</dt>
-          <dd style="margin: 0;">鯨とネガ (Whale and Negafilms) / @dockker7mb</dd>
+          <dd style="margin: 0;">わどわど (WadoWado Studios) / @dockker7mb</dd>
 
           <dt style="color: var(--muted); font-weight: 700;">出身</dt>
           <dd style="margin: 0;">東京都 板橋区</dd>
 
           <dt style="color: var(--muted); font-weight: 700;">得意分野</dt>
-          <dd style="margin: 0;">タイポグラフィ</dd>
+          <dd style="margin: 0;">タイポグラフィ、ベース演奏。</dd>
         </dl>
       </section>
 

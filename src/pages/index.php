@@ -1,6 +1,6 @@
 <?php
-$page_title = '鯨とネガ — Whale and Negafilms';
-$page_description = '鯨とネガ (Whale and Negafilms)';
+$page_title = 'わどわど - WadoWado Studios';
+$page_description = 'わどわど (WadoWado Studios)';
 $current_page = 'home';
 $base_path = './';
 require __DIR__ . '/../includes/head.php';
@@ -12,7 +12,7 @@ require __DIR__ . '/../includes/head.php';
   <main class="main-content">
     <section class="hero-container animate-fade-in">
       <div class="hero-text">
-        <h1>鯨とネガ<br><span style="font-size: 0.65em; font-weight: 700; color: var(--muted);">Whale and Negafilms</span></h1>
+        <h1>わどわど<br><span style="font-size: 0.65em; font-weight: 700; color: var(--muted);">WadoWado Studios</span></h1>
         <p class="hero-intro">
           ホームページへようこそ。
         </p>
@@ -32,7 +32,8 @@ require __DIR__ . '/../includes/head.php';
     <section class="section-block animate-fade-in">
       <h2 class="section-title">サイト名の由来</h2>
       <p>
-        「<strong>鯨とネガ</strong>」は、某コンテナで有名な鯨と、フイルムカメラのフィルムで用いられる「ネガティヴフィルム（ネガ）」を組み合わせた造語です。<br>
+        「<strong>わどわど</strong>」は、あまりみなさそうな擬音から取りました。<br>
+        使う時が来たらと思い、Studiosをつけてみました。<br>
         実のところ、MastodonのIDを先行で思いつき、この名前はあとづけで決めました。
       </p>
     </section>

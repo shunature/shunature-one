@@ -1,6 +1,6 @@
 <?php
-$page_title = 'Blog | 鯨とネガ';
-$page_description = '鯨とネガ (Whale and Negafilms) のブログ記事一覧です';
+$page_title = 'Blog | わどわど';
+$page_description = 'わどわど (WadoWado Studios) のブログ記事一覧です';
 $current_page = 'blog';
 $base_path = '../';
 

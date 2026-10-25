@@ -1,6 +1,6 @@
 <?php
-$page_title = 'About | 鯨とネガ';
-$page_description = '鯨とネガ (Whale and Negafilms) の設計思想、制作の動機、ゼロ依存PHP＋Markdownの技術スタック';
+$page_title = 'About | わどわど';
+$page_description = 'わどわど (WadoWado Studios) の設計思想、制作の動機、ゼロ依存PHP＋Markdownの技術スタック';
 $current_page = 'about';
 $base_path = './';
 require __DIR__ . '/../includes/head.php';
@@ -11,7 +11,7 @@ require __DIR__ . '/../includes/head.php';
 
   <main class="main-content animate-fade-in">
     <h1 class="page-title">このサイトについて</h1>
-    <p class="page-subtitle">Whale and Negafilms — Technical Architecture & Philosophy</p>
+    <p class="page-subtitle">WadoWado Studios — Technical Architecture & Philosophy</p>
 
     <div style="max-width: 740px;">
       <section style="margin-bottom: 36px;">

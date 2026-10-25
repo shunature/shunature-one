@@ -6,7 +6,7 @@ $current_page = isset($current_page) ? $current_page : 'home';
 <header class="mobile-header">
   <a class="brand" href="<?php echo $base_path; ?>index.html">
     <span class="brand-mark" aria-hidden="true"></span>
-    <span class="brand-name">鯨とネガ<span>Whale and Negafilms</span></span>
+    <span class="brand-name">わどわど<span>WadoWado Studios</span></span>
   </a>
   <div class="header-actions">
     <button class="theme-toggle" type="button" aria-label="テーマ切り替え"></button>
@@ -31,9 +31,9 @@ $current_page = isset($current_page) ? $current_page : 'home';
     <div class="sidebar-brand">
       <a class="brand" href="<?php echo $base_path; ?>index.html">
         <span class="brand-mark" aria-hidden="true"></span>
-        <span class="brand-title">鯨とネガ</span>
+        <span class="brand-title">わどわど</span>
       </a>
-      <p class="brand-subtitle">Whale and Negafilms</p>
+      <p class="brand-subtitle">WadoWado Studios</p>
     </div>
 
     <nav class="sidebar-nav" aria-label="メインナビゲーション">
@@ -50,7 +50,7 @@ $current_page = isset($current_page) ? $current_page : 'home';
       <button class="theme-toggle" type="button" aria-label="テーマ切り替え">
         <span class="theme-label">テーマ切り替え</span>
       </button>
-      <p class="copyright">&copy; 2026 Whale and Negafilms</p>
+      <p class="copyright">&copy; 2026 WadoWado Studios</p>
     </div>
   </div>
 </aside>

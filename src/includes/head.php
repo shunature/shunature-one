@@ -1,6 +1,6 @@
 <?php
-$page_title = isset($page_title) ? $page_title : '鯨とネガ — Whale and Negafilms';
-$page_description = isset($page_description) ? $page_description : '鯨とネガ (Whale and Negafilms)';
+$page_title = isset($page_title) ? $page_title : 'わどわど — WadoWado Studios';
+$page_description = isset($page_description) ? $page_description : 'わどわど (WadoWado Studios)';
 $base_path = isset($base_path) ? $base_path : './';
 $current_page = isset($current_page) ? $current_page : '';
 $og_type = isset($og_type) ? $og_type : ($current_page === 'blog_post' ? 'article' : 'website');
@@ -16,7 +16,7 @@ $og_image = isset($og_image) && !empty($og_image) ? $og_image : $base_path . 'im
   <meta name="fediverse:creator" content="@dockker7mb@famichiki.jp">
 
   <!-- Open Graph Protocol (OGP) -->
-  <meta property="og:site_name" content="鯨とネガ">
+  <meta property="og:site_name" content="わどわど — WadoWado Studios">
   <meta property="og:title" content="<?php echo htmlspecialchars($page_title, ENT_QUOTES, 'UTF-8'); ?>">
   <meta property="og:description" content="<?php echo htmlspecialchars($page_description, ENT_QUOTES, 'UTF-8'); ?>">
   <meta property="og:type" content="<?php echo $og_type; ?>">
@@ -33,10 +33,9 @@ $og_image = isset($og_image) && !empty($og_image) ? $og_image : $base_path . 'im
 </head>
 <body>
 <?php if ($current_page === 'home'): ?>
-  <!-- Loader Animation Overlay ("鯨" -> "と" -> "ネガ") - Only rendered on index page -->
   <div id="loader-overlay" class="loader-overlay" aria-hidden="true">
     <div class="loader-text">
-      <span class="char-1">鯨</span><span class="char-2">と</span><span class="char-3">ネガ</span>
+      <span class="char-1">わど</span><span class="char-2">わど</span>
     </div>
   </div>
 <?php endif; ?>
