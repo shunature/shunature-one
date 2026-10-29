@@ -79,6 +79,8 @@ echo "-> Building blog index page...\n";
 render_php_page($srcDir . '/blog/index.php', $distDir . '/blog/index.html', ['base_path' => '../']);
 echo "-> Building netradio index page...\n";
 render_php_page($srcDir . '/netradio/index.php', $distDir . '/netradio/index.html', ['base_path' => '../../']);
+echo "-> Building netradio archive page...\n";
+render_php_page($srcDir . '/netradio/archive.php', $distDir . '/netradio/archive.html', ['base_path' => '../../']);
 
 echo "-> Building blog article detail pages...\n";
 require_once $srcDir . '/includes/functions.php';

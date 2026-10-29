@@ -43,9 +43,10 @@ jobs:
         run: php build.php
 
       - name: Upload dist
-        uses: actions/upload-pages-artifact@v4
+        uses: actions/upload-pages-artifact@v5
         with:
           path: ./dist
+          include-hidden-files: true
 
   deploy:
     runs-on: ubuntu-latest
