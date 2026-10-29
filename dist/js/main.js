@@ -9,40 +9,6 @@
   const themeKey = "shunature-theme";
   const systemTheme = window.matchMedia("(prefers-color-scheme: dark)");
 
-  // --- Hero and ambient background slideshows ---
-  const heroSlides = [...document.querySelectorAll(".hero-slide")];
-  const slideButtons = [...document.querySelectorAll(".slide-pagination button")];
-  const ambientSlides = [...document.querySelectorAll(".ambient-slide")];
-  function showHeroSlide(index) {
-    heroSlides.forEach((slide, i) => slide.classList.toggle("is-active", i === index));
-    slideButtons.forEach((button, i) => {
-      const active = i === index;
-      button.classList.toggle("is-active", active);
-      button.setAttribute("aria-pressed", String(active));
-    });
-    const counter = document.querySelector(".hero-index");
-    if (counter) counter.innerHTML = `${String(index + 1).padStart(2, "0")} <i></i> ${String(heroSlides.length).padStart(2, "0")}`;
-  }
-  if (heroSlides.length > 1) {
-    let activeSlide = 0;
-    slideButtons.forEach((button, i) => button.addEventListener("click", () => {
-      activeSlide = i;
-      showHeroSlide(activeSlide);
-    }));
-    window.setInterval(() => {
-      activeSlide = (activeSlide + 1) % heroSlides.length;
-      showHeroSlide(activeSlide);
-    }, 6500);
-  }
-  if (ambientSlides.length > 1) {
-    let ambientIndex = 0;
-    window.setInterval(() => {
-      ambientSlides[ambientIndex].classList.remove("is-active");
-      ambientIndex = (ambientIndex + 1) % ambientSlides.length;
-      ambientSlides[ambientIndex].classList.add("is-active");
-    }, 8500);
-  }
-
   // --- Loader Animation ("鯨" -> "と" -> "ネガ" @ 0.25s intervals) ---
   const loaderOverlay = document.querySelector("#loader-overlay");
   if (loaderOverlay) {
