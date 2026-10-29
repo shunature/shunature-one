@@ -6,7 +6,7 @@ $base_path = './';
 require __DIR__ . '/../includes/head.php';
 ?>
 
-<div class="layout-wrapper">
+<div class="layout-wrapper layout-home">
   <?php require __DIR__ . '/../includes/sidebar.php'; ?>
 
   <main class="main-content">
