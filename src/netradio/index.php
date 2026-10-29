@@ -11,7 +11,7 @@ require __DIR__ . '/../includes/head.php';
   <main class="main-content animate-fade-in">
     <p class="page-kicker">WADOWADO STUDIOS / CONTENTS</p>
     <h1 class="page-title">話してもいいですか？</h1>
-    <p class="page-subtitle">ニコニコ動画での配信を予定している、ラジオ形式の動画です。</p>
+    <p class="page-subtitle">ニコニコ動画での配信している、ラジオ形式の動画です。</p>
     <section class="netradio-panel">
       <span class="netradio-orbit" aria-hidden="true">♤</span>
       <div>
