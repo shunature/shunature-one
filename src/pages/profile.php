@@ -64,6 +64,17 @@ require __DIR__ . '/../includes/head.php';
       </p>
       </section>
 
+      <section style="margin-bottom: 40px;">
+        <h2 class="section-title">リンク集</h2>
+        <p style="color: var(--muted); margin: 0;">各サービスでの活動はこちらからご覧いただけます。</p>
+        <nav class="social-links" aria-label="外部リンク">
+          <a rel="me noopener noreferrer" href="https://famichiki.jp/@dockker7mb" target="_blank">Mastodon</a>
+          <a href="https://matrix.to/#/@shunature:matrix.org" target="_blank" rel="noopener noreferrer">Matrix</a>
+          <a href="https://signal.me/#eu/UaFw5dUSJqKwsd-DzyAxd8fXuJaIXFKuSsxNX_nOuCin02HaRHtOnYznwzBm-nU5" target="_blank" rel="noopener noreferrer">Signal</a>
+          <a href="https://www.last.fm/user/shunature" target="_blank" rel="noopener noreferrer">Last.fm</a>
+        </nav>
+      </section>
+
       <div style="margin-top: 40px; padding-top: 20px; border-top: 2px solid var(--line);">
         <a href="<?php echo $base_path; ?>index.html" style="font-weight: 700;">&larr; ホームへ戻る</a>
       </div>
