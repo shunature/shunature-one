@@ -778,12 +778,14 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outlin
 /* Contact Modal */
 .contact-dialog {
   position: relative;
-  width: min(100%, 520px);
+  width: min(560px, calc(100vw - 32px));
   border: 1px solid var(--line-strong);
   border-radius: var(--radius-card);
   background: var(--bg);
   color: var(--text);
   padding: 0;
+  max-height: calc(100% - 32px);
+  overflow-y: auto;
 }
 
 .contact-dialog::backdrop {
@@ -795,11 +797,13 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outlin
   display: flex;
   justify-content: space-between;
   align-items: flex-start;
-  padding: 20px 24px;
+  gap: 20px;
+  padding: 24px 28px;
   border-bottom: 1px solid var(--line);
 }
 
 .contact-dialog-head h2 { margin: 0; font-size: 24px; font-weight: 800; }
+.contact-dialog-head p { margin: 8px 0 0; color: var(--muted); line-height: 1.7; }
 .contact-close {
   background: transparent;
   border: 1px solid var(--line-strong);
@@ -820,8 +824,8 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outlin
 
 .contact-options {
   display: grid;
-  gap: 10px;
-  padding: 20px 24px 24px;
+  gap: 14px;
+  padding: 24px 28px 28px;
 }
 
 .contact-address {
@@ -843,7 +847,7 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outlin
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 14px 16px;
+  padding: 17px 18px;
   border: 1px solid var(--line);
   border-radius: var(--radius-soft);
   background: transparent;
@@ -853,11 +857,20 @@ a:focus-visible, button:focus-visible { outline: 3px solid var(--accent); outlin
   text-align: left;
   transition: all 0.2s ease;
 }
+.contact-option > span { display: grid; gap: 6px; line-height: 1.5; }
+.contact-option > span > span { color: var(--muted); font-size: 14px; line-height: 1.65; }
 
 .contact-option:hover {
   background: var(--accent);
   color: var(--accent-text);
   border-color: var(--accent);
+}
+.contact-option:hover > span > span { color: inherit; opacity: .86; }
+
+@media (max-width: 480px) {
+  .contact-dialog-head { padding: 20px; }
+  .contact-options { gap: 12px; padding: 20px; }
+  .contact-option { padding: 16px; }
 }
 
 /* -------------------------------------------------------------
