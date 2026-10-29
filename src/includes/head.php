@@ -1,5 +1,5 @@
 <?php
-$page_title = isset($page_title) ? $page_title : 'わどわど — WadoWado Studios';
+$page_title = isset($page_title) ? $page_title . ' | わどわど' : 'ホーム | わどわど';
 $page_description = isset($page_description) ? $page_description : 'わどわど (WadoWado Studios)';
 $base_path = isset($base_path) ? $base_path : './';
 $current_page = isset($current_page) ? $current_page : '';
@@ -32,6 +32,11 @@ $og_image = isset($og_image) && !empty($og_image) ? $og_image : $base_path . 'im
   <link rel="stylesheet" href="<?php echo $base_path; ?>css/style.css">
 </head>
 <body>
+<div class="ambient-slideshow" aria-hidden="true">
+  <img class="ambient-slide is-active" src="<?php echo $base_path; ?>images/forest.png" alt="">
+  <img class="ambient-slide" src="<?php echo $base_path; ?>images/sample.png" alt="">
+  <img class="ambient-slide" src="<?php echo $base_path; ?>images/sidebyside.png" alt="">
+</div>
 <?php if ($current_page === 'home'): ?>
   <div id="loader-overlay" class="loader-overlay" aria-hidden="true">
     <div class="loader-text">

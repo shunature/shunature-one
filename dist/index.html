@@ -9,21 +9,26 @@
 
   <!-- Open Graph Protocol (OGP) -->
   <meta property="og:site_name" content="わどわど — WadoWado Studios">
-  <meta property="og:title" content="わどわど - WadoWado Studios">
+  <meta property="og:title" content="Home | わどわど">
   <meta property="og:description" content="わどわど (WadoWado Studios)">
   <meta property="og:type" content="website">
   <meta property="og:image" content="./images/kujira_to_nega.png">
 
   <!-- Twitter Cards -->
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:title" content="わどわど - WadoWado Studios">
+  <meta name="twitter:title" content="Home | わどわど">
   <meta name="twitter:description" content="わどわど (WadoWado Studios)">
   <meta name="twitter:image" content="./images/kujira_to_nega.png">
 
-  <title>わどわど - WadoWado Studios</title>
+  <title>Home | わどわど</title>
   <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
+<div class="ambient-slideshow" aria-hidden="true">
+  <img class="ambient-slide is-active" src="./images/forest.png" alt="">
+  <img class="ambient-slide" src="./images/sample.png" alt="">
+  <img class="ambient-slide" src="./images/sidebyside.png" alt="">
+</div>
   <div id="loader-overlay" class="loader-overlay" aria-hidden="true">
     <div class="loader-text">
       <span class="char-1">わど</span><span class="char-2">わど</span>
@@ -49,8 +54,12 @@
     <a href="./index.html" class="active">ホーム</a>
     <a href="./profile.html" class="">プロフィール</a>
     <a href="./about.html" class="">このサイトについて</a>
-    <a href="./blog/index.html" class="">ブログ</a>
-    <a href="mailto:contact@ffnet.work" class="modal-trigger">Contact</a>
+    <details class="mobile-contents" >
+      <summary>Contents</summary>
+      <a href="./blog/index.html" class="">Blog</a>
+      <a href="./netradio/index.html" class="">Netradio</a>
+    </details>
+    <a href="#contact-modal" class="modal-trigger">Contact</a>
   </nav>
 </div>
 
@@ -70,8 +79,16 @@
         <li><a href="./index.html" class="active">ホーム</a></li>
         <li><a href="./profile.html" class="">プロフィール</a></li>
         <li><a href="./about.html" class="">このサイトについて</a></li>
-        <li><a href="./blog/index.html" class="">ブログ</a></li>
-        <li><a href="mailto:contact@ffnet.work" class="modal-trigger">Contact</a></li>
+        <li class="nav-dropdown">
+          <details >
+            <summary>Contents</summary>
+            <div class="dropdown-links">
+              <a href="./blog/index.html" class="">Blog</a>
+              <a href="./netradio/index.html" class="">Netradio</a>
+            </div>
+          </details>
+        </li>
+        <li><a href="#contact-modal" class="modal-trigger">Contact</a></li>
       </ul>
     </nav>
 
@@ -85,43 +102,25 @@
 </aside>
 
   <main class="main-content">
-    <section class="hero-container animate-fade-in">
+    <section class="hero-slideshow animate-fade-in" aria-label="WadoWado Studios slideshow">
+      <div class="hero-slide is-active"></div>
+      <div class="hero-slide"></div>
+      <div class="hero-slide"></div>
+      <div class="hero-shade"></div>
       <div class="hero-text">
-        <h1>わどわど<br><span style="font-size: 0.65em; font-weight: 700; color: var(--muted);">WadoWado Studios</span></h1>
-        <p class="hero-intro">
-          ホームページへようこそ。
-        </p>
-        <p style="font-size: 1em; color: var(--muted);">
-          このサイトは、個人の趣味・興味に基づいて運営されています。<br>
-          関連する組織・団体とは一切関係ありませんので、悪しからず。</p>
-        </p>
+        <p class="hero-eyebrow">PHOTOGRAPHY</p>
+        <h1>わどわど</h1>
+        <p class="hero-intro">小さな景色を、写真に。</p>
+        <p class="hero-disclaimer">WADOWADO STUDIOS — SELECTED MOMENTS</p>
       </div>
-
-      <!-- Single Photo Card with Animation -->
-      <div class="photo-card" title="Gyoza Photo">
-        <img src="https://image.nostr.build/f204c4c0b5912a0a305cf5a9f56850173271a0a8ee2103593c9e1b217b3766be.png" alt="Gyoza">
+      <div class="slide-pagination" aria-label="スライドの切り替え">
+        <button type="button" class="is-active" aria-label="1枚目を表示" aria-pressed="true"></button>
+        <button type="button" aria-label="2枚目を表示" aria-pressed="false"></button>
+        <button type="button" aria-label="3枚目を表示" aria-pressed="false"></button>
       </div>
+      <span class="hero-index" aria-hidden="true">01 <i></i> 03</span>
     </section>
 
-    <!-- Origin & Concept of Site Name -->
-    <section class="section-block animate-fade-in">
-      <h2 class="section-title">サイト名の由来</h2>
-      <p>
-        「<strong>わどわど</strong>」は、あまりみなさそうな擬音から取りました。<br>
-        使う時が来たらと思い、Studiosをつけてみました。<br>
-        実のところ、MastodonのIDを先行で思いつき、この名前はあとづけで決めました。
-      </p>
-    </section>
-
-    <section class="section-block animate-fade-in">
-      <h2 class="section-title">Links & Presence</h2>
-      <nav class="social-links" aria-label="外部リンク">
-        <a rel="me" href="https://famichiki.jp/@dockker7mb" target="_blank">Mastodon</a>
-        <a href="https://matrix.to/#/@shunature:matrix.org" target="_blank">Matrix</a>
-        <a href="https://signal.me/#eu/UaFw5dUSJqKwsd-DzyAxd8fXuJaIXFKuSsxNX_nOuCin02HaRHtOnYznwzBm-nU5" target="_blank">Signal</a>
-        <a href="https://www.last.fm/user/shunature" target="_blank">Last.fm</a>
-      </nav>
-    </section>
   </main>
 </div>
 

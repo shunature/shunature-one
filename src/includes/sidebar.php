@@ -20,8 +20,12 @@ $current_page = isset($current_page) ? $current_page : 'home';
     <a href="<?php echo $base_path; ?>index.html" class="<?php echo $current_page === 'home' ? 'active' : ''; ?>">ホーム</a>
     <a href="<?php echo $base_path; ?>profile.html" class="<?php echo $current_page === 'profile' ? 'active' : ''; ?>">プロフィール</a>
     <a href="<?php echo $base_path; ?>about.html" class="<?php echo $current_page === 'about' ? 'active' : ''; ?>">このサイトについて</a>
-    <a href="<?php echo $base_path; ?>blog/index.html" class="<?php echo $current_page === 'blog' ? 'active' : ''; ?>">ブログ</a>
-    <a href="mailto:contact@ffnet.work" class="modal-trigger">Contact</a>
+    <details class="mobile-contents" <?php echo in_array($current_page, ['blog', 'netradio'], true) ? 'open' : ''; ?>>
+      <summary>Contents</summary>
+      <a href="<?php echo $base_path; ?>blog/index.html" class="<?php echo $current_page === 'blog' ? 'active' : ''; ?>">Blog</a>
+      <a href="<?php echo $base_path; ?>netradio/index.html" class="<?php echo $current_page === 'netradio' ? 'active' : ''; ?>">Netradio</a>
+    </details>
+    <a href="#contact-modal" class="modal-trigger">Contact</a>
   </nav>
 </div>
 
@@ -41,8 +45,16 @@ $current_page = isset($current_page) ? $current_page : 'home';
         <li><a href="<?php echo $base_path; ?>index.html" class="<?php echo $current_page === 'home' ? 'active' : ''; ?>">ホーム</a></li>
         <li><a href="<?php echo $base_path; ?>profile.html" class="<?php echo $current_page === 'profile' ? 'active' : ''; ?>">プロフィール</a></li>
         <li><a href="<?php echo $base_path; ?>about.html" class="<?php echo $current_page === 'about' ? 'active' : ''; ?>">このサイトについて</a></li>
-        <li><a href="<?php echo $base_path; ?>blog/index.html" class="<?php echo $current_page === 'blog' ? 'active' : ''; ?>">ブログ</a></li>
-        <li><a href="mailto:contact@ffnet.work" class="modal-trigger">Contact</a></li>
+        <li class="nav-dropdown">
+          <details <?php echo in_array($current_page, ['blog', 'netradio'], true) ? 'open' : ''; ?>>
+            <summary>Contents</summary>
+            <div class="dropdown-links">
+              <a href="<?php echo $base_path; ?>blog/index.html" class="<?php echo $current_page === 'blog' ? 'active' : ''; ?>">Blog</a>
+              <a href="<?php echo $base_path; ?>netradio/index.html" class="<?php echo $current_page === 'netradio' ? 'active' : ''; ?>">Netradio</a>
+            </div>
+          </details>
+        </li>
+        <li><a href="#contact-modal" class="modal-trigger">Contact</a></li>
       </ul>
     </nav>
 

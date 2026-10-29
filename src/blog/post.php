@@ -18,7 +18,7 @@ $post_data = $post_file ? parse_post_file($post_file) : null;
 $meta = $post_data ? $post_data['metadata'] : ['title' => 'Post Not Found', 'date' => '', 'tags' => [], 'thumbnail' => ''];
 
 $base_path = isset($base_path) ? $base_path : '../../';
-$page_title = $meta['title'] . ' | わどわど';
+$page_title = $meta['title'];
 $page_description = !empty($meta['excerpt']) ? $meta['excerpt'] : $meta['title'] . ' — わどわど (WadoWado Studios)';
 $current_page = 'blog_post';
 $og_type = 'article';

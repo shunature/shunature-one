@@ -24,6 +24,11 @@
   <link rel="stylesheet" href="./css/style.css">
 </head>
 <body>
+<div class="ambient-slideshow" aria-hidden="true">
+  <img class="ambient-slide is-active" src="./images/forest.png" alt="">
+  <img class="ambient-slide" src="./images/sample.png" alt="">
+  <img class="ambient-slide" src="./images/sidebyside.png" alt="">
+</div>
 
 <div class="layout-wrapper">
   <!-- Mobile Header (Visible on Mobile) -->
@@ -44,8 +49,12 @@
     <a href="./index.html" class="">ホーム</a>
     <a href="./profile.html" class="">プロフィール</a>
     <a href="./about.html" class="active">このサイトについて</a>
-    <a href="./blog/index.html" class="">ブログ</a>
-    <a href="mailto:contact@ffnet.work" class="modal-trigger">Contact</a>
+    <details class="mobile-contents" >
+      <summary>Contents</summary>
+      <a href="./blog/index.html" class="">Blog</a>
+      <a href="./netradio/index.html" class="">Netradio</a>
+    </details>
+    <a href="#contact-modal" class="modal-trigger">Contact</a>
   </nav>
 </div>
 
@@ -65,8 +74,16 @@
         <li><a href="./index.html" class="">ホーム</a></li>
         <li><a href="./profile.html" class="">プロフィール</a></li>
         <li><a href="./about.html" class="active">このサイトについて</a></li>
-        <li><a href="./blog/index.html" class="">ブログ</a></li>
-        <li><a href="mailto:contact@ffnet.work" class="modal-trigger">Contact</a></li>
+        <li class="nav-dropdown">
+          <details >
+            <summary>Contents</summary>
+            <div class="dropdown-links">
+              <a href="./blog/index.html" class="">Blog</a>
+              <a href="./netradio/index.html" class="">Netradio</a>
+            </div>
+          </details>
+        </li>
+        <li><a href="#contact-modal" class="modal-trigger">Contact</a></li>
       </ul>
     </nav>
 

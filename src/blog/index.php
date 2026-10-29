@@ -1,5 +1,5 @@
 <?php
-$page_title = 'Blog | わどわど';
+$page_title = 'Blog';
 $page_description = 'わどわど (WadoWado Studios) のブログ記事一覧です';
 $current_page = 'blog';
 $base_path = '../';

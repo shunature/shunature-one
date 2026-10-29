@@ -1,5 +1,5 @@
 <?php
-$page_title = 'About | わどわど';
+$page_title = 'About';
 $page_description = 'わどわど (WadoWado Studios) の設計思想、制作の動機、ゼロ依存PHP＋Markdownの技術スタック';
 $current_page = 'about';
 $base_path = './';

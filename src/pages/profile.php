@@ -1,5 +1,5 @@
 <?php
-$page_title = 'Profile | わどわど';
+$page_title = 'Profile';
 $page_description = 'プロフィール、拠点情報、関心領域（イヤホン、インディーゲーム、ガジェット環境等）';
 $current_page = 'profile';
 $base_path = './';
