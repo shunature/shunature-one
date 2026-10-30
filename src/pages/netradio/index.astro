@@ -1,7 +1,8 @@
 ---
 import PageShell from '../../components/PageShell.astro';
+import { sitePath } from '../../lib/site-path';
 ---
 <PageShell title="Net Radio" description="ニコニコ動画で配信しているラジオ形式の動画です。">
   <p class="page-kicker">WADOWADO STUDIOS / NET RADIO</p><h1 class="page-title">Net Radio</h1><p class="page-subtitle">「話してもいいですか？」— ニコニコ動画で配信しているラジオ形式の動画です。</p>
-  <section class="netradio-panel"><p class="netradio-label">LATEST</p><h2>最新のエピソード</h2><ul class="netradio-episode-list"><li><a href="https://www.nicovideo.jp/watch/sm46980387?ref=garage_share_other" target="_blank" rel="noopener noreferrer">第1回「寒すぎるだろ、10月末のくせして。」 ↗</a></li></ul><p><a href="/netradio/archive.html">過去のエピソード一覧 →</a></p></section>
+  <section class="netradio-panel"><p class="netradio-label">LATEST</p><h2>最新のエピソード</h2><ul class="netradio-episode-list"><li><a href="https://www.nicovideo.jp/watch/sm46980387?ref=garage_share_other" target="_blank" rel="noopener noreferrer">第1回「寒すぎるだろ、10月末のくせして。」 ↗</a></li></ul><p><a href={sitePath('/netradio/archive.html')}>過去のエピソード一覧 →</a></p></section>
 </PageShell>

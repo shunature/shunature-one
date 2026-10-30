@@ -1,6 +1,7 @@
 import type { CollectionEntry } from 'astro:content';
 import { existsSync } from 'node:fs';
 import { resolve } from 'node:path';
+import { sitePath } from './site-path';
 
 export type Note = CollectionEntry<'notes'>;
 
@@ -20,7 +21,7 @@ export function postTags(post: Note): string[] {
 export function postPath(post: Note): string {
   const [year, month, day, ...slugParts] = post.id.replace(/\.md$/, '').split('/');
   const slug = slugParts.join('/');
-  return `/notes/${year}/${month}/${day}/${slug}/index.html`;
+  return sitePath(`/notes/${year}/${month}/${day}/${slug}/index.html`);
 }
 
 export function postImage(post: Note): string {
@@ -28,8 +29,8 @@ export function postImage(post: Note): string {
   const slug = slugParts.join('/');
   const thumbnail = `/thumbnails/${year}/${month}/${day}/${slug}.png`;
   return existsSync(resolve(process.cwd(), 'public', thumbnail.slice(1)))
-    ? thumbnail
-    : '/images/kujira_to_nega.png';
+    ? sitePath(thumbnail)
+    : sitePath('/images/kujira_to_nega.png');
 }
 
 export function sortedPosts(posts: Note[]): Note[] {

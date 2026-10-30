@@ -18,6 +18,8 @@ npm run preview
 
 生成先は `dist/` です。デプロイ先の公開ディレクトリも `dist` に設定します。
 
+`main` ブランチへの push で GitHub Actions が Astro をビルドし、GitHub Pages にデプロイします。GitHub Pages のプロジェクトサイト用ベースパスは Actions 実行時に自動設定されます。
+
 ## コンテンツの追加
 
 - 記事: `src/content/notes/YYYY/MM/DD/slug.md`

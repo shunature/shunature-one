@@ -1,4 +1,4 @@
-name: Build and Deploy to GitHub Pages
+name: Build and deploy Astro site to GitHub Pages
 
 on:
   push:
@@ -24,26 +24,24 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
-      - name: Setup PHP
-        uses: shivammathur/setup-php@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v6
         with:
-          php-version: "8.5"
-          extensions: mbstring
-          coverage: none
-        env:
-          update: true
-
-      - name: Check PHP version
-        run: php -v
+          node-version: 24
+          cache: npm
+          cache-dependency-path: package-lock.json
 
       - name: Setup GitHub Pages
         uses: actions/configure-pages@v5
 
-      - name: Build static site
-        run: php build.php
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Build Astro site
+        run: npm run build
 
       - name: Upload dist
-        uses: actions/upload-pages-artifact@v5
+        uses: actions/upload-pages-artifact@v4
         with:
           path: ./dist
           include-hidden-files: true
@@ -59,4 +57,4 @@ jobs:
     steps:
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@v5

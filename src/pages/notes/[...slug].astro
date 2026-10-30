@@ -2,6 +2,7 @@
 import { getCollection, render } from 'astro:content';
 import PageShell from '../../components/PageShell.astro';
 import { postDate, postImage, postPath, postTags } from '../../lib/posts';
+import { sitePath } from '../../lib/site-path';
 export async function getStaticPaths() {
   const posts = await getCollection('notes');
   return posts.filter((post) => !post.data.draft).flatMap((post) => {
@@ -26,7 +27,7 @@ const image = postImage(post);
     <div class="article-hero-thumb"><img src={image} alt={post.data.title} /></div>
     {headings.filter((heading) => heading.depth <= 3).length > 0 && <nav class="toc" aria-label="目次"><p class="toc-title">目次</p><ul>{headings.filter((heading) => heading.depth <= 3).map((heading) => <li class:list={[`toc-depth-${heading.depth}`]}><a href={`#${heading.slug}`}>{heading.text}</a></li>)}</ul></nav>}
     <div class="article-body"><Content /></div>
-    <footer class="post-footer"><a href="/notes/index.html">← Notes一覧へ戻る</a><a href={postPath(post)} aria-current="page">この記事のURL ↗</a></footer>
+    <footer class="post-footer"><a href={sitePath('/notes/index.html')}>← Notes一覧へ戻る</a><a href={postPath(post)} aria-current="page">この記事のURL ↗</a></footer>
   </article>
 </PageShell>
 <style>

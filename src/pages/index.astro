@@ -5,6 +5,7 @@ import SiteFooter from '../components/SiteFooter.astro';
 import SectionHeading from '../components/SectionHeading.astro';
 import { getCollection } from 'astro:content';
 import { postDate, postPath, postTags, sortedPosts } from '../lib/posts';
+import { sitePath } from '../lib/site-path';
 const posts = sortedPosts((await getCollection('notes')).filter((post) => !post.data.draft)).slice(0, 3);
 const latestRadio = 'https://www.nicovideo.jp/watch/sm46980387?ref=garage_share_other';
 ---
@@ -12,7 +13,7 @@ const latestRadio = 'https://www.nicovideo.jp/watch/sm46980387?ref=garage_share_
   <div class="welcome" id="welcome" aria-hidden="true"><div class="welcome-inner"><span>Welcome to</span><span>WADOWADO Studios</span></div></div>
   <SiteNav />
   <header class="hero" id="top">
-    <img class="hero-img" src="/images/sidebyside.webp" width="2400" height="1500" alt="" fetchpriority="high" />
+    <img class="hero-img" src={sitePath('/images/sidebyside.webp')} width="2400" height="1500" alt="" fetchpriority="high" />
     <span class="hero-overlay-word" aria-hidden="true">わどわど</span>
     <div class="hero-copy">
       <div class="eyebrow">PERSONAL WEB / TOKYO</div>
@@ -29,7 +30,7 @@ const latestRadio = 'https://www.nicovideo.jp/watch/sm46980387?ref=garage_share_
   <main>
     <section class="home-section intro-section" id="intro">
       <SectionHeading number="01 / INTRODUCTION" title="ABOUT" />
-      <div class="intro-grid"><p class="intro-lead">好きな音楽のこと。<br />日々の中で考えたこと。<br />ここに少しずつ置いていきます。</p><figure class="intro-image"><img src="/images/field-notes.jpg" alt="夕暮れの空に浮かぶ、光る通学路標識" loading="lazy" /><figcaption>FIELD NOTES / 2026.09.25</figcaption></figure></div>
+      <div class="intro-grid"><p class="intro-lead">好きな音楽のこと。<br />日々の中で考えたこと。<br />ここに少しずつ置いていきます。</p><figure class="intro-image"><img src={sitePath('/images/field-notes.jpg')} alt="夕暮れの空に浮かぶ、光る通学路標識" loading="lazy" /><figcaption>FIELD NOTES / 2026.09.25</figcaption></figure></div>
     </section>
     <section class="home-section notes-section" id="notes">
       <SectionHeading number="02 / RECENT WRITING" title="LATEST NOTES" />
@@ -40,17 +41,17 @@ const latestRadio = 'https://www.nicovideo.jp/watch/sm46980387?ref=garage_share_
           <h3>{post.data.title}</h3><p>{post.data.excerpt}</p><span class="read-more">READ ARTICLE ↗</span>
         </a>)}
       </div>
-      <a class="text-link" href="/notes/index.html">ALL NOTES — すべての記事を見る ↗</a>
+      <a class="text-link" href={sitePath('/notes/index.html')}>ALL NOTES — すべての記事を見る ↗</a>
     </section>
     <section class="home-section radio-section" id="radio">
       <SectionHeading number="03 / TALK & LISTEN" title="NET RADIO" />
       <div class="radio-feature"><div><span class="eyebrow">LATEST EPISODE / 01</span><h3>話してもいいですか？</h3><p>第1回「寒すぎるだろ、10月末のくせして。」</p></div><a class="radio-play" href={latestRadio} target="_blank" rel="noopener noreferrer" aria-label="最新エピソードを開く">↗</a></div>
-      <a class="text-link" href="/netradio/archive.html">EPISODE ARCHIVE — 過去のエピソード ↗</a>
+      <a class="text-link" href={sitePath('/netradio/archive.html')}>EPISODE ARCHIVE — 過去のエピソード ↗</a>
     </section>
     <section class="home-section profile-section" id="about">
       <SectionHeading number="04 / THE PERSON" title="PROFILE" />
       <div class="profile-grid"><p>柏羽 駿（Shun Kashiwaba）<br />東京を拠点に、音楽やタイポグラフィ、ゲームなどを楽しんでいます。</p><dl><div><dt>BASE</dt><dd>Tokyo, Japan</dd></div><div><dt>INTERESTS</dt><dd>Music / Type / Games</dd></div><div><dt>ELSEWHERE</dt><dd><a href="https://www.last.fm/user/shunature" target="_blank" rel="noopener noreferrer">Last.fm ↗</a></dd></div></dl></div>
-      <a class="text-link" href="/profile.html">MORE ABOUT ME ↗</a>
+      <a class="text-link" href={sitePath('/profile.html')}>MORE ABOUT ME ↗</a>
     </section>
   </main>
   <SiteFooter />

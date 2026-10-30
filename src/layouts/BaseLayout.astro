@@ -1,5 +1,6 @@
 ---
 import '../styles/global.css';
+import { sitePath } from '../lib/site-path';
 const {
   title = 'WadoWado Studios',
   description = '音楽と会話、生活の断片を記録する個人サイト。',
@@ -8,6 +9,9 @@ const {
 } = Astro.props;
 const pageTitle = title === 'WadoWado Studios' ? title : `${title} — WadoWado Studios`;
 const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefined;
+const socialImage = image.startsWith('http')
+  ? image
+  : Astro.site ? new URL(sitePath(image), Astro.site).toString() : sitePath(image);
 ---
 <!doctype html>
 <html lang="ja" data-theme="light">
@@ -18,17 +22,17 @@ const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefin
     <meta name="description" content={description} />
     <meta name="fediverse:creator" content="@dockker7mb@famichiki.jp" />
     {canonical && <link rel="canonical" href={canonical} />}
-    <link rel="icon" type="image/png" href="/favicon.png" />
+    <link rel="icon" type="image/png" href={sitePath('/favicon.png')} />
     <meta property="og:type" content={type} />
     <meta property="og:site_name" content="WadoWado Studios" />
     <meta property="og:title" content={pageTitle} />
     <meta property="og:description" content={description} />
     {canonical && <meta property="og:url" content={canonical} />}
-    <meta property="og:image" content={Astro.site ? new URL(image, Astro.site) : image} />
+    <meta property="og:image" content={socialImage} />
     <meta name="twitter:card" content="summary_large_image" />
     <meta name="twitter:title" content={pageTitle} />
     <meta name="twitter:description" content={description} />
-    <meta name="twitter:image" content={Astro.site ? new URL(image, Astro.site) : image} />
+    <meta name="twitter:image" content={socialImage} />
     <title>{pageTitle}</title>
   </head>
   <body>
