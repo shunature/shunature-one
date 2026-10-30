@@ -18,6 +18,29 @@
   --home-muted: #625e56;
   --home-profile-bg: #d9d0bf;
   --home-line: rgba(40, 39, 37, .28);
+  --hero-bg: #282725;
+  --hero-fg: #f1ecdf;
+  --hero-image-brightness: 1;
+  --hero-image-blur: 35px;
+  --hero-shade-left: rgba(40, 39, 37, .86);
+  --hero-shade-right: rgba(40, 39, 37, .3);
+  --hero-shade-bottom: rgba(40, 39, 37, .76);
+  --hero-word: rgba(241, 236, 223, .16);
+  --hero-muted: #c5bfb3;
+  --hero-link-border: rgba(241, 236, 223, .44);
+  --hero-shadow: rgba(0, 0, 0, .5);
+  --radio-bg: #32302c;
+  --radio-fg: #f1ecdf;
+  --radio-rule: rgba(241, 236, 223, .2);
+  --radio-decoration: rgba(241, 236, 223, .035);
+  --panel-bg: #32302c;
+  --panel-fg: #f1ecdf;
+  --header-bg-start: rgba(40, 39, 37, .94);
+  --header-bg-end: rgba(40, 39, 37, .7);
+  --header-solid: #282725;
+  --header-border: rgba(241, 236, 223, .18);
+  --footer-bg: #282725;
+  --footer-fg: #c5bfb3;
   --content: 1160px;
   font-family: Arial, "Hiragino Kaku Gothic ProN", "Yu Gothic", sans-serif;
   background: var(--ivory);
@@ -40,6 +63,28 @@
   --home-muted: #c5bfb3;
   --home-profile-bg: #3b3832;
   --home-line: rgba(241, 236, 223, .24);
+  --hero-bg: #191816;
+  --hero-fg: #f1ecdf;
+  --hero-image-brightness: .82;
+  --hero-shade-left: rgba(16, 15, 14, .9);
+  --hero-shade-right: rgba(16, 15, 14, .42);
+  --hero-shade-bottom: rgba(16, 15, 14, .8);
+  --hero-word: rgba(241, 236, 223, .13);
+  --hero-muted: #c5bfb3;
+  --hero-link-border: rgba(241, 236, 223, .5);
+  --hero-shadow: rgba(0, 0, 0, .65);
+  --radio-bg: #211f1c;
+  --radio-fg: #f1ecdf;
+  --radio-rule: rgba(241, 236, 223, .17);
+  --radio-decoration: rgba(241, 236, 223, .025);
+  --panel-bg: #211f1c;
+  --panel-fg: #f1ecdf;
+  --header-bg-start: rgba(20, 19, 18, .97);
+  --header-bg-end: rgba(20, 19, 18, .82);
+  --header-solid: #191816;
+  --header-border: rgba(241, 236, 223, .14);
+  --footer-bg: #191816;
+  --footer-fg: #c5bfb3;
   background: var(--charcoal);
 }
 * { box-sizing: border-box; }
@@ -50,14 +95,14 @@ a { color: inherit; text-decoration-color: var(--starfish); text-underline-offse
 a:hover { color: var(--starfish-text); }
 a:focus-visible, button:focus-visible { outline: 3px solid var(--starfish); outline-offset: 4px; }
 button { color: inherit; font: inherit; }
-.site-header { position: fixed; inset: 0 0 auto; z-index: 15; min-height: 74px; padding: 18px max(5vw, calc((100vw - var(--content)) / 2)); display: flex; align-items: center; justify-content: space-between; gap: 24px; color: var(--ivory); border-bottom: 1px solid rgba(241,236,223,.18); background: linear-gradient(rgba(40,39,37,.94), rgba(40,39,37,.7)); backdrop-filter: blur(14px); }
+.site-header { position: fixed; inset: 0 0 auto; z-index: 15; min-height: 74px; padding: 18px max(5vw, calc((100vw - var(--content)) / 2)); display: flex; align-items: center; justify-content: space-between; gap: 24px; color: var(--hero-fg); border-bottom: 1px solid var(--header-border); background: linear-gradient(var(--header-bg-start), var(--header-bg-end)); backdrop-filter: blur(14px); }
 body.menu-open .site-header { backdrop-filter: none; -webkit-backdrop-filter: none; }
 .site-brand { font-size: 13px; font-weight: 800; letter-spacing: .1em; text-decoration: none; white-space: nowrap; }
 .site-nav { display: flex; align-items: center; gap: clamp(18px, 3vw, 44px); }
 .site-nav a { font-size: 10px; letter-spacing: .18em; text-decoration: none; }
 .menu-toggle { display: none; }
-.theme-toggle { width: 34px; height: 34px; border: 1px solid rgba(241,236,223,.3); border-radius: 50%; background: transparent; color: var(--ivory); cursor: pointer; }
-.site-footer { padding: 28px max(7vw, calc((100vw - var(--content)) / 2)); display: flex; justify-content: space-between; gap: 12px; background: var(--charcoal); color: #c5bfb3; font-size: 10px; letter-spacing: .1em; }
+.theme-toggle { width: 34px; height: 34px; border: 1px solid var(--header-border); border-radius: 50%; background: transparent; color: var(--hero-fg); cursor: pointer; }
+.site-footer { padding: 28px max(7vw, calc((100vw - var(--content)) / 2)); display: flex; justify-content: space-between; gap: 12px; background: var(--footer-bg); color: var(--footer-fg); font-size: 10px; letter-spacing: .1em; }
 .site-footer a { text-decoration: none; }
 .page-shell { width: min(100% - 10vw, 900px); min-height: calc(100vh - 80px); margin: 0 auto; padding: 130px 0 96px; }
 .page-kicker, .eyebrow { font-size: 10px; font-weight: 700; letter-spacing: .24em; text-transform: uppercase; }
@@ -90,7 +135,7 @@ body.menu-open .site-header { backdrop-filter: none; -webkit-backdrop-filter: no
 .toc { margin: 28px 0; padding: 20px 24px; border: 1px solid var(--line); background: var(--surface); }
 .toc-title { margin: 0 0 8px; font-weight: 700; }
 .toc ul { margin: 0; padding-left: 1.4em; }
-.netradio-panel { position: relative; margin: 32px 0; padding: clamp(24px, 5vw, 52px); overflow: hidden; background: var(--charcoal-soft); color: var(--ivory); }
+.netradio-panel { position: relative; margin: 32px 0; padding: clamp(24px, 5vw, 52px); overflow: hidden; background: var(--panel-bg); color: var(--panel-fg); }
 .netradio-label { color: var(--starfish); font-size: 10px; letter-spacing: .2em; }
 .netradio-panel h2 { font-size: clamp(24px, 5vw, 42px); }
 .netradio-episode-list { padding-left: 1.2em; }
@@ -103,7 +148,7 @@ body.menu-open .site-header { backdrop-filter: none; -webkit-backdrop-filter: no
   .menu-toggle-icon i { height: 1px; width: 100%; background: currentColor; transition: transform .2s; }
   .menu-toggle[aria-expanded="true"] .menu-toggle-icon i:first-child { transform: translateY(3px) rotate(45deg); }
   .menu-toggle[aria-expanded="true"] .menu-toggle-icon i:last-child { transform: translateY(-3px) rotate(-45deg); }
-  .site-nav { position: fixed; inset: 64px 0 0; display: flex; flex-direction: column; align-items: stretch; gap: 0; padding: 20px 7vw 40px; background: var(--charcoal); color: var(--ivory); transform: translateX(100%); visibility: hidden; transition: transform .25s ease, visibility .25s; }
+  .site-nav { position: fixed; inset: 64px 0 0; display: flex; flex-direction: column; align-items: stretch; gap: 0; padding: 20px 7vw 40px; background: var(--header-solid); color: var(--hero-fg); transform: translateX(100%); visibility: hidden; transition: transform .25s ease, visibility .25s; }
   .theme-toggle { margin-left: auto; }
   .site-nav.is-open { transform: translateX(0); visibility: visible; }
   .site-nav a { padding: 18px 0; border-bottom: 1px solid rgba(241,236,223,.18); font-size: 16px; }

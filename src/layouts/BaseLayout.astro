@@ -18,7 +18,16 @@ const socialImage = image.startsWith('http')
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="theme-color" content="#282725" />
+    <meta name="theme-color" content="#f1ecdf" />
+    <script is:inline>(() => {
+      try {
+        const savedTheme = localStorage.getItem('wadowado-theme');
+        if (savedTheme === 'dark' || savedTheme === 'light') {
+          document.documentElement.dataset.theme = savedTheme;
+          document.querySelector('meta[name="theme-color"]')?.setAttribute('content', savedTheme === 'dark' ? '#191816' : '#f1ecdf');
+        }
+      } catch {}
+    })();</script>
     <meta name="description" content={description} />
     <meta name="fediverse:creator" content="@dockker7mb@famichiki.jp" />
     {canonical && <link rel="canonical" href={canonical} />}
@@ -66,15 +75,12 @@ const socialImage = image.startsWith('http')
       });
       const themeToggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
       const root = document.documentElement;
-      try {
-        const savedTheme = localStorage.getItem('wadowado-theme');
-        if (savedTheme === 'dark' || savedTheme === 'light') root.dataset.theme = savedTheme;
-      } catch {}
       themeToggle?.setAttribute('aria-pressed', String(root.dataset.theme === 'dark'));
       themeToggle?.addEventListener('click', () => {
         const nextTheme = root.dataset.theme === 'dark' ? 'light' : 'dark';
         root.dataset.theme = nextTheme;
         themeToggle.setAttribute('aria-pressed', String(nextTheme === 'dark'));
+        document.querySelector<HTMLMetaElement>('meta[name="theme-color"]')?.setAttribute('content', nextTheme === 'dark' ? '#191816' : '#f1ecdf');
         try { localStorage.setItem('wadowado-theme', nextTheme); } catch {}
       });
     </script>
