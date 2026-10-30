@@ -18,7 +18,7 @@ npm run preview
 
 生成先は `dist/` です。デプロイ先の公開ディレクトリも `dist` に設定します。
 
-`main` ブランチへの push で GitHub Actions が Astro をビルドし、GitHub Pages にデプロイします。GitHub Pages のプロジェクトサイト用ベースパスは Actions 実行時に自動設定されます。
+`main` ブランチへの push で GitHub Actions が Astro をビルドし、GitHub Pages にデプロイします。公開先のURLとベースパスはPages設定から取得します。独自ドメイン `www.shunature.one` は `public/CNAME` で維持します。
 
 ## コンテンツの追加
 

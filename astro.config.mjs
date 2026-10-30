@@ -1,13 +1,12 @@
 import { defineConfig } from 'astro/config';
 
-const repository = process.env.GITHUB_REPOSITORY?.split('/')[1];
-const isProjectPages = process.env.GITHUB_ACTIONS === 'true'
-  && repository
-  && !repository.endsWith('.github.io');
+const pagesUrl = process.env.SITE_URL;
+const site = pagesUrl ? new URL(pagesUrl).origin : 'https://www.shunature.one';
+const base = process.env.BASE_PATH || '/';
 
 export default defineConfig({
-  site: process.env.SITE_URL || 'https://shunature.github.io',
-  base: isProjectPages ? `/${repository}` : '/',
+  site,
+  base,
   output: 'static',
   trailingSlash: 'ignore',
   build: { format: 'preserve' },
