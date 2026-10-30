@@ -1,0 +1,35 @@
+---
+import { getCollection, render } from 'astro:content';
+import PageShell from '../../components/PageShell.astro';
+import { postDate, postImage, postPath, postTags } from '../../lib/posts';
+export async function getStaticPaths() {
+  const posts = await getCollection('notes');
+  return posts.filter((post) => !post.data.draft).flatMap((post) => {
+    const slug = post.id.replace(/\.md$/, '');
+    const props = { post };
+
+    // Keep the historical /index.html URL and also serve the clean URL that
+    // Astro dev servers and static hosts may normalize it to.
+    return [
+      { params: { slug }, props },
+      { params: { slug: `${slug}/index` }, props },
+    ];
+  });
+}
+const { post } = Astro.props;
+const { Content, headings } = await render(post);
+const image = postImage(post);
+---
+<PageShell title={post.data.title} description={post.data.excerpt || `${post.data.title} — WadoWado Studios`}>
+  <article>
+    <header class="post-header"><div class="article-meta"><time datetime={postDate(post).toISOString()}>{postDate(post).toLocaleDateString('ja-JP')}</time>{postTags(post).length > 0 && <> <span class="meta-divider">·</span> {postTags(post).join(', ')}</>}</div><h1 class="page-title">{post.data.title}</h1>{post.data.excerpt && <p class="page-subtitle">{post.data.excerpt}</p>}</header>
+    <div class="article-hero-thumb"><img src={image} alt={post.data.title} /></div>
+    {headings.filter((heading) => heading.depth <= 3).length > 0 && <nav class="toc" aria-label="目次"><p class="toc-title">目次</p><ul>{headings.filter((heading) => heading.depth <= 3).map((heading) => <li class:list={[`toc-depth-${heading.depth}`]}><a href={`#${heading.slug}`}>{heading.text}</a></li>)}</ul></nav>}
+    <div class="article-body"><Content /></div>
+    <footer class="post-footer"><a href="/notes/index.html">← Notes一覧へ戻る</a><a href={postPath(post)} aria-current="page">この記事のURL ↗</a></footer>
+  </article>
+</PageShell>
+<style>
+  .post-header{margin-bottom:24px;padding-bottom:20px;border-bottom:1px solid var(--line)}.post-header .page-title{margin-top:8px}.post-header .page-subtitle{margin:12px 0 0}.toc-depth-3{margin-left:18px}.post-footer{display:flex;justify-content:space-between;gap:20px;margin-top:48px;padding-top:24px;border-top:1px solid var(--line)}
+  @media(max-width:520px){.post-footer{flex-direction:column}}
+</style>

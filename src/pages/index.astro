@@ -1,0 +1,84 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteNav from '../components/SiteNav.astro';
+import SiteFooter from '../components/SiteFooter.astro';
+import SectionHeading from '../components/SectionHeading.astro';
+import { getCollection } from 'astro:content';
+import { postDate, postPath, postTags, sortedPosts } from '../lib/posts';
+const posts = sortedPosts((await getCollection('notes')).filter((post) => !post.data.draft)).slice(0, 3);
+const latestRadio = 'https://www.nicovideo.jp/watch/sm46980387?ref=garage_share_other';
+---
+<BaseLayout title="WadoWado Studios" description="音楽と会話、生活の断片を記録する個人サイト。興味の向くまま、ゆっくり更新しています。">
+  <div class="welcome" id="welcome" aria-hidden="true"><div class="welcome-inner"><span>Welcome to</span><span>WADOWADO Studios</span></div></div>
+  <SiteNav />
+  <header class="hero" id="top">
+    <img class="hero-img" src="/images/sidebyside.webp" width="2400" height="1500" alt="" fetchpriority="high" />
+    <span class="hero-overlay-word" aria-hidden="true">わどわど</span>
+    <div class="hero-copy">
+      <div class="eyebrow">PERSONAL WEB / TOKYO</div>
+      <h1>わどわど<span>WADOWADO STUDIOS</span></h1>
+      <p>音楽と会話、生活の断片を記録する個人サイト。<br />興味の向くまま、ゆっくり更新しています。</p>
+      <div class="hero-contact"><strong>CONTACT</strong>
+        <a rel="me noopener noreferrer" href="https://famichiki.jp/@dockker7mb" target="_blank">Mastodon ↗</a>
+        <a href="https://matrix.to/#/@shunature:matrix.org" target="_blank" rel="noopener noreferrer">Matrix ↗</a>
+        <a href="https://signal.me/#eu/UaFw5dUSJqKwsd-DzyAxd8fXuJaIXFKuSsxNX_nOuCin02HaRHtOnYznwzBm-nU5" target="_blank" rel="noopener noreferrer">Signal ↗</a>
+      </div>
+    </div>
+    <a class="scroll-cue" href="#intro">SCROLL TO EXPLORE ↓</a>
+  </header>
+  <main>
+    <section class="home-section intro-section" id="intro">
+      <SectionHeading number="01 / INTRODUCTION" title="ABOUT" />
+      <div class="intro-grid"><p class="intro-lead">好きな音楽のこと。<br />日々の中で考えたこと。<br />ここに少しずつ置いていきます。</p><figure class="intro-image"><img src="/images/field-notes.jpg" alt="夕暮れの空に浮かぶ、光る通学路標識" loading="lazy" /><figcaption>FIELD NOTES / 2026.09.25</figcaption></figure></div>
+    </section>
+    <section class="home-section notes-section" id="notes">
+      <SectionHeading number="02 / RECENT WRITING" title="LATEST NOTES" />
+      <div class="home-post-grid">
+        {posts.map((post) => <a class="home-post" href={postPath(post)}>
+          <time datetime={postDate(post).toISOString()}>{postDate(post).toLocaleDateString('ja-JP')}</time>
+          <span class="home-post-tags">{postTags(post).join(' · ')}</span>
+          <h3>{post.data.title}</h3><p>{post.data.excerpt}</p><span class="read-more">READ ARTICLE ↗</span>
+        </a>)}
+      </div>
+      <a class="text-link" href="/notes/index.html">ALL NOTES — すべての記事を見る ↗</a>
+    </section>
+    <section class="home-section radio-section" id="radio">
+      <SectionHeading number="03 / TALK & LISTEN" title="NET RADIO" />
+      <div class="radio-feature"><div><span class="eyebrow">LATEST EPISODE / 01</span><h3>話してもいいですか？</h3><p>第1回「寒すぎるだろ、10月末のくせして。」</p></div><a class="radio-play" href={latestRadio} target="_blank" rel="noopener noreferrer" aria-label="最新エピソードを開く">↗</a></div>
+      <a class="text-link" href="/netradio/archive.html">EPISODE ARCHIVE — 過去のエピソード ↗</a>
+    </section>
+    <section class="home-section profile-section" id="about">
+      <SectionHeading number="04 / THE PERSON" title="PROFILE" />
+      <div class="profile-grid"><p>柏羽 駿（Shun Kashiwaba）<br />東京を拠点に、音楽やタイポグラフィ、ゲームなどを楽しんでいます。</p><dl><div><dt>BASE</dt><dd>Tokyo, Japan</dd></div><div><dt>INTERESTS</dt><dd>Music / Type / Games</dd></div><div><dt>ELSEWHERE</dt><dd><a href="https://www.last.fm/user/shunature" target="_blank" rel="noopener noreferrer">Last.fm ↗</a></dd></div></dl></div>
+      <a class="text-link" href="/profile.html">MORE ABOUT ME ↗</a>
+    </section>
+  </main>
+  <SiteFooter />
+  <script>
+    const welcomeKey = 'wadowado-welcome-date';
+    const tokyoToday = new Intl.DateTimeFormat('en-CA', { timeZone: 'Asia/Tokyo' }).format(new Date());
+    const welcome = document.getElementById('welcome');
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+      welcome?.remove();
+    } else try {
+      if (localStorage.getItem(welcomeKey) === tokyoToday) welcome?.remove();
+      else localStorage.setItem(welcomeKey, tokyoToday);
+    } catch { welcome?.remove(); }
+  </script>
+</BaseLayout>
+
+<style>
+  .welcome{position:fixed;z-index:30;inset:0;display:grid;place-items:center;background:#282725;animation:welcome-exit .7s ease 3.2s forwards;pointer-events:none}.welcome-inner{width:min(92vw,760px);text-align:center;font-family:Arial,"Hiragino Kaku Gothic ProN","Yu Gothic",sans-serif;font-weight:800;font-size:clamp(20px,5.5vw,56px);letter-spacing:.01em;color:#f1ecdf;white-space:normal;clip-path:inset(0 50%);animation:welcome-reveal 1.2s cubic-bezier(.2,.75,.25,1) .25s forwards}.welcome-inner:after{content:"";display:block;width:72%;height:3px;margin:16px auto 0;background:linear-gradient(90deg,#e56b2f 0 50%,transparent 50% 100%);background-size:200% 100%;background-position:100% 0;animation:welcome-line .9s cubic-bezier(.6,0,.3,1) 1.05s forwards}.welcome-inner span{display:block;line-height:1.12;opacity:0;animation:welcome-text .3s ease .3s forwards}@keyframes welcome-reveal{to{clip-path:inset(0 0)}}@keyframes welcome-line{to{background-position:0 0}}@keyframes welcome-text{to{opacity:1}}@keyframes welcome-exit{to{opacity:0;visibility:hidden}}
+  .hero{min-height:100svh;position:relative;display:grid;align-items:end;padding:150px max(9vw,calc((100vw - 1160px)/2)) 9vh;overflow:hidden;isolation:isolate;background:#282725;color:#f1ecdf}.hero-img{position:absolute;z-index:-2;inset:-2%;width:104%;height:104%;object-fit:cover;object-position:center 48%;filter:blur(0);animation:hero-focus 9s ease-out 1s forwards;transform:scale(1.02)}.hero:before{content:"";position:absolute;z-index:-1;inset:0;background:linear-gradient(90deg,rgba(40,39,37,.86),rgba(40,39,37,.3) 68%),linear-gradient(0deg,rgba(40,39,37,.76),transparent 62%)}@keyframes hero-focus{to{filter:blur(35px)}}.hero-overlay-word{position:absolute;z-index:0;top:12%;right:7%;height:78%;display:flex;align-items:center;justify-content:center;writing-mode:vertical-rl;text-orientation:upright;white-space:nowrap;line-height:1;font-family:"Yu Mincho",serif;font-size:clamp(34px,min(9vw,15vh),150px);font-weight:700;letter-spacing:.04em;color:#f1ecdf29;pointer-events:none}.hero-copy{position:relative;z-index:1;max-width:700px}.eyebrow{font-size:11px;letter-spacing:.28em;color:#e56b2f;text-transform:uppercase}.hero h1{margin:20px 0 12px;font-size:clamp(58px,11vw,150px);line-height:.92;letter-spacing:-.07em;text-shadow:0 2px 28px #0008}.hero h1 span{display:block;font-size:clamp(16px,1.55vw,24px);letter-spacing:.16em;margin-top:24px}.hero p{max-width:440px;color:#f1ecdf;text-shadow:0 2px 16px #000}.hero-contact{display:flex;flex-wrap:wrap;align-items:center;gap:10px 18px;margin-top:24px;font-size:12px}.hero-contact strong{width:100%;color:#e56b2f;letter-spacing:.12em}.hero-contact a{padding:3px 0;border-bottom:1px solid #f1ecdf70;text-decoration:none}.scroll-cue{position:absolute;right:5vw;bottom:8vh;writing-mode:vertical-rl;font-size:10px;letter-spacing:.25em;color:#c5bfb3;text-decoration:none}.home-section{padding:120px max(9vw,calc((100vw - 1160px)/2));scroll-margin-top:0}.section-heading{display:flex;align-items:baseline;gap:24px;padding-bottom:18px;margin-bottom:48px;border-bottom:1px solid #28272530}.section-heading small{font-size:10px;letter-spacing:.24em;color:#e56b2f}.section-heading h2{margin:0;font-size:clamp(36px,6vw,74px);line-height:1;letter-spacing:-.04em}.intro-section{background:#f1ecdf;color:#282725}.intro-grid{display:grid;grid-template-columns:1fr 1fr;gap:8vw;align-items:center}.intro-lead{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:clamp(20px,2.6vw,32px);line-height:1.9}.intro-image{position:relative;min-height:380px;margin:0;overflow:hidden;background:#393735}.intro-image img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center 58%;filter:saturate(.65)}.intro-image figcaption{position:absolute;bottom:18px;left:20px;color:#f1ecdf;font-size:10px;letter-spacing:.2em;text-shadow:0 1px 8px #000}.notes-section{background:#e9e2d4;color:#282725}.home-post-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}.home-post{display:flex;flex-direction:column;min-height:240px;padding:18px 4px 28px;border-top:1px solid #28272550;text-decoration:none}.home-post time,.home-post-tags{font-size:10px;letter-spacing:.12em;color:#6e6a62}.home-post h3{margin:22px 0 12px;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:clamp(20px,2.5vw,30px);line-height:1.45}.home-post p{margin:auto 0 16px;color:#625e56;font-size:13px}.read-more{font-size:9px;letter-spacing:.16em;color:var(--starfish-text)}.text-link{display:inline-block;margin-top:28px;padding-bottom:4px;border-bottom:1px solid currentColor;font-size:11px;letter-spacing:.1em;text-decoration:none}.radio-section{position:relative;overflow:hidden;background:#32302c;color:#f1ecdf}.radio-section:after{content:"ON AIR";position:absolute;right:4vw;top:7%;font-weight:900;font-size:clamp(90px,19vw,260px);letter-spacing:-.08em;color:#f1ecdf09;pointer-events:none}.radio-section .section-heading,.radio-feature,.radio-section>.text-link{position:relative;z-index:1}.radio-feature{display:flex;justify-content:space-between;align-items:center;gap:40px;padding:34px 0;border-bottom:1px solid rgba(241,236,223,.2)}.radio-feature h3{margin:0;font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:clamp(28px,5vw,58px)}.radio-play{width:62px;height:62px;flex:none;display:grid;place-items:center;border:1px solid #e56b2f;border-radius:50%;color:#e56b2f;font-size:20px;text-decoration:none}.profile-section{background:#d9d0bf;color:#282725}.profile-section .section-heading small{color:var(--starfish-text)}.profile-grid{display:grid;grid-template-columns:1fr 1fr;gap:8vw}.profile-grid>p{font-family:"Hiragino Mincho ProN","Yu Mincho",serif;font-size:22px}.profile-grid dl{margin:0;border-top:1px solid #28272540}.profile-grid dl>div{display:flex;justify-content:space-between;gap:16px;padding:13px 0;border-bottom:1px solid #28272540;font-size:13px}.profile-grid dt{font-size:10px;letter-spacing:.14em}.profile-grid dd{margin:0;text-align:right}
+  @media(max-width:900px){.home-section{padding:96px 7vw}.home-post-grid{grid-template-columns:repeat(2,1fr)}.hero{padding-left:8vw;padding-right:8vw}}
+  @media(max-width:700px){.hero{min-height:92svh;padding:0 7vw 13vh}.hero-img{object-position:58% center}.hero:before{background:linear-gradient(90deg,rgba(40,39,37,.8),rgba(40,39,37,.36)),linear-gradient(0deg,rgba(40,39,37,.78),transparent 70%)}.hero-overlay-word{right:4%;height:78%;font-size:clamp(34px,min(10vw,14vh),80px)}.hero h1{font-size:18vw}.hero h1 span{font-size:clamp(13px,3.6vw,18px);letter-spacing:.12em;margin-top:20px}.hero p{font-size:14px}.hero-contact{gap:8px 14px;margin-top:18px;font-size:11px}.scroll-cue{bottom:4vh;right:4vw;font-size:9px}.home-section{padding:76px 7vw}.section-heading{gap:13px;align-items:baseline;margin-bottom:32px}.section-heading small{font-size:8px;letter-spacing:.15em}.section-heading h2{font-size:clamp(34px,10vw,54px)}.intro-grid,.profile-grid{grid-template-columns:1fr;gap:28px}.intro-lead{font-size:23px}.intro-image{min-height:260px}.home-post-grid{grid-template-columns:1fr;gap:4px}.home-post{min-height:145px;padding:16px 2px 22px}.home-post h3{font-size:24px;margin:15px 0 9px}.radio-section:after{font-size:30vw;top:16%}.radio-feature{gap:14px;padding:26px 0}.radio-feature h3{font-size:clamp(27px,8vw,40px)}.radio-play{width:52px;height:52px}.profile-grid>p{font-size:19px}.profile-grid dl>div{font-size:11px}.welcome-inner{width:92vw;font-size:clamp(16px,5.8vw,40px)}.welcome-inner:after{height:2px;margin-top:12px}}
+  @media(max-width:380px){.hero h1{font-size:17vw}.hero-overlay-word{font-size:clamp(34px,min(10vw,14vh),64px)}.section-heading{flex-wrap:wrap}.section-heading small{width:100%}}
+  @media(prefers-reduced-motion:reduce){.hero-img{animation:none;filter:blur(35px)}.welcome{display:none}.welcome-inner,.welcome-inner:after,.welcome-inner span{animation:none}}
+  :global(.section-heading){border-color:var(--home-line)}
+  :global(.intro-section){background:var(--home-light-bg);color:var(--home-light-text)}
+  :global(.notes-section){background:var(--home-secondary-bg);color:var(--home-secondary-text)}
+  :global(.profile-section){background:var(--home-profile-bg);color:var(--home-secondary-text)}
+  :global(.home-post){border-color:var(--home-line)}
+  :global(.home-post time),:global(.home-post-tags),:global(.home-post p){color:var(--home-muted)}
+  :global(.profile-grid dl),:global(.profile-grid dl>div){border-color:var(--home-line)}
+</style>

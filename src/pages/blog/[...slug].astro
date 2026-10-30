@@ -1,0 +1,28 @@
+---
+import { getCollection } from 'astro:content';
+import { postPath } from '../../lib/posts';
+
+export async function getStaticPaths() {
+  const notes = (await getCollection('notes')).filter((note) => !note.data.draft);
+  return notes.flatMap((note) => {
+    const slug = note.id.replace(/\.md$/, '');
+    const destination = postPath(note);
+    return [
+      { params: { slug }, props: { destination } },
+      { params: { slug: `${slug}/index` }, props: { destination } },
+    ];
+  });
+}
+
+const { destination } = Astro.props;
+---
+<!doctype html>
+<html lang="ja">
+  <head>
+    <meta charset="utf-8" />
+    <meta http-equiv="refresh" content={`0;url=${destination}`} />
+    <link rel="canonical" href={destination} />
+    <title>Notesへ移動</title>
+  </head>
+  <body><p>記事のURLが変わりました。<a href={destination}>Notesの記事へ移動</a></p></body>
+</html>

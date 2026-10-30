@@ -1,0 +1,78 @@
+---
+import '../styles/global.css';
+const {
+  title = 'WadoWado Studios',
+  description = '音楽と会話、生活の断片を記録する個人サイト。',
+  image = '/images/kujira_to_nega.png',
+  type = 'website',
+} = Astro.props;
+const pageTitle = title === 'WadoWado Studios' ? title : `${title} — WadoWado Studios`;
+const canonical = Astro.site ? new URL(Astro.url.pathname, Astro.site) : undefined;
+---
+<!doctype html>
+<html lang="ja" data-theme="light">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#282725" />
+    <meta name="description" content={description} />
+    <meta name="fediverse:creator" content="@dockker7mb@famichiki.jp" />
+    {canonical && <link rel="canonical" href={canonical} />}
+    <link rel="icon" type="image/png" href="/favicon.png" />
+    <meta property="og:type" content={type} />
+    <meta property="og:site_name" content="WadoWado Studios" />
+    <meta property="og:title" content={pageTitle} />
+    <meta property="og:description" content={description} />
+    {canonical && <meta property="og:url" content={canonical} />}
+    <meta property="og:image" content={Astro.site ? new URL(image, Astro.site) : image} />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={pageTitle} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={Astro.site ? new URL(image, Astro.site) : image} />
+    <title>{pageTitle}</title>
+  </head>
+  <body>
+    <slot />
+    <script>
+      const toggle = document.querySelector<HTMLButtonElement>('[data-menu-toggle]');
+      const menu = document.querySelector<HTMLElement>('[data-menu]');
+      toggle?.addEventListener('click', () => {
+        const open = toggle.getAttribute('aria-expanded') !== 'true';
+        toggle.setAttribute('aria-expanded', String(open));
+        const label = toggle.querySelector('.menu-toggle-label');
+        if (label) label.textContent = open ? 'CLOSE' : 'MENU';
+        menu?.classList.toggle('is-open', open);
+        document.body.classList.toggle('menu-open', open);
+      });
+      menu?.querySelectorAll('a').forEach((link) => link.addEventListener('click', () => {
+        toggle?.setAttribute('aria-expanded', 'false');
+        const label = toggle?.querySelector('.menu-toggle-label');
+        if (label) label.textContent = 'MENU';
+        menu.classList.remove('is-open');
+        document.body.classList.remove('menu-open');
+      }));
+      document.addEventListener('keydown', (event) => {
+        if (event.key !== 'Escape' || !menu?.classList.contains('is-open')) return;
+        toggle?.setAttribute('aria-expanded', 'false');
+        const label = toggle?.querySelector('.menu-toggle-label');
+        if (label) label.textContent = 'MENU';
+        menu.classList.remove('is-open');
+        document.body.classList.remove('menu-open');
+        toggle?.focus();
+      });
+      const themeToggle = document.querySelector<HTMLButtonElement>('[data-theme-toggle]');
+      const root = document.documentElement;
+      try {
+        const savedTheme = localStorage.getItem('wadowado-theme');
+        if (savedTheme === 'dark' || savedTheme === 'light') root.dataset.theme = savedTheme;
+      } catch {}
+      themeToggle?.setAttribute('aria-pressed', String(root.dataset.theme === 'dark'));
+      themeToggle?.addEventListener('click', () => {
+        const nextTheme = root.dataset.theme === 'dark' ? 'light' : 'dark';
+        root.dataset.theme = nextTheme;
+        themeToggle.setAttribute('aria-pressed', String(nextTheme === 'dark'));
+        try { localStorage.setItem('wadowado-theme', nextTheme); } catch {}
+      });
+    </script>
+  </body>
+</html>

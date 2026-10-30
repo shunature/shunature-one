@@ -48,3 +48,7 @@ CLAUDE.md
 .obsidian
 
 cms
+# Astro generated files
+/.astro/
+
+planning

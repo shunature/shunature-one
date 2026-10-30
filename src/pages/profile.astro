@@ -1,0 +1,22 @@
+---
+import PageShell from '../components/PageShell.astro';
+---
+<PageShell title="Profile" description="柏羽 駿（Shun Kashiwaba）のプロフィールと関心領域。">
+  <p class="page-kicker">WADOWADO STUDIOS / PROFILE</p>
+  <h1 class="page-title">Profile</h1>
+  <p class="page-subtitle">プロフィールと関心事</p>
+  <section class="profile-block">
+    <h2 class="section-title">基本情報</h2>
+    <dl class="profile-facts"><dt>名前</dt><dd>柏羽 駿（Shun Kashiwaba）</dd><dt>別名 / ID</dt><dd>わどわど (WadoWado Studios) / @dockker7mb</dd><dt>出身</dt><dd>東京都 板橋区</dd><dt>得意分野</dt><dd>タイポグラフィ、ベース演奏。</dd></dl>
+  </section>
+  <section class="profile-block">
+    <h2 class="section-title">関心・ハマっているもの</h2>
+    <div class="interest-list"><article><h3>イヤホン</h3><p>高音の抜け感にこだわりがあり、ユニバーサルイヤホンや DAC の試聴が好きです。ジャンルを問わず、1 ドライバでの表現豊かなサウンドに惹かれます。</p></article><article><h3>ゲーム</h3><p>最近は P4G（ペルソナ4 ゴールデン）をよく遊んでいます。シミュレーションや、独自のキャラクターデザイン・ゲーム性を持ったインディーゲームも好きです。</p></article></div>
+  </section>
+  <section class="profile-block"><h2 class="section-title">ライフスタイル＆思想</h2><p>神だなんだとか言うよりも、音楽や会話で深まる人間関係の方が好きです。丁寧な生活とは程遠いですが、生活のちょっとした瞬間を写真に収められたらいいなと思っています。</p></section>
+  <section class="profile-block"><h2 class="section-title">リンク集</h2><p>各サービスでの活動はこちらからご覧いただけます。</p><nav class="social-list" aria-label="外部リンク"><a rel="me noopener noreferrer" href="https://famichiki.jp/@dockker7mb" target="_blank">Mastodon ↗</a><a href="https://matrix.to/#/@shunature:matrix.org" target="_blank" rel="noopener noreferrer">Matrix ↗</a><a href="https://signal.me/#eu/UaFw5dUSJqKwsd-DzyAxd8fXuJaIXFKuSsxNX_nOuCin02HaRHtOnYznwzBm-nU5" target="_blank" rel="noopener noreferrer">Signal ↗</a><a href="https://www.last.fm/user/shunature" target="_blank" rel="noopener noreferrer">Last.fm ↗</a></nav></section>
+</PageShell>
+<style>
+  .profile-block{margin:36px 0}.profile-facts{display:grid;grid-template-columns:150px 1fr;gap:14px;margin:0}.profile-facts dt{color:var(--muted);font-weight:700}.profile-facts dd{margin:0}.interest-list{display:grid;gap:16px}.interest-list article{padding:22px;border:1px solid var(--line);background:var(--surface)}.interest-list h3{margin:0 0 8px;font-size:18px}.interest-list p{margin:0;color:var(--muted);font-size:14px}.social-list{display:flex;flex-wrap:wrap;gap:14px 24px;margin-top:20px}
+  @media(max-width:520px){.profile-facts{grid-template-columns:1fr;gap:4px}.profile-facts dd{margin-bottom:12px}}
+</style>

@@ -1,0 +1,12 @@
+---
+import PageShell from '../components/PageShell.astro';
+---
+<PageShell title="About" description="WadoWado Studios の設計思想、技術スタック、運用フロー。">
+  <p class="page-kicker">WADOWADO STUDIOS / ABOUT</p>
+  <h1 class="page-title">About</h1>
+  <p class="page-subtitle">このサイトについて</p>
+  <section class="about-block"><h2 class="section-title">動機とコンセプト</h2><p>サイト全体に AI やフレームワークを導入することは、決して悪いことではありません。ですが、いろいろと進化して依存してきた中で、「頼り切るよりも、自分で中身がわかる仕組みを組む方が、結果的に理解しやすく長期的な運用も楽なのでは？」と考えたことが、このサイトを構築したきっかけです。</p><p>ごちゃついた表現を削ぎ落とし、閲覧者にとっても制作者にとっても視認性と取り回しの良さを大切にしています。</p></section>
+  <section class="about-block"><h2 class="section-title">技術スタック</h2><ul><li><strong>Astro</strong>: コンテンツをビルド時に静的 HTML へ出力。</li><li><strong>Markdown Content Collections</strong>: 記事とメタデータを型付きで管理。</li><li><strong>Vanilla JavaScript / CSS</strong>: ナビゲーションや小さな UI の動きを実装。</li><li><strong>静的ホスティング</strong>: 生成した `dist/` を配信。</li></ul></section>
+  <section class="about-block"><h2 class="section-title">仕組みと運用フロー</h2><ol><li>記事を `src/content/notes/YYYY/MM/DD/slug.md` に追加。</li><li>`npm run build` で静的サイトを生成。</li><li>生成された `dist/` をホスティングへデプロイ。</li></ol></section>
+</PageShell>
+<style>.about-block{margin:36px 0}.about-block li{margin:10px 0}.about-block ul,.about-block ol{padding-left:24px;line-height:2}</style>

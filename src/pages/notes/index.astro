@@ -1,0 +1,35 @@
+---
+import PageShell from '../../components/PageShell.astro';
+import { getCollection } from 'astro:content';
+import { postDate, postImage, postPath, postTags, sortedPosts } from '../../lib/posts';
+const posts = sortedPosts((await getCollection('notes')).filter((post) => !post.data.draft));
+const allTags = [...new Set(posts.flatMap(postTags))].sort((a, b) => a.localeCompare(b, 'ja'));
+---
+<PageShell title="Notes" description="わどわど (WadoWado Studios) のノート一覧です。">
+  <p class="page-kicker">WADOWADO STUDIOS / NOTES</p><h1 class="page-title">Notes</h1><p class="page-subtitle">記事一覧</p>
+  <div class="tag-filter-bar" aria-label="タグで絞り込む"><span class="filter-label">タグで絞り込む:</span><button class="tag-filter-btn" type="button" data-tag="all" aria-pressed="true">すべて</button>{allTags.map((tag) => <button class="tag-filter-btn" type="button" data-tag={tag} aria-pressed="false">#{tag}</button>)}</div>
+  <div class="article-list" id="article-list">{posts.length ? posts.map((post) => <article class="article-item" data-tags={postTags(post).join('|')}>
+    <a class="article-item-thumb" href={postPath(post)}><img src={postImage(post)} alt={post.data.title} loading="lazy" /></a>
+    <div class="article-item-body"><div class="article-meta"><time datetime={postDate(post).toISOString()}>{postDate(post).toLocaleDateString('ja-JP')}{postTags(post).length > 0 && <> <span class="meta-divider">·</span> {postTags(post).join(', ')}</>}</time></div><h2 class="article-item-title"><a href={postPath(post)}>{post.data.title}</a></h2>{post.data.excerpt && <p class="article-item-excerpt">{post.data.excerpt}</p>}</div>
+  </article>) : <p>記事がまだありません。</p>}</div>
+</PageShell>
+<script>
+  const tagButtons = document.querySelectorAll<HTMLButtonElement>('.tag-filter-btn');
+  const articleRows = document.querySelectorAll<HTMLElement>('.article-item');
+  const initialTag = new URLSearchParams(window.location.search).get('tag') ?? 'all';
+  const initialButton = [...tagButtons].find((button) => button.dataset.tag === initialTag);
+  const selectedButton = initialButton ?? [...tagButtons].find((button) => button.dataset.tag === 'all');
+  const selectTag = (selected: string, activeButton?: HTMLButtonElement) => {
+    tagButtons.forEach((item) => item.setAttribute('aria-pressed', String(item === activeButton)));
+    articleRows.forEach((row) => {
+      const tags = (row.dataset.tags ?? '').split('|');
+      row.hidden = selected !== 'all' && !tags.includes(selected);
+    });
+    const url = new URL(window.location.href);
+    if (selected === 'all') url.searchParams.delete('tag');
+    else url.searchParams.set('tag', selected);
+    window.history.replaceState({}, '', url);
+  };
+  if (selectedButton) selectTag(selectedButton.dataset.tag ?? 'all', selectedButton);
+  tagButtons.forEach((button) => button.addEventListener('click', () => selectTag(button.dataset.tag ?? 'all', button)));
+</script>

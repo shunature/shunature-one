@@ -1,0 +1,13 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import SiteNav from './SiteNav.astro';
+import SiteFooter from './SiteFooter.astro';
+const { title, description } = Astro.props;
+---
+<BaseLayout title={title} description={description}>
+  <SiteNav />
+  <main class="page-shell">
+    <slot />
+  </main>
+  <SiteFooter />
+</BaseLayout>
