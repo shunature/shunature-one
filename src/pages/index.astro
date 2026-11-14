@@ -7,7 +7,7 @@ import { getCollection } from 'astro:content';
 import { postDate, postPath, postTags, sortedPosts } from '../lib/posts';
 import { sitePath } from '../lib/site-path';
 const posts = sortedPosts((await getCollection('notes')).filter((post) => !post.data.draft)).slice(0, 3);
-const latestRadio = 'https://www.nicovideo.jp/watch/sm46980387?ref=garage_share_other';
+const latestRadio = 'https://www.nicovideo.jp/watch/sm47005897?ref=garage_share_other';
 ---
 <BaseLayout title="WadoWado Studios" description="音楽と会話、生活の断片を記録する個人サイト。興味の向くまま、ゆっくり更新しています。">
   <div class="welcome" id="welcome" aria-hidden="true"><div class="welcome-inner"><span>Welcome to</span><span>WADOWADO Studios</span></div></div>
